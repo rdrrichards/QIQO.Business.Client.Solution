@@ -1,0 +1,41 @@
+﻿<Window x:Class="QIQO.Business.Client.UIX.Views.Shell"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QIQO.Business.Client.UIX"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core"
+        xmlns:inf="clr-namespace:QIQO.Business.Client.Core.Infrastructure;assembly=QIQO.Business.Client.Core"
+        xmlns:ccntrls="clr-namespace:QIQO.Custom.Controls;assembly=QIQO.Custom.Controls"
+        mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
+        Title="QIQO Business Software" 
+        Icon="/QIQO.Business.Client.Core.UI;component/Images/company.ico"
+        Height="868" Width="1224">
+    <Window.Background>
+        <LinearGradientBrush Opacity="0.7" >
+            <GradientBrush.GradientStops>
+                <GradientStopCollection>
+                    <GradientStop Color="#FFA7FBE4" Offset="0.0"/>
+                    <GradientStop Color="#FF087212" Offset="0.40"/>
+                    <GradientStop Color="#FF003605" Offset="0.60"/>
+                    <GradientStop Color="#FF79935E" Offset="0.80"/>
+
+                </GradientStopCollection>
+            </GradientBrush.GradientStops>
+        </LinearGradientBrush>
+    </Window.Background>
+    <DockPanel Margin="20" LastChildFill="True">
+        <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="{x:Static inf:RegionNames.TitleBarRegion}"/>
+        <ListBox DockPanel.Dock="Bottom" prism:RegionManager.RegionName="{x:Static inf:RegionNames.ToolBarRegion}" 
+                  Background="Transparent" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+        <!--<ContentControl DockPanel.Dock="Bottom" prism:RegionManager.RegionName="{x:Static inf:RegionNames.StatusBarRegion}"/>-->
+        <ccntrls:QIQOContentControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.ContentRegion}"/>
+    </DockPanel>
+</Window>

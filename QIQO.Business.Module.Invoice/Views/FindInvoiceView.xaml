@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="QIQO.Business.Module.Invoices.Views.FindInvoiceView"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:local="clr-namespace:QIQO.Business.Module.Invoices.Views"
+			 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" Margin="10">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="100"/>
+			<ColumnDefinition Width="400"/>
+			<ColumnDefinition Width="80"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="275"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="30"/>
+		</Grid.RowDefinitions>
+		<Label Content="Search Invoices:" Grid.Column="0" Grid.Row="0" Margin="3" Foreground="White" Focusable="True"></Label>
+		<TextBox Grid.Column="1" Grid.Row="0" x:Name="SearchTerm" Margin="3" Text="{Binding SearchTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+		<Button Content="{Binding ButtonContent, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="0" Margin="3" x:Name="Find" 
+					Command="{Binding GetInvoicesCommand}" CommandParameter="{Binding ElementName=SearchTerm}"></Button>
+
+		<DataGrid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding Invoices}" Margin="3" Height="275" CanUserAddRows="False"
+					  VerticalAlignment="Top" IsReadOnly="True" SelectedItem="{Binding SelectedInvoice, Mode=OneWayToSource}" AutoGenerateColumns="False"
+					  SelectedIndex="{Binding SelectedIndex, Mode=OneWayToSource}">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Invoice Number" Binding="{Binding InvoiceNumber}" Width="110"></DataGridTextColumn>
+				<DataGridTextColumn Header="Invoice Entry Date" Binding="{Binding InvoiceEntryDate}" Width="120"></DataGridTextColumn>
+				<DataGridTextColumn Header="Invoice Status" Binding="{Binding InvoiceStatus}" Width="100"></DataGridTextColumn>
+				<DataGridTextColumn Header="Invoice Total" Binding="{Binding InvoiceValueSum, StringFormat=\{0:C\}}" Width="75"></DataGridTextColumn>
+				<DataGridTextColumn Header="Account Name" Binding="{Binding Account.AccountName}" Width="*"></DataGridTextColumn>
+			</DataGrid.Columns>
+			<i:Interaction.Triggers>
+				<i:EventTrigger EventName="MouseDoubleClick">
+					<i:InvokeCommandAction 
+									Command="{Binding RelativeSource=
+											{RelativeSource FindAncestor, 
+											AncestorType={x:Type UserControl}}, 
+											Path=DataContext.ChooseInvoiceCommand}"/>
+				</i:EventTrigger>
+			</i:Interaction.Triggers>
+		</DataGrid>
+		<StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Right">
+			<Button Content="Select" Margin="3" Width="75" Command="{Binding ChooseInvoiceCommand}"/>
+			<!--<Button Content="Close" Margin="3" Width="75" IsCancel="True"></Button>-->
+		</StackPanel>
+		<Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Content="{Binding MessageToDisplay, Mode=OneWay}"
+				   Margin="3,0,3,3" Foreground="White" FontWeight="Bold" VerticalAlignment="Top" FontSize="11" Height="28"></Label>
+	</Grid>
+</UserControl>

@@ -1,0 +1,355 @@
+﻿<UserControl x:Class="QIQO.Business.Module.Orders.Views.OrderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QIQO.Business.Module.Orders.Views"
+             xmlns:model="clr-namespace:QIQO.Business.Client.Entities;assembly=QIQO.Business.Client.Entities"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:coreui="clr-namespace:QIQO.Business.Client.Core.UI;assembly=QIQO.Business.Client.Core.UI"
+             xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:acct="clr-namespace:QIQO.Business.Module.Account.Views;assembly=QIQO.Business.Module.Account"
+             xmlns:prism="http://prismlibrary.com/" FocusManager.FocusedElement="{Binding ElementName=AccountCodeTxt}">
+    <UserControl.Resources>
+        <Style x:Key="ClosableTabItem" TargetType="TabItem">
+            <Setter Property="Header" Value="{Binding DataContext.ViewTitle}"/>
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ContentControl VerticalAlignment="Center" HorizontalAlignment="Center"
+                                            Margin="0,0,7,0" Content="{Binding}"/>
+                            <Button Grid.Column="1" Content="X">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <coreui:CloseTabAction/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+
+                        </Grid>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <ObjectDataProvider MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}"
+                    x:Key="OrderStatusDataProvider">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:QIQOOrderStatus" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}"
+                    x:Key="OrderItemStatusDataProvider">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:QIQOOrderItemStatus" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <CollectionViewSource x:Key="ProductListing" Source="{Binding ProductList}" />
+        <CollectionViewSource x:Key="AccountContactsListing" Source="{Binding AccountContacts}" />
+        <!--<ResourceDictionary Source="pack://application:,,,/QIQO.Business.Client.Core.UI;component/Resources/WindowResources.xaml" x:Key="ShareResources"/>-->
+        <core:MouseConverter x:Key="MouseConverter" />
+    </UserControl.Resources>
+    <UserControl.Cursor>
+        <Binding Path="IsBusy" Converter="{StaticResource MouseConverter}"/>
+    </UserControl.Cursor>
+
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding EditOrderItemRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+                <prism:PopupWindowAction.WindowContent>
+                    <local:OrderItemView />
+                </prism:PopupWindowAction.WindowContent>
+                <prism:PopupWindowAction.WindowStyle>
+                    <Style TargetType="Window">
+                        <!--<Setter Property="WindowStyle" Value="None" />
+                        <Setter Property="ResizeMode" Value="CanResizeWithGrip" />-->
+                        <Setter Property="SizeToContent" Value="WidthAndHeight" />
+                        <Setter Property="Background" Value="{StaticResource DefaultAppBackgroundBrush}"/>
+                        <Setter Property="ShowInTaskbar" Value="False"/>
+                    </Style>
+                </prism:PopupWindowAction.WindowStyle>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+
+        <prism:InteractionRequestTrigger SourceObject="{Binding FindAccountRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+                <prism:PopupWindowAction.WindowContent>
+                    <acct:AccountFinderView />
+                </prism:PopupWindowAction.WindowContent>
+                <prism:PopupWindowAction.WindowStyle>
+                    <Style TargetType="Window">
+                        <!--<Setter Property="WindowStyle" Value="None" />
+                        <Setter Property="ResizeMode" Value="CanResizeWithGrip" />-->
+                        <Setter Property="SizeToContent" Value="WidthAndHeight" />
+                        <Setter Property="Background" Value="{StaticResource DefaultAppBackgroundBrush}"/>
+                        <Setter Property="ShowInTaskbar" Value="False"/>
+                    </Style>
+                </prism:PopupWindowAction.WindowStyle>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+
+        <prism:InteractionRequestTrigger SourceObject="{Binding SaveChangesConfirmationRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+
+                <prism:PopupWindowAction.WindowStyle>
+                    <Style TargetType="Window">
+                        <Setter Property="SizeToContent" Value="WidthAndHeight" />
+                        <Setter Property="Background" Value="{StaticResource DefaultAppBackgroundBrush}"/>
+                        <Setter Property="ShowInTaskbar" Value="False"/>
+                        <Setter Property="Margin" Value="20"/>
+                    </Style>
+                </prism:PopupWindowAction.WindowStyle>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+
+        <prism:InteractionRequestTrigger SourceObject="{Binding DeleteConfirmationRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+
+                <prism:PopupWindowAction.WindowStyle>
+                    <Style TargetType="Window">
+                        <Setter Property="SizeToContent" Value="WidthAndHeight" />
+                        <Setter Property="Background" Value="{StaticResource DefaultAppBackgroundBrush}"/>
+                        <Setter Property="ShowInTaskbar" Value="False"/>
+                        <Setter Property="Margin" Value="20"/>
+                    </Style>
+                </prism:PopupWindowAction.WindowStyle>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+        
+    </i:Interaction.Triggers>
+
+    <StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Account Code:" Grid.Column="0" Grid.Row="0"></Label>
+            <TextBox Text="{Binding Order.Account.AccountCode}" IsReadOnly="False" Grid.Column="1" Grid.Row="0" Margin="3" TabIndex="0" x:Name="AccountCodeTxt">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="LostFocus">
+                        <i:InvokeCommandAction 
+                                Command="{Binding GetAccountCommand}" 
+                                CommandParameter="{Binding Text, ElementName=AccountCodeTxt}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
+                <Button x:Name="FindAccount" Grid.Row="0" Grid.Column="2" Margin="3" Width="30" ToolTip="Find Account" Command="{Binding FindAccountCommand}">
+                    <Image Source="/QIQO.Business.Client.Core.UI;component/Images/appbar.page.search.png"></Image>
+                </Button>
+                <!--<Button x:Name="NewAccount" Grid.Row="0" Grid.Column="2" Margin="3" Width="30" ToolTip="Create New Account" Command="{Binding NewAccountCommand}">
+                    <Image Source="/QIQO.Business.Client.Core.UI;component/Images/appbar.new.png"></Image>
+                </Button>-->
+            </StackPanel>
+            <Label Content="Account Name:" Grid.Column="0" Grid.Row="1"></Label>
+            <TextBox Text="{Binding Order.Account.AccountName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="3" ></TextBox>
+            <Label Content="Account Contact:" Grid.Column="0" Grid.Row="2"></Label>
+            <ComboBox Name="AccountContactCombo" ItemsSource="{Binding Source={StaticResource AccountContactsListing}}" 
+                      DisplayMemberPath="PersonFullNameFML" SelectedValuePath="EntityPersonKey"
+                  SelectedItem="{Binding Order.AccountContactKey}" Grid.Column="1" Grid.Row="2" Margin="3" TabIndex="2" Grid.ColumnSpan="1" ></ComboBox>
+
+            <!--<TextBox Text="{Binding Order.OrderAccountContact.PersonFullNameFML}" IsReadOnly="True" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Margin="3"></TextBox>-->
+
+            <Label Content="Order Number:" Grid.Column="3" Grid.Row="0"></Label>
+            <TextBox Text="{Binding Order.OrderNumber}"  IsReadOnly="True" Grid.Column="4" Grid.Row="0" Margin="3"></TextBox>
+            <Label Content="Order Date:" Grid.Column="3" Grid.Row="1"></Label>
+            <TextBox Text="{Binding Order.OrderEntryDate, Mode=OneWay}"  Grid.Column="4" Grid.Row="1" Margin="3" TabIndex="1" IsReadOnly="True"></TextBox>
+            <Label Content="Order Status:" Grid.Column="3" Grid.Row="2"></Label>
+            <ComboBox Name="OrderStatusCombo" ItemsSource="{Binding Source={StaticResource OrderStatusDataProvider}}" 
+                  SelectedItem="{Binding Order.OrderStatus}" Grid.Column="4" Grid.Row="2" Margin="3" TabIndex="2"></ComboBox>
+            <Label Content="Deliver By:" Grid.Column="3" Grid.Row="3"></Label>
+            <!--<TextBox Text="{Binding SalesRep.PersonFirstName}" Grid.Column="4" Grid.Row="3" Margin="3"></TextBox>-->
+            <Label Content="Sale Rep:" Grid.Column="0" Grid.Row="3"></Label>
+            <ComboBox Name="SaleRepCombo" ItemsSource="{Binding SalesRepList}" SelectedValue="{Binding Order.SalesRep.EntityPersonKey}"
+                    DisplayMemberPath="PersonFullNameLF" SelectedValuePath="EntityPersonKey"
+                SelectedItem="{Binding Order.SalesRepKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Grid.Column="1" Grid.Row="3" Margin="3" TabIndex="4"></ComboBox>
+            <DatePicker Text="{Binding Order.DeliverByDate, Mode=TwoWay, ValidatesOnNotifyDataErrors=True,NotifyOnValidationError=True}"  
+                        Grid.Column="4" Grid.Row="3" Margin="3" TabIndex="3"></DatePicker>
+
+            <Label Content="Account Rep:" Grid.Column="0" Grid.Row="4"></Label>
+            <ComboBox Name="AccountRepCombo" ItemsSource="{Binding AccountRepList}" SelectedValue="{Binding Order.AccountRep.EntityPersonKey}"
+                    DisplayMemberPath="PersonFullNameLF" SelectedValuePath="EntityPersonKey"
+                SelectedItem="{Binding Order.AccountRepKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Grid.Column="1" Grid.Row="4" Margin="3" TabIndex="4"></ComboBox>
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="0"/>
+                <RowDefinition Height="0"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="30"/>
+                <!--<RowDefinition Height="30"/>-->
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="1" Grid.Row="0" Content="Billing Address" Grid.ColumnSpan="3" HorizontalAlignment="Left"/>
+            <Label Grid.Column="4" Grid.Row="0" Content="Shipping Address" Grid.ColumnSpan="3" HorizontalAlignment="Left"/>
+            <Label Grid.Column="0" Grid.Row="1" Content="Address Line 1" Margin="3"/>
+            <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Text="{Binding DefaultBillingAddress.AddressLine1}" Margin="3" TabIndex="4" IsReadOnly="True"/>
+            <TextBox Grid.Column="4" Grid.ColumnSpan="3" Grid.Row="1" Text="{Binding DefaultShippingAddress.AddressLine1}" Margin="3" TabIndex="13" IsReadOnly="True"/>
+            <Label Grid.Column="0" Grid.Row="2" Content="Address Line 2" Margin="3"/>
+            <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Text="{Binding DefaultBillingAddress.AddressLine2}" Margin="3" TabIndex="5" IsReadOnly="True"/>
+            <TextBox Grid.Column="4" Grid.ColumnSpan="3" Grid.Row="2" Text="{Binding DefaultShippingAddress.AddressLine2}" Margin="3" TabIndex="14" IsReadOnly="True"/>
+            <Label Grid.Column="0" Grid.Row="3" Content="Address Line 3" Margin="3" Visibility="Collapsed"/>
+            <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3" Text="{Binding DefaultBillingAddress.AddressLine3}" Margin="3" TabIndex="6" IsReadOnly="True" Visibility="Collapsed"/>
+            <TextBox Grid.Column="4" Grid.ColumnSpan="3" Grid.Row="3" Text="{Binding DefaultShippingAddress.AddressLine3}" Margin="3" TabIndex="15" IsReadOnly="True" Visibility="Collapsed"/>
+            <Label Grid.Column="0" Grid.Row="4" Content="Address Line 4" Margin="3" Visibility="Collapsed"/>
+            <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="4" Text="{Binding DefaultBillingAddress.AddressLine4}" Margin="3" TabIndex="7" IsReadOnly="True" Visibility="Collapsed"/>
+            <TextBox Grid.Column="4" Grid.ColumnSpan="3" Grid.Row="4" Text="{Binding DefaultShippingAddress.AddressLine4}" Margin="3" TabIndex="16" IsReadOnly="True" Visibility="Collapsed"/>
+            <Label Grid.Column="0" Grid.Row="5" Content="City/State/Postal" Margin="3"/>
+            <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding DefaultBillingAddress.AddressCity}" Margin="3" TabIndex="8" IsReadOnly="True"/>
+            <TextBox Grid.Column="2" Grid.Row="5" Text="{Binding DefaultBillingAddress.AddressState}" Margin="3" TabIndex="9" IsReadOnly="True"/>
+            <TextBox Grid.Column="3" Grid.Row="5" Text="{Binding DefaultBillingAddress.AddressPostalCode}" Margin="3" TabIndex="10" IsReadOnly="True"/>
+            <TextBox Grid.Column="4" Grid.Row="5" Text="{Binding DefaultShippingAddress.AddressCity}" Margin="3" TabIndex="17" IsReadOnly="True"/>
+            <TextBox Grid.Column="5" Grid.Row="5" Text="{Binding DefaultShippingAddress.AddressState}" Margin="3" TabIndex="18" IsReadOnly="True"/>
+            <TextBox Grid.Column="6" Grid.Row="5" Text="{Binding DefaultShippingAddress.AddressPostalCode}" Margin="3" TabIndex="19" IsReadOnly="True"/>
+            <!--<Label Grid.Column="0" Grid.Row="6" Content="County" Margin="3"></Label>
+            <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="6" Text="{Binding DefaultBillingAddress.AddressCounty}" Margin="3" TabIndex="11"></TextBox>
+            <TextBox Grid.Column="4" Grid.ColumnSpan="3" Grid.Row="6" Text="{Binding DefaultShippingAddress.AddressCounty}" Margin="3" TabIndex="20"></TextBox>
+            <Label Grid.Column="0" Grid.Row="7" Content="Country" Margin="3"></Label>
+            <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="7" Text="{Binding DefaultBillingAddress.AddressCountry}" Margin="3" TabIndex="12"></TextBox>
+            <TextBox Grid.Column="4" Grid.ColumnSpan="3" Grid.Row="7" Text="{Binding DefaultShippingAddress.AddressCountry}" Margin="3" TabIndex="21"></TextBox>-->
+
+            <DataGrid x:Name="OrderItemList" ItemsSource="{Binding Order.OrderItems}" 
+        		AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" 
+        		Height="180" Width="Auto" Padding="5" Margin="5" RowHeaderWidth="15" Grid.Row="8" Grid.ColumnSpan="7" 
+        		SelectedItem="{Binding SelectedOrderItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+        		SelectedIndex="{Binding SelectedOrderItemIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+        		SelectionMode="Single" TabIndex="22" IsEnabled="{Binding GridIsEnabled}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TargetUpdated">
+                        <i:InvokeCommandAction 
+        					Command="{Binding DataContext.UpdateItemTotalCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction 
+        					Command="{Binding DataContext.UpdateHeaderFromDetailCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <DataGrid.Columns>
+                    <!--<DataGridTextColumn Header="Product Code" Binding="{Binding ProductCode,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
+
+
+
+                    <!--<DataGridTextColumn Header="Product Key" Binding="{Binding ProductKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="Hidden" IsReadOnly="True"/>-->
+                    <DataGridTextColumn Header="Seq" Binding="{Binding OrderItemSeq, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                    <!--<DataGridComboBoxColumn x:Name="cboProductCode" Header="Product Code" ItemsSource="{Binding Source={StaticResource ProductListing}}"
+                                DisplayMemberPath="ProductDescCombo" SelectedValuePath="ProductKey"
+                                SelectedValueBinding="{Binding ProductKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Width="80">
+                            <DataGridComboBoxColumn.EditingElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="IsEditable" Value="False" />
+                                    <EventSetter Event="SelectionChanged" Handler="OrderItemList_ProductChangeString" />
+                                </Style>
+                            </DataGridComboBoxColumn.EditingElementStyle>
+                        </DataGridComboBoxColumn>-->
+
+
+
+                    <DataGridTemplateColumn Header="Code" Width="75">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding OrderItemProduct.ProductCode}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <ComboBox x:Name="ProductCombo" SelectedValue="{Binding ProductKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+        							DisplayMemberPath="ProductCode" SelectedValuePath="ProductKey" 
+        							HorizontalContentAlignment="Stretch" ItemsSource="{Binding Source={StaticResource ProductListing}}"
+        							IsSynchronizedWithCurrentItem="False">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction 
+        										Command="{Binding DataContext.UpdateProdInfoCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+        										CommandParameter="{Binding Text, ElementName=ProductCombo}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <ComboBox.ItemContainerStyle>
+                                        <Style TargetType="{x:Type ComboBoxItem}">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="0"/>
+                                                                <ColumnDefinition Width="75"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Margin="1" Grid.Column="0" Text="{Binding ProductKey}" Visibility="Hidden"  Width="0"/>
+                                                            <TextBlock Margin="1" Grid.Column="1" Text="{Binding ProductCode}" Width="75"/>
+                                                            <TextBlock Margin="1" Grid.Column="2" Text="{Binding ProductDesc}"/>
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ComboBox.ItemContainerStyle>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+
+                    <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150"/>
+                    <DataGridTextColumn Header="Description" Binding="{Binding ProductDesc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="210"/>
+                    <DataGridTextColumn Header="Qty" Binding="{Binding OrderItemQuantity, Mode=TwoWay, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" x:Name="GridQtyColumn" Width="35"/>
+                    <DataGridTextColumn Header="Item Price" Binding="{Binding ItemPricePer, Mode=TwoWay, NotifyOnTargetUpdated=True, StringFormat=\{0:C\}, UpdateSourceTrigger=PropertyChanged}" Width="70" x:Name="GridPriceColumn"/>
+                    <DataGridTextColumn Header="Total" Binding="{Binding OrderItemLineSum, Mode=TwoWay, StringFormat=\{0:C\}, UpdateSourceTrigger=PropertyChanged}" Width="80" x:Name="GridTotalColumn" IsReadOnly="True"/>
+                    <DataGridComboBoxColumn Header="Status" ItemsSource="{Binding Source={StaticResource OrderItemStatusDataProvider}}"
+        				SelectedItemBinding="{Binding OrderItemStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Grid.Column="0" Grid.Row="9" Orientation="Horizontal" Grid.ColumnSpan="2">
+                <!--<Button Content="Add..." Margin="3" Width="70" Command="{Binding NewOrderItemCommand}"/>-->
+                <Button Content="Edit..." Margin="3" Width="70" Command="{Binding EditOrderItemCommand}" />
+                <Button Content="Delete" Margin="3" Width="70"  Command="{Binding DeleteOrderItemCommand}"/>
+            </StackPanel>
+
+            <Label Content="Item Count:" Grid.Row="9" Grid.Column="2" HorizontalAlignment="Right"/>
+            <TextBlock Text="{Binding Order.OrderItemCount}" Grid.Row="9" Grid.Column="3" Margin="3" VerticalAlignment="Center"/>
+            <Label Content="Order Total:" Grid.Row="9" Grid.Column="4" HorizontalAlignment="Right"/>
+            <TextBlock Text="{Binding Order.OrderValueSum, StringFormat=\{0:C\}}" Grid.Row="9" Grid.Column="5" Margin="3" VerticalAlignment="Center"/>
+            <!--<Button Grid.Row="10" Grid.Column="0" Content="Cancel Order" Command="{Binding CancelOrderCommand}" TabIndex="40" Margin="3" Width="75" HorizontalAlignment="Left"/>
+            <Button Grid.Row="10" Grid.Column="6" Content="Save" Margin="3" Command="{Binding SaveCommand}" TabIndex="30" ToolTip="{Binding ErrorList}"/>-->
+        </Grid>
+        <!--<TextBox Text="{Binding OrderKey}" IsReadOnly="True"></TextBox>
+        <TextBox Text="{Binding OrderStatusDate}" ></TextBox>
+        <TextBox Text="{Binding OrderItems[0].ProductName}" ></TextBox>
+        <ComboBox Name="OrderItemStatusCombo" ItemsSource="{Binding Source={StaticResource OrderItemStatusDataProvider}}" 
+                  SelectedItem="{Binding OrderItems[0].OrderItemStatus}"></ComboBox>-->
+
+        <!--<Label Content="Billing Address:"></Label>-->
+    </StackPanel>
+</UserControl>

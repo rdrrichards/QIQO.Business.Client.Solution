@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="QIQO.Business.Module.Product.Views.ProductNavigationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QIQO.Business.Module.Product.Views"
+             xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core">
+    <Grid Margin="3">
+        <!--<RadioButton GroupName="NavigationButton" Width="150" 
+                                 Background="Transparent" BorderBrush="Transparent" FontWeight="Bold"
+                Style="{StaticResource {x:Type ToggleButton}}" 
+                Content="Products" 
+                Command="{Binding ShowProductModuleCommand}" />-->
+
+        <RadioButton GroupName="NavigationButton" FontSize="20"
+                                 Background="Transparent" BorderBrush="Transparent"
+                Content="  Products  "
+                Command="{Binding ShowProductModuleCommand}" IsChecked="{Binding IsNavButtonChecked}">
+            <RadioButton.Style>
+                <Style TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource {x:Type ToggleButton}}">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="Blue"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </RadioButton.Style>
+        </RadioButton>
+    </Grid>
+</UserControl>

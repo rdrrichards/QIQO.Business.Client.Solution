@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="QIQO.Business.Module.Account.Views.AccountPersonView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QIQO.Business.Module.Account.Views"
+             xmlns:vm="clr-namespace:QIQO.Business.Module.Account.ViewModels"
+             xmlns:iact="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:model="clr-namespace:QIQO.Business.Client.Entities;assembly=QIQO.Business.Client.Entities"
+             xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" Margin="10">
+    <UserControl.Resources>
+        <ObjectDataProvider MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}"
+                    x:Key="PersonTypeDataProvider">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:QIQOPersonType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <CollectionViewSource x:Key="AccountRolesList" Source="{Binding AccountRoles}" />
+        <core:MouseConverter x:Key="MouseConverter" />
+    </UserControl.Resources>
+    <UserControl.Cursor>
+        <Binding Path="IsBusy" Converter="{StaticResource MouseConverter}"/>
+    </UserControl.Cursor>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Person Code" Grid.Column="0" Grid.Row="0" Margin="3"></Label>
+        <TextBox Text="{Binding CurrentPerson.PersonCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0" 
+                                     Margin="3" MaxLength="50" Width="110" HorizontalAlignment="Left" IsReadOnly="True"></TextBox>
+        <Label Content="Name (F,M,L)" Grid.Column="0" Grid.Row="1" Margin="3"></Label>
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+            <TextBox Text="{Binding CurrentPerson.PersonFirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="3" MaxLength="50" Width="110"></TextBox>
+            <TextBox Text="{Binding CurrentPerson.PersonMI, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="3" MaxLength="1" Width="20"></TextBox>
+            <TextBox Text="{Binding CurrentPerson.PersonLastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="3" MaxLength="50" Width="150"></TextBox>
+        </StackPanel>
+
+        <Label Content="Date of Birth" Grid.Column="0" Grid.Row="2" Margin="3"></Label>
+        <DatePicker Grid.Column="1" Grid.Row="2" Text="{Binding CurrentPerson.PersonDOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="3"
+                                    Width="138" HorizontalAlignment="Left"></DatePicker>
+        <Label Content="Start Date" Grid.Column="0" Grid.Row="3" Margin="3"></Label>
+        <DatePicker Grid.Column="1" Grid.Row="3" Text="{Binding CurrentPerson.StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="3"
+                                    Width="138" HorizontalAlignment="Left"></DatePicker>
+        <Label Content="End Date" Grid.Column="0" Grid.Row="4" Margin="3"></Label>
+        <DatePicker Grid.Column="1" Grid.Row="4" Text="{Binding CurrentPerson.EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="3"
+                                    Width="138" HorizontalAlignment="Left"></DatePicker>
+        <Label Content="Employee Type" Grid.Column="0" Grid.Row="5" Margin="3"></Label>
+        <ComboBox ItemsSource="{Binding Source={StaticResource PersonTypeDataProvider}}" Grid.Column="1" Grid.Row="5" Margin="3"
+                                    Width="292" HorizontalAlignment="Left"  
+                  SelectedValue="{Binding CurrentPerson.CompanyRoleType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+
+        <Label Content="Comment" Grid.Column="0" Grid.Row="6" Margin="3"></Label>
+        <TextBox Text="{Binding CurrentPerson.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="6" Margin="3" Width="292"
+                                    HorizontalAlignment="Left"></TextBox>
+        
+        <StackPanel Grid.Column="1" Grid.Row="7" Orientation="Horizontal"  HorizontalAlignment="Right">
+            <Button Content="Save" Command="{Binding SaveCommand}" Margin="3" Width="100" HorizontalAlignment="Right"></Button>
+            <Button Content="Close" IsCancel="True" Margin="3" Width="100" HorizontalAlignment="Right"></Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

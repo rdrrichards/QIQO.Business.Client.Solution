@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="QIQO.Business.Module.General.Views.OrderFinderView"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:local="clr-namespace:QIQO.Business.Module.General.Views"
+			 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core" Margin="10">
+    <UserControl.Resources>
+        <core:MouseConverter x:Key="MouseConverter" />
+    </UserControl.Resources>
+    <UserControl.Cursor>
+        <Binding Path="IsBusy" Converter="{StaticResource MouseConverter}"/>
+    </UserControl.Cursor>
+    <Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="80"/>
+			<ColumnDefinition Width="280"/>
+			<ColumnDefinition Width="80"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="300"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="30"/>
+		</Grid.RowDefinitions>
+		<Label Content="Account:" Grid.Column="0" Grid.Row="0" Margin="3" Foreground="White" Focusable="True"></Label>
+		<ComboBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Margin="3" Focusable="True" DisplayMemberPath="AccountName"
+				 ItemsSource="{Binding AccountList}" 
+                 SelectedItem="{Binding SelectedAccount, Mode=TwoWay}" 
+                 SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" 
+				 HorizontalContentAlignment="Stretch">
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ComboBoxItem}">
+					<Setter Property="Template">
+						<Setter.Value>
+							<ControlTemplate>
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="0"/>
+										<ColumnDefinition Width="75"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+									<TextBlock Margin="1" Grid.Column="0" Text="{Binding AccountKey}" Visibility="Hidden"  Width="0"/>
+									<TextBlock Margin="1" Grid.Column="1" Text="{Binding AccountCode}" Width="75"/>
+									<TextBlock Margin="1" Grid.Column="2" Text="{Binding AccountName}"/>
+								</Grid>
+							</ControlTemplate>
+						</Setter.Value>
+					</Setter>
+				</Style>
+			</ComboBox.ItemContainerStyle>
+		</ComboBox>
+		<Label Content="Search For:" Grid.Column="0" Grid.Row="1" Margin="3" Foreground="White" Focusable="True"></Label>
+		<TextBox Grid.Column="1" Grid.Row="1" x:Name="SearchTerm" Margin="3" Text="Not working, ignore for now"></TextBox>
+		<Button Content="Find" Grid.Column="2" Grid.Row="1" Margin="3" x:Name="Find" IsDefault="True"
+					Command="{Binding GetOrdersCommand}" CommandParameter="{Binding ElementName=SearchTerm}"></Button>
+
+		<DataGrid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" ItemsSource="{Binding Orders}" Margin="3" Height="300" CanUserAddRows="False"
+					  VerticalAlignment="Top" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" Name="OrdersDataGrid">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Order Key" Binding="{Binding OrderKey}" Visibility="Hidden"/>
+				<!--<DataGridCheckBoxColumn />-->
+				<DataGridTextColumn Header="Order Number" Binding="{Binding OrderNumber}"/>
+				<DataGridTextColumn Header="Order Status" Binding="{Binding OrderStatus}"/>
+				<DataGridTextColumn Header="Account Code" Binding="{Binding Account.AccountCode}"/>
+				<DataGridTextColumn Header="Account Name" Binding="{Binding Account.AccountName}"/>
+				<DataGridTextColumn Header="Order Date" Binding="{Binding OrderEntryDate}"/>
+				<DataGridTextColumn Header="Order Amount" Binding="{Binding OrderValueSum, StringFormat='{}{0:C}'}"/>
+				<DataGridTextColumn Header="Item Count" Binding="{Binding OrderItemCount}"/>
+			</DataGrid.Columns>
+			<i:Interaction.Triggers>
+				<i:EventTrigger EventName="SelectionChanged">
+					<i:InvokeCommandAction Command="{Binding SelectedItemsCommand}" 
+										   CommandParameter="{Binding Path=SelectedItems,ElementName=OrdersDataGrid}"/>
+				</i:EventTrigger>
+				<i:EventTrigger EventName="MouseDoubleClick">
+					<i:InvokeCommandAction 
+									Command="{Binding RelativeSource=
+											{RelativeSource FindAncestor, 
+											AncestorType={x:Type UserControl}}, 
+											Path=DataContext.ChooseOrdersCommand}"
+						CommandParameter="{Binding Path=SelectedItems,ElementName=OrdersDataGrid}"/>
+				</i:EventTrigger>
+			</i:Interaction.Triggers>
+		</DataGrid>
+		<StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
+			<Button Content="OK" Margin="3" Width="75" Command="{Binding ChooseOrdersCommand}"/>
+			<Button Content="Close" Margin="3" Width="75" IsCancel="True"></Button>
+		</StackPanel>
+		<Label Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Content="{Binding MessageToDisplay, Mode=OneWay}"
+				   Margin="3,0,3,3" Foreground="White" FontWeight="Bold" VerticalAlignment="Top" FontSize="11" Height="28"></Label>
+	</Grid>
+</UserControl>

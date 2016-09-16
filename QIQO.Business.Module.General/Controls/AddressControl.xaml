@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="QIQO.Business.Module.General.AddressControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QIQO.Business.Module.General"
+             xmlns:coreinf="clr-namespace:QIQO.Business.Client.Core.Infrastructure;assembly=QIQO.Business.Client.Core"
+             xmlns:iact="http://schemas.microsoft.com/expression/2010/interactivity">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <!--<ColumnDefinition Width="110"/>-->
+            <ColumnDefinition Width="110*"/>
+            <ColumnDefinition Width="110*"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0" Grid.Row="0" Content="" Grid.ColumnSpan="3" HorizontalAlignment="Left"></Label>
+        <!--<Label Grid.Column="0" Grid.Row="1" Content="Address Line 1" Margin="3"></Label>-->
+        <TextBox Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" 
+                 Text="{Binding Address.AddressLine1, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Margin="3" TabIndex="80" x:Name="AddressLine1"></TextBox>
+        <!--<Label Grid.Column="0" Grid.Row="2" Content="Address Line 2" Margin="3"></Label>-->
+        <TextBox Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" 
+                 Text="{Binding Address.AddressLine2, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Margin="3" TabIndex="90" x:Name="AddressLine2"></TextBox>
+        <!--<Label Grid.Column="0" Grid.Row="3" Content="Address Line 3" Margin="3"></Label>-->
+        <TextBox Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" 
+                 Text="{Binding Address.AddressLine3, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Margin="3" TabIndex="100" x:Name="AddressLine3"></TextBox>
+        <!--<Label Grid.Column="0" Grid.Row="4" Content="Address Line 4" Margin="3"></Label>-->
+        <TextBox Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4" 
+                 Text="{Binding Address.AddressLine4, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Margin="3" TabIndex="110" x:Name="AddressLine4"></TextBox>
+        <!--<Label Grid.Column="0" Grid.Row="5" Content="City/State/Postal" Margin="3"></Label>-->
+        <TextBox Grid.Column="0" Grid.Row="5" 
+                 Text="{Binding Address.AddressCity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Margin="3" TabIndex="120" x:Name="AddressCity"></TextBox>
+        <ComboBox Grid.Column="1" Grid.Row="5" ItemsSource="{Binding States, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"  
+                                      DisplayMemberPath="StateFullName" SelectedValuePath="StateCode" 
+                                      SelectedValue="{Binding Address.AddressState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, 
+                                            Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Margin="3" TabIndex="130" x:Name="AddressState"></ComboBox>
+
+        <TextBox Grid.Column="2" Grid.Row="5" 
+                 Text="{Binding Address.AddressPostalCode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                     Margin="3" TabIndex="140" x:Name="AddressPostal">
+            <iact:Interaction.Triggers>
+                <iact:EventTrigger EventName="LostFocus">
+                    <iact:InvokeCommandAction 
+                                        Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, 
+                                                                        Path=DataContext.ValidateAddressCommand}" 
+                                        CommandParameter="{Binding Address, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
+                </iact:EventTrigger>
+            </iact:Interaction.Triggers>
+        </TextBox>
+        <!--<Label Grid.Column="0" Grid.Row="6" Content="County" Margin="3"></Label>-->
+        <TextBox Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="6" 
+                 Text="{Binding Address.AddressCounty, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Margin="3" TabIndex="150" x:Name="AddressCounty"></TextBox>
+        <!--<Label Grid.Column="0" Grid.Row="7" Content="Country" Margin="3"></Label>-->
+        <TextBox Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="7" 
+                 Text="{Binding Address.AddressCountry, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Margin="3" TabIndex="160" x:Name="AddressCountry"></TextBox>
+        <!--<Label Grid.Column="0" Grid.Row="8" Content="Note" Margin="3"></Label>-->
+        <TextBox Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="8" 
+                 Text="{Binding Address.AddressNotes, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Margin="3" TabIndex="170" x:Name="AddressNotes"></TextBox>
+    </Grid>
+</UserControl>

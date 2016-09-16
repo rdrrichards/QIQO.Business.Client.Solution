@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="QIQO.Business.Module.Account.Views.AccountHomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QIQO.Business.Module.Account.Views"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core"
+             xmlns:inf="clr-namespace:QIQO.Business.Client.Core.Infrastructure;assembly=QIQO.Business.Client.Core"
+             mc:Ignorable="d" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300*"/>
+            <RowDefinition Height="300*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <!--<Label Content="We're Home to Invoice!" Foreground="AntiqueWhite"/>-->
+        <Label Content="Accounts" FontSize="300" Foreground="White" Opacity="0.1" VerticalAlignment="Center" HorizontalAlignment="Left"
+               Grid.ColumnSpan="2" Grid.RowSpan="2"></Label>
+        <ContentControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.AccountsHomeSearchAccountRegion}" Grid.RowSpan="2"/>
+        <ContentControl Grid.Column="1"
+            prism:RegionManager.RegionName="{x:Static inf:RegionNames.AccountsHomeOpenAccountRegion}"/>
+        <ContentControl Grid.Column="1" Grid.Row="1"
+            prism:RegionManager.RegionName="{x:Static inf:RegionNames.AccountsHomeRecentAccountRegion}"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="2">
+            <Button Content="Add" Command="{Binding NewAccountCommand}" Margin="3" Width="70"></Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="QIQO.Business.Module.General.CommentControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QIQO.Business.Module.General">
+    <StackPanel>
+        <DataGrid x:Name="AttributeList" ItemsSource="{Binding Comments, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" 
+                          AutoGenerateColumns="False" CanUserAddRows="False"
+                          Height="100" Width="Auto" Padding="5" Margin="5" 
+                          SelectedItem="{Binding CommentSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectedIndex="{Binding CommentSelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectionMode="Single" TabIndex="310">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Comment Key" Binding="{Binding CommentKey,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Visibility="Hidden"/>
+                <DataGridTextColumn Header="Comment" Binding="{Binding CommentValue,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="256"/>
+                <DataGridTextColumn Header="Comment Type" Binding="{Binding CommentType,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="110"/>
+                <DataGridTextColumn Header="Comment Date" Binding="{Binding AddedDateTime,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="110"/>
+                <DataGridTextColumn Header="Comment User" Binding="{Binding AddedUserID,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="110"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <StackPanel Orientation="Horizontal">
+            <!--<Button Content="New..." Margin="3" Command="{Binding NewAttributeCommand}" Width="75"></Button>-->
+            <Button Margin="3" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, 
+                                                                        Path=DataContext.AddCommentCommand}" 
+                    Background="Transparent" BorderBrush="Transparent" ToolTip="Add comment...">
+                <Image Source="/QIQO.Business.Client.Core.UI;component/Images/32/comment-add2.png"></Image>
+            </Button>
+            <Button Margin="3" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, 
+                                                                        Path=DataContext.EditCommentCommand}" 
+                    Background="Transparent" BorderBrush="Transparent" ToolTip="Edit comment...">
+                <Image Source="/QIQO.Business.Client.Core.UI;component/Images/32/comment-edit.png"></Image>
+            </Button>
+            <Button Margin="3" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, 
+                                                                        Path=DataContext.DeleteCommentCommand}" 
+                    Background="Transparent" BorderBrush="Transparent" ToolTip="Clear comment">
+                <Image Source="/QIQO.Business.Client.Core.UI;component/Images/32/comment-delete2.png"></Image>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

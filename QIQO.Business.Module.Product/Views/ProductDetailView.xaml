@@ -1,0 +1,177 @@
+﻿<UserControl x:Class="QIQO.Business.Module.Product.Views.ProductDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QIQO.Business.Module.Product.Views"
+             mc:Ignorable="d"
+             xmlns:model="clr-namespace:QIQO.Business.Client.Entities;assembly=QIQO.Business.Client.Entities"
+             xmlns:converters="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core"
+             xmlns:gencntrls="clr-namespace:QIQO.Business.Module.General;assembly=QIQO.Business.Module.General"
+             xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}">
+    <UserControl.Resources>
+        <core:MouseConverter x:Key="MouseConverter" />
+        <converters:SelectedItemToItemsSource x:Key="SelectedItemToItemsSource"/>
+        <converters:AttributeValueConverter x:Key="AttributeValueConverter"/>
+        <core:FeeScheduleValueConverter x:Key="FeeScheduleValueConverter"/>
+        <CollectionViewSource x:Key="ProductListing" Source="{Binding ProductList}" />
+        <BooleanToVisibilityConverter x:Key="B2VConverter"/>
+
+        <ObjectDataProvider MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}"
+                    x:Key="ProductTypeDataProvider">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:QIQOProductType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
+    <Border BorderBrush="Black" BorderThickness="2" CornerRadius="5" >
+        <TabControl Background="Transparent" BorderBrush="Transparent">
+            <TabItem Header="_General">
+                <Grid Margin="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="150*"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Product Type" Margin="3"/>
+                    <Label Content="Product Code" Grid.Row="1" Margin="3"/>
+                    <Label Content="Product Name" Grid.Row="2" Margin="3"/>
+                    <Label Content="Product Desc." Grid.Row="3" Margin="3"/>
+                    <Label Content="Product Short Name" Grid.Row="4" Margin="3"/>
+                    <Label Content="Product Long Name" Grid.Row="5" Margin="3"/>
+                    <Label Content="Product Image Path" Grid.Row="6" Margin="3"/>
+                    <ComboBox Name="ProductTypeCombo" ItemsSource="{Binding Source={StaticResource ProductTypeDataProvider}}" 
+                            SelectedItem="{Binding SelectedProduct.ProductType}" Grid.Column="1" Grid.Row="0" Margin="3"></ComboBox>
+                    <TextBox Text="{Binding SelectedProduct.ProductCode, BindingGroupName=Group1, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1" Margin="3"/>
+                    <TextBox Text="{Binding SelectedProduct.ProductName, BindingGroupName=Group1, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2" Margin="3"/>
+                    <TextBox Text="{Binding SelectedProduct.ProductDesc, BindingGroupName=Group1, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="3" Margin="3"/>
+                    <TextBox Text="{Binding SelectedProduct.ProductNameShort, BindingGroupName=Group1, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="4" Margin="3"/>
+                    <TextBox Text="{Binding SelectedProduct.ProductNameLong, BindingGroupName=Group1, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="5" Margin="3"/>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="6" Width="Auto" HorizontalAlignment="Stretch">
+                        <TextBox Text="{Binding SelectedProduct.ProductImagePath, BindingGroupName=Group1, UpdateSourceTrigger=PropertyChanged}" 
+                                 Grid.Column="1" Grid.Row="6" Margin="3" MinWidth="368" x:Name="ImagePathTxt" HorizontalAlignment="Stretch"/>
+                        <Button Content="..." Margin="3" Width="20" x:Name="ImageBrowse" Click="ImageBrowse_Click"></Button>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" Width="Auto" HorizontalAlignment="Stretch">
+                        <Image Source="{Binding SelectedProduct.ProductImagePath}" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Height="290" Width="400" Margin="20" VerticalAlignment="Top"></Image>
+                        <DataGrid x:Name="ProductAtts" ItemsSource="{Binding SelectedProduct.ProductAttributes}"   
+                                  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                                  Height="130" Width="280" Margin="20" Padding="3"
+                                  SelectionMode="Single" VerticalAlignment="Top" HorizontalAlignment="Right">
+
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name" Binding="{Binding SelectedProduct.AttributeTypeData.AttributeTypeName,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="175"></DataGridTextColumn>
+                                <!--<DataGridTextColumn Header="Value" Binding="{Binding AttributeValue,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="75"></DataGridTextColumn>-->
+                                <DataGridTemplateColumn Header="Value" Width="75" >
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource AttributeValueConverter}">
+                                                        <Binding Path="AttributeTypeData.AttributeDataTypeKey"></Binding>
+                                                        <Binding Path="AttributeValue"></Binding>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding AttributeValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="16"></TextBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+                        <Button Content="Cancel" Width="75" Command="{Binding DataContext.CancelCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Margin="3"/>
+                        <Button Content="Delete" Width="75" Command="{Binding DataContext.DeleteProductCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Margin="3"/>
+                        <Button Content="Save" Width="75" Command="{Binding DataContext.SaveCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Margin="3"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="_Fee Schedules">
+                <DataGrid x:Name="FeeScheduleList" ItemsSource="{Binding DataContext.FeeSchedules, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" 
+                          AutoGenerateColumns="False" CanUserAddRows="False"
+                          Height="350" Width="Auto" Padding="5" Margin="5" 
+                          SelectedItem="{Binding SelectedProduct.FeeSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectedIndex="{Binding SelectedProduct.FeeSelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectionMode="Single" TabIndex="360">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Fee Schedule Key" Binding="{Binding FeeScheduleKey,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Visibility="Hidden"/>
+
+                        <DataGridTextColumn Header="Account Code" Binding="{Binding AccountCode,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"  Width="90"/>
+                        <DataGridTextColumn Header="Account Name" Binding="{Binding AccountName,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"  Width="200"/>
+                        <DataGridTextColumn Header="Fee Type" Binding="{Binding FeeScheduleTypeCode,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="75"/>
+
+                        <DataGridTemplateColumn Header="Fee Schedule Value" Width="130" >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding Converter="{StaticResource FeeScheduleValueConverter}">
+                                                <Binding Path="FeeScheduleTypeCode"></Binding>
+                                                <Binding Path="FeeScheduleValue"></Binding>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding FeeScheduleValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                        <!--<MultiBinding Converter="{StaticResource FeeScheduleValueConverter}">
+                                    <Binding Path="FeeScheduleTypeCode"></Binding>
+                                    <Binding Path="FeeScheduleValue"></Binding>
+                                </MultiBinding>-->
+                                    </TextBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Start Date" Width="80">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding FeeScheduleStartDate, StringFormat='{}{0:MM/dd/yyyy}'}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding FeeScheduleStartDate}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="End Date" Width="80">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding FeeScheduleEndDate, StringFormat='{}{0:MM/dd/yyyy}'}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding FeeScheduleEndDate}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+    </Border>
+</UserControl>

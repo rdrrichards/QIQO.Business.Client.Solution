@@ -1,0 +1,105 @@
+﻿<UserControl x:Class="QIQO.Business.Module.Invoices.Views.InvoiceItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QIQO.Business.Module.Invoices.Views"
+             xmlns:model="clr-namespace:QIQO.Business.Client.Entities;assembly=QIQO.Business.Client.Entities"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" Margin="10">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="ProductListing" Source="{Binding ProductList}" />
+        <ObjectDataProvider MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}"
+                    x:Key="InvoiceItemStatusDataProvider">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:QIQOInvoiceItemStatus" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="110"/>
+            <ColumnDefinition Width="350"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Product:" Grid.Column="0" Grid.Row="0" Margin="3" ></Label>
+        <ComboBox x:Name="ProductCombo" SelectedValue="{Binding InvoiceItem.ProductKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                Grid.Column="1" Grid.Row="0" Margin="3"   DisplayMemberPath="ProductDesc" SelectedValuePath="ProductKey" 
+                    HorizontalContentAlignment="Stretch" ItemsSource="{Binding Source={StaticResource ProductListing}}" 
+                    IsSynchronizedWithCurrentItem="False">
+            <i:Interaction.Triggers>
+                <!--<i:EventTrigger EventName="TargetUpdated">
+                    <i:InvokeCommandAction 
+        					Command="{Binding DataContext.UpdateItemTotalCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
+                </i:EventTrigger>-->
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding UpdateProdInfoCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+        <Label Content="Product Desc:" Grid.Column="0" Grid.Row="1" Margin="3" ></Label>
+        <TextBox Grid.Column="1" Grid.Row="1" Margin="3" Text="{Binding InvoiceItem.ProductDesc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Content="Quantity:" Grid.Column="0" Grid.Row="2" Margin="3" ></Label>
+        <TextBox Grid.Column="1" Grid.Row="2" Margin="3" Text="{Binding InvoiceItem.InvoiceItemQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Content="Price:" Grid.Column="0" Grid.Row="3" Margin="3" ></Label>
+        <TextBox Grid.Column="1" Grid.Row="3" Margin="3" Text="{Binding InvoiceItem.ItemPricePer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0:C\}}" />
+        <Label Content="Line Total:" Grid.Column="0" Grid.Row="4" Margin="3" ></Label>
+        <TextBlock Grid.Column="1" Grid.Row="4" Margin="3" Text="{Binding InvoiceItem.InvoiceItemLineSum, Mode=OneWay, StringFormat=\{0:C\}}" />
+
+        <Label Content="Ship Date:" Grid.Column="0" Grid.Row="5" Margin="3" ></Label>
+        <DatePicker Grid.Column="1" Grid.Row="5" Margin="3" Text="{Binding InvoiceItem.OrderItemShipDate}" IsEnabled="{Binding DatesEnabled}"></DatePicker>
+        <Label Content="Complete Date:" Grid.Column="0" Grid.Row="6" Margin="3" ></Label>
+        <DatePicker Grid.Column="1" Grid.Row="6" Margin="3" Text="{Binding InvoiceItem.InvoiceItemCompleteDate}" IsEnabled="{Binding DatesEnabled}"></DatePicker>
+        <Label Content="Shipping Address:" Grid.Column="0" Grid.Row="7" Margin="3" ></Label>
+        <ComboBox x:Name="ShipAddressCombo" SelectedValue="{Binding InvoiceItem.OrderItemShipToAddress.AddressKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                Grid.Column="1" Grid.Row="7" Margin="3"   DisplayMemberPath="AddressLine1" SelectedValuePath="AddressKey" 
+                    HorizontalContentAlignment="Stretch" ItemsSource="{Binding ShippingAddresses}" 
+                    IsSynchronizedWithCurrentItem="False"></ComboBox>
+        <Label Content="Billing Address:" Grid.Column="0" Grid.Row="8" Margin="3" ></Label>
+        <!--<TextBox Grid.Column="1" Grid.Row="8" Margin="3" Text="{Binding InvoiceItem.InvoiceItemBillToAddress.AddressKey}"></TextBox>-->
+        <ComboBox x:Name="BillAddressCombo" SelectedValue="{Binding InvoiceItem.OrderItemBillToAddress.AddressKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                Grid.Column="1" Grid.Row="8" Margin="3"   DisplayMemberPath="AddressLine1" SelectedValuePath="AddressKey" 
+                    HorizontalContentAlignment="Stretch" ItemsSource="{Binding BillingAddresses}" 
+                    IsSynchronizedWithCurrentItem="False"></ComboBox>
+        <Label Content="Sales Rep:" Grid.Column="0" Grid.Row="9" Margin="3" ></Label>
+        <ComboBox x:Name="SalesRepCombo" SelectedValue="{Binding InvoiceItem.SalesRep.EntityPersonKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                Grid.Column="1" Grid.Row="9" Margin="3"   DisplayMemberPath="PersonFullNameLF" SelectedValuePath="EntityPersonKey" 
+                    HorizontalContentAlignment="Stretch" ItemsSource="{Binding SalesRepList}" 
+                    IsSynchronizedWithCurrentItem="False"></ComboBox>
+        <Label Content="Account Rep:" Grid.Column="0" Grid.Row="10" Margin="3" ></Label>
+        <ComboBox x:Name="AccountRepCombo" SelectedValue="{Binding InvoiceItem.AccountRep.EntityPersonKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                Grid.Column="1" Grid.Row="10" Margin="3"   DisplayMemberPath="PersonFullNameLF" SelectedValuePath="EntityPersonKey" 
+                    HorizontalContentAlignment="Stretch" ItemsSource="{Binding AccountRepList}" 
+                    IsSynchronizedWithCurrentItem="False"></ComboBox>
+
+        <Label Content="Line Status:" Grid.Column="0" Grid.Row="11" Margin="3" ></Label>
+        <ComboBox x:Name="StatusCombo" SelectedValue="{Binding InvoiceItem.InvoiceItemStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                Grid.Column="1" Grid.Row="11" Margin="3"  
+                    HorizontalContentAlignment="Stretch" ItemsSource="{Binding Source={StaticResource InvoiceItemStatusDataProvider}}" 
+                    IsSynchronizedWithCurrentItem="False"></ComboBox>
+
+        <StackPanel Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="OK" Margin="3" Width="75" Command="{Binding SaveCommand}"/>
+            <Button Content="Close" Margin="3" Width="75" IsCancel="True"></Button>
+        </StackPanel>
+        <Label Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2" Content="{Binding MessageToDisplay, Mode=OneWay}"
+                   Margin="3,0,3,3"  FontWeight="Bold" VerticalAlignment="Top" FontSize="11" Height="28"></Label>
+    </Grid>
+</UserControl>

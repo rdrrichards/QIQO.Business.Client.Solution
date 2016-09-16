@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="QIQO.Business.Module.Orders.Views.OpenOrderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:iact="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:local="clr-namespace:QIQO.Business.Module.Orders.Views">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="2">
+        <TextBlock Text="{Binding HeaderMessage}" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Width="650" />
+        <!--<Button Content="Refresh" Command="{Binding RefreshCommand}" Width="60">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                    </Style>
+                </Button.Style>
+        </Button>-->
+        </StackPanel>
+        <!--<ContentControl Margin="15" prism:RegionManager.RegionName="ModuleRegion"/>-->
+        <Grid HorizontalAlignment="Left">
+            <Border BorderThickness="0" Margin="5" CornerRadius="20">
+                <Border.BitmapEffect>
+                    <DropShadowBitmapEffect />
+                </Border.BitmapEffect>
+                <Grid>
+                    <Border x:Name="BDRounded" BorderThickness="0" CornerRadius="15" Background="#FF06360D"/>
+                    <DataGrid x:Name="OpenOrdersList" ItemsSource="{Binding OpenOrders}" AutoGenerateColumns="False"  CanUserAddRows="False"
+                      Padding="5" Margin="5" RowHeaderWidth="15" SelectionMode="Single" IsReadOnly="True" Height="300" MinWidth="750"
+                      SelectedItem="{Binding SelectedOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                      SelectedIndex="{Binding SelectedOrderIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"><!--MouseDoubleClick="RecentOrdersList_MouseDoubleClick"-->
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Order Key" Binding="{Binding OrderKey}" Visibility="Hidden"/>
+                            <DataGridTextColumn Header="Order Number" Binding="{Binding OrderNumber}"/>
+                            <DataGridTextColumn Header="Order Status" Binding="{Binding OrderStatus}"/>
+                            <DataGridTextColumn Header="Account Code" Binding="{Binding Account.AccountCode}"/>
+                            <DataGridTextColumn Header="Account Name" Binding="{Binding Account.AccountName}"/>
+                            <DataGridTextColumn Header="Order Date" Binding="{Binding OrderEntryDate}"/>
+                            <DataGridTextColumn Header="Order Amount" Binding="{Binding OrderValueSum, StringFormat='{}{0:C}'}"/>
+                            <DataGridTextColumn Header="Item Count" Binding="{Binding OrderItemCount}"/>
+                        </DataGrid.Columns>
+                        <DataGrid.OpacityMask>
+                            <VisualBrush Visual="{Binding ElementName=BDRounded}"/>
+                        </DataGrid.OpacityMask>
+                        <iact:Interaction.Triggers>
+                            <iact:EventTrigger EventName="MouseDoubleClick">
+                                <prism:InvokeCommandAction Command="{Binding OpenOrderCommand}"/>
+                            </iact:EventTrigger>
+                        </iact:Interaction.Triggers>
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding OrderStatus}" Value="InProcess">
+                                        <Setter Property="Background" Value="LightGreen"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding OrderStatus}" Value="Fulfilled">
+                                        <Setter Property="Background" Value="LightBlue"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding OrderStatus}" Value="Open">
+                                        <Setter Property="Background" Value="LightPink"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
+                    </DataGrid>
+                </Grid>
+            </Border>
+
+        </Grid>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,373 @@
+﻿<!--<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:QIQO.Custom.Controls">
+    <Style TargetType="{x:Type local:QIQOCalender}" BasedOn="{StaticResource {x:Type Calendar}}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:QIQOCalender}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+
+                        <Calendar />
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>-->
+
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:QIQO.Custom.Controls"
+    xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing">
+
+    <!-- CalendarDayButton Style -->
+    <Style x:Key="QIQOCalendarDayButtonStyle" TargetType="{x:Type CalendarDayButton}">
+        <Setter Property="MinWidth" Value="5" />
+        <Setter Property="MinHeight" Value="5" />
+        <Setter Property="FontSize" Value="10" />
+        <!--<Setter Property="FontWeight" Value="Bold"/>-->
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="BorderBrush" Value="#FF19570F"/>
+        <Setter Property="BorderThickness" Value="0.5"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CalendarDayButton}">
+
+                    <!-- Added for QIQOCalendar -->
+                    <ControlTemplate.Resources>
+                        <local:BoldDateConverter x:Key="BoldDate" />
+                        <local:ToolTipConverter x:Key="ToolTip"/>
+                        <local:BackgroundBrushConverter x:Key="Background"/>
+                        <local:ForegroundBrushConverter x:Key="Foreground"/>
+                    </ControlTemplate.Resources>
+                    <!-- End addition -->
+
+                    <Grid x:Name="CalendarDayButtonGrid">
+
+                        <!-- Added for QIQOCalendar -->
+                        <Grid.ToolTip>
+                            <MultiBinding Converter="{StaticResource ToolTip}">
+                                <MultiBinding.Bindings>
+                                    <Binding />
+                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:QIQOCalender}}" />
+                                </MultiBinding.Bindings>
+                            </MultiBinding>
+                        </Grid.ToolTip>
+
+                        <Grid.Background>
+                            <MultiBinding Converter="{StaticResource Background}">
+                                <MultiBinding.Bindings>
+                                    <Binding />
+                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:QIQOCalender}}" />
+                                </MultiBinding.Bindings>
+                            </MultiBinding>
+                        </Grid.Background>
+                        
+                        <!--<Grid.ContextMenu>
+                            <ContextMenu>
+                                <Menu>
+                                    <Menu.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <VirtualizingStackPanel Orientation="Vertical">
+                                            <MenuItem Header="{Binding}"/>
+                                            <MenuItem Header="{Binding}"/>
+                                            <MenuItem Header="{Binding}"/>
+                                            <Separator/>
+                                            <MenuItem Header="{Binding}"/>
+                                            </VirtualizingStackPanel>
+                                        </ItemsPanelTemplate>
+                                    </Menu.ItemsPanel>
+                                </Menu>
+                            </ContextMenu>
+                        </Grid.ContextMenu>-->
+                        <!-- End addition -->
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0:0:0.1" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="0.5" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="HighlightBackground" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="0.5" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="HighlightBackground" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="HighlightBackground" />
+                                        <DoubleAnimation Duration="0" To=".35" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="NormalText" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Unselected" />
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To=".75" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="SelectedBackground" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="CalendarButtonFocusStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="CalendarButtonFocused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Visibility" Storyboard.TargetName="DayButtonFocusVisual">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="CalendarButtonUnfocused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Visibility" Storyboard.TargetName="DayButtonFocusVisual">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Collapsed</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="ActiveStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Active" />
+                                <VisualState x:Name="Inactive">
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0" To="#FF777777" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="NormalText" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="DayStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="RegularDay" />
+                                <VisualState x:Name="Today">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="TodayBackground" />
+                                        <ColorAnimation Duration="0" To="#FFFFFFFF" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="NormalText" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="BlackoutDayStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="NormalDay" />
+                                <VisualState x:Name="BlackoutDay">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To=".2" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Blackout" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Rectangle x:Name="TodayBackground" Fill="#FFAAAAAA" Opacity="0" RadiusY="1" RadiusX="1" />
+
+                        <!-- Added for QIQOCalendar -->
+                        <Rectangle x:Name="AccentBackground" RadiusX="1" RadiusY="1" IsHitTestVisible="False" 
+                                   Fill="{Binding RelativeSource={RelativeSource AncestorType=local:QIQOCalender}, Path=DateBrush}" />
+                        <!-- End addition -->
+
+                        <Rectangle x:Name="SelectedBackground" Fill="#FF8BAE8B" Opacity="0" RadiusY="1" RadiusX="1" /> <!--FFBADDE9-->
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" />
+                        <Rectangle x:Name="HighlightBackground" Fill="#FF8BAE8B" Opacity="0" RadiusY="1" RadiusX="1" />
+                        <ContentPresenter x:Name="NormalText" TextElement.Foreground="#FF333333" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                          Margin="5,1,5,1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        <Path x:Name="Blackout" Data="M8.1772461,11.029181 L10.433105,11.029181 L11.700684,12.801641 L12.973633,11.029181 L15.191895,11.029181 L12.844727,13.999395 L15.21875,17.060919 L12.962891,17.060919 L11.673828,15.256231 L10.352539,17.060919 L8.1396484,17.060919 L10.519043,14.042364 z" Fill="#FF000000" HorizontalAlignment="Stretch" Margin="3" Opacity="0" RenderTransformOrigin="0.5,0.5" Stretch="Fill" VerticalAlignment="Stretch" />
+                        <Rectangle x:Name="DayButtonFocusVisual" IsHitTestVisible="false" RadiusY="1" RadiusX="1" Stroke="#FF45D6FA" Visibility="Collapsed" />
+                    </Grid>
+
+                    <!-- Added for QIQOCalendar -->
+                    <ControlTemplate.Triggers>
+
+                        <!-- No tooltips if tooltips turned off -->
+                        <!--<DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=local:QIQOCalender}, Path=ShowHighlightedDateText}" Value="False">
+                            <Setter TargetName="CalendarDayButtonGrid" Property="ToolTipService.IsEnabled" Value="False" />
+                        </DataTrigger>-->
+                        
+                        <DataTrigger Value="{x:Type Brush}">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource Foreground}">
+                                    <MultiBinding.Bindings>
+                                        <Binding />
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:QIQOCalender}}" />
+                                    </MultiBinding.Bindings>
+                                </MultiBinding>
+
+                            </DataTrigger.Binding>
+                            <Setter Property="Foreground" Value="{Binding}" />
+                        </DataTrigger>
+
+                        <!-- No highlighting if IValueConverter returned null -->
+                        <DataTrigger Value="{x:Null}">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource Background}">
+                                    <MultiBinding.Bindings>
+                                        <Binding />
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:QIQOCalender}}" />
+                                    </MultiBinding.Bindings>
+                                </MultiBinding>
+
+                            </DataTrigger.Binding>
+                            <Setter TargetName="AccentBackground" Property="Visibility" Value="Hidden" />
+                            <!--<Setter TargetName="AccentBackground" Property="Fill" Value="LightGray" />-->
+                        </DataTrigger>
+
+
+                        <DataTrigger Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource BoldDate}">
+                                    <MultiBinding.Bindings>
+                                        <Binding />
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:QIQOCalender}}" />
+                                    </MultiBinding.Bindings>
+                                </MultiBinding>
+
+                            </DataTrigger.Binding>
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="FontSize" Value="11" />
+                        </DataTrigger>
+
+                    </ControlTemplate.Triggers>
+                    <!-- End addition -->
+
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Calendar Style -->
+    <Style TargetType="{x:Type local:QIQOCalender}" BasedOn="{StaticResource {x:Type Calendar}}">
+        <Setter Property="CalendarDayButtonStyle" Value="{StaticResource QIQOCalendarDayButtonStyle}" />
+        <Setter Property="Foreground" Value="#FF333333" />
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFE5F0E4" Offset="0" />
+                    <GradientStop Color="#FFECF4ED" Offset="0.16" />
+                    <GradientStop Color="#FFFCFDFC" Offset="0.16" />
+                    <GradientStop Color="#FFFFFFFF" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFA4B9A3" Offset="0" />
+                    <GradientStop Color="#FF83A985" Offset="0.375" />
+                    <GradientStop Color="#FF719773" Offset="0.375" />
+                    <GradientStop Color="#FF618464" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderThickness" Value="1" />
+        <!--<Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Calendar}">
+                    <StackPanel x:Name="PART_Root" HorizontalAlignment="Center">
+                        <CalendarItem x:Name="PART_CalendarItem" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Style="{TemplateBinding CalendarItemStyle}" />
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>-->
+    </Style>
+
+
+    <Style TargetType="{x:Type local:QIQOContentControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:QIQOContentControl}">
+                    <Grid>
+                        <ContentPresenter Name="MainContent" Content="{TemplateBinding Content}" >
+                            <ContentPresenter.RenderTransform>
+                                <TranslateTransform x:Name="ContentTranslateTransform"></TranslateTransform>
+                            </ContentPresenter.RenderTransform>
+                        </ContentPresenter>
+                        <ContentPresenter Name="HeaderContent" Content="{TemplateBinding Header}" >
+                            <ContentPresenter.RenderTransform>
+                                <TranslateTransform x:Name="HeaderTranslateTransform"></TranslateTransform>
+                            </ContentPresenter.RenderTransform>
+                        </ContentPresenter>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--<Style TargetType="{x:Type local:SimpleWrapper}">
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:SimpleWrapper">
+
+                    <Grid Background="Transparent">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ed:Arc x:Name="arc" ArcThickness="1" ArcThicknessUnit="Percent"  Fill="{StaticResource TopAreaGradientBrush}" Stroke="Transparent" StartAngle="270" StrokeThickness="0" EndAngle="0" />
+                            --><!--<Ellipse Fill="{StaticResource TopAreaGradientBrush}" />--><!--
+                            <Border Margin="-1,0,0,0" Grid.Column="1" CornerRadius="0,10  ,0,0" Background="{StaticResource TopAreaGradientBrush}"
+                                    >
+                                <ContentPresenter ContentSource="Header" Margin="40,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            </Border>
+                            <TextBlock Grid.Column="1" Margin="-15,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" Foreground="AntiqueWhite" Name="HeaderTextBlock" Text="{TemplateBinding HeaderText}" />
+
+                        </Grid>
+                        <Grid Grid.Row="1" Background="{TemplateBinding Background}">
+                            <Border BorderBrush="#FF333333" BorderThickness="3,0,3,3">
+                                <ContentPresenter ContentSource="Content" Margin="5" >
+
+                                </ContentPresenter>
+                            </Border>
+                        </Grid>
+                    </Grid>
+
+                </ControlTemplate>
+            </Setter.Value>
+
+        </Setter>
+        <Setter Property="Background">
+            <Setter.Value>
+
+                <LinearGradientBrush EndPoint="1,1" StartPoint="0,0.2">
+                    <GradientStop Color="#FFE2E3DF" Offset="0" />
+                    <GradientStop Color="#FF959090" Offset="1" />
+                </LinearGradientBrush>
+
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+
+</ResourceDictionary>

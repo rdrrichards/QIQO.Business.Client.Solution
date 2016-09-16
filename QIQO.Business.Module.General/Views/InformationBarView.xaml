@@ -1,0 +1,9 @@
+﻿<UserControl x:Class="QIQO.Business.Module.General.Views.InformationBarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QIQO.Business.Module.General.Views">
+    <Label Content="{Binding MessageToDisplay,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                       Margin="3,0,3,3" Foreground="White" FontWeight="Bold" VerticalAlignment="Top" FontSize="11" Height="35" HorizontalAlignment="Left"></Label>
+</UserControl>

@@ -1,0 +1,123 @@
+﻿<UserControl x:Class="QIQO.Business.Module.Invoices.Views.OpenInvoiceViewX"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             xmlns:local="clr-namespace:QIQO.Business.Module.Invoices.Views"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:iact="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:gcntrls="clr-namespace:QIQO.Business.Module.General.Controls;assembly=QIQO.Business.Module.General">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="B2VConverter"/>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="2">
+            <TextBlock Text="{Binding HeaderMessage}" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Width="650" Foreground="AntiqueWhite">
+                <TextBlock.InputBindings>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding RefreshCommand}"/>
+                </TextBlock.InputBindings>
+            </TextBlock>
+            <!--<Button Content="Refresh" Command="{Binding RefreshCommand}" Width="60" HorizontalAlignment="Right">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                    </Style>
+                </Button.Style>
+        </Button>-->
+        </StackPanel>
+        <Grid HorizontalAlignment="Left">
+            <Border BorderThickness="0" Margin="5" CornerRadius="20">
+                <Border.BitmapEffect>
+                    <DropShadowBitmapEffect />
+                </Border.BitmapEffect>
+                <Grid>
+                    <!--Content-->
+                    <Grid>
+                        <Border x:Name="BDRounded" BorderThickness="0" CornerRadius="15" Opacity="0.7">
+                            <Border.Background>
+                                <LinearGradientBrush Opacity="0.6" StartPoint="0,0" EndPoint="0,1">
+                                    <GradientBrush.GradientStops>
+                                        <GradientStopCollection>
+                                            <GradientStop Color="#FF6772E2" Offset="0.0"/>
+                                            <GradientStop Color="#FF48509E" Offset="0.33"/>
+                                            <GradientStop Color="#FF2B305F" Offset="0.66"/>
+                                            <!--<GradientStop Color="#FF3F4578" Offset="0.75"/>-->
+                                            <GradientStop Color="#FF0D0E1F" Offset="1"/>
+
+                                        </GradientStopCollection>
+                                    </GradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <ListBox x:Name="RecentInvoicesList" ItemsSource="{Binding OpenInvoices}" HorizontalContentAlignment="Stretch"
+                                  Padding="3" Margin="3" SelectionMode="Single" Height="230"
+                                  SelectedItem="{Binding SelectedInvoice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" 
+                                  SelectedIndex="{Binding SelectedInvoiceIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Transparent">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border CornerRadius="3" Margin="1" BorderThickness="2" BorderBrush="Black" Background="#FF333368" Opacity="1">
+                                            <Grid Margin="3">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="210"/>
+                                                    <ColumnDefinition Width="120"/>
+                                                    <ColumnDefinition Width="250"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding InvoiceNumber, StringFormat='Invoice #: {0}'}" FontWeight="Bold" FontSize="16" Foreground="AntiqueWhite"/>
+                                                <TextBlock Text="{Binding Account.AccountCode, StringFormat='Account #: {0}'}" Grid.Column="1" FontWeight="Bold" Foreground="AntiqueWhite"/>
+                                                <TextBlock Text="{Binding Account.AccountName, StringFormat='Name: {0}'}" Grid.Column="2" FontWeight="Bold" Foreground="AntiqueWhite"/>
+                                                <TextBlock Text="{Binding InvoiceStatus, StringFormat='Status: {0}'}"  Grid.Column="3" FontWeight="Bold" Foreground="AntiqueWhite"/>
+                                                <TextBlock Text="{Binding InvoiceEntryDate, StringFormat='Invoice Date: {0:MM/dd/yyyy HH:mm}'}" Grid.Row="1" Foreground="AntiqueWhite"/>
+                                                <TextBlock Text="{Binding InvoiceValueSum, StringFormat='Total: {0:C}'}" Grid.Row="1" Grid.Column="1" Foreground="AntiqueWhite"/>
+                                                <TextBlock Text="{Binding InvoiceItemCount, StringFormat='Item Count: {0}'}" Grid.Row="1" Grid.Column="2" Foreground="AntiqueWhite"/>
+                                                <TextBlock Text="{Binding InvoiceStatusDate, StringFormat='Status Date: {0:MM/dd/yyyy}'}" 
+                                                   Grid.Row="1" Grid.Column="3">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding InvoiceStatus}" Value="InProcess">
+                                                                    <Setter Property="Foreground" Value="LightGreen"></Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding InvoiceStatus}" Value="Fulfilled">
+                                                                    <Setter Property="Foreground" Value="LightBlue"></Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding InvoiceStatus}" Value="Open">
+                                                                    <Setter Property="Foreground" Value="LightPink"></Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding InvoiceStatus}" Value="Scheduled">
+                                                                    <Setter Property="Foreground" Value="AntiqueWhite"></Setter>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </Grid>
+                                            <Border.InputBindings>
+                                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding DataContext.OpenInvoiceCommand, 
+                                                            RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+                                            </Border.InputBindings>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+
+                                <ListBox.InputBindings>
+                                    <KeyBinding Key="Enter" Command="{Binding DataContext.OpenInvoiceCommand, 
+                                                            RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+                                </ListBox.InputBindings>
+                            </ListBox>
+                        </Border>
+                    </Grid>
+                    <!--Overlay-->
+                    <gcntrls:LoadingOverlay d:IsHidden="True" Visibility="{Binding IsLoading, Converter={StaticResource B2VConverter}}"/>
+                </Grid>
+            </Border>
+
+        </Grid>
+    </StackPanel>
+</UserControl>

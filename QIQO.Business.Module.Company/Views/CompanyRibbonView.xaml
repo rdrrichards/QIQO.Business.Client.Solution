@@ -1,0 +1,111 @@
+﻿<r:RibbonTab x:Class="QIQO.Business.Module.Company.Views.CompanyRibbonView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QIQO.Business.Module.Company.Views"
+             xmlns:r="clr-namespace:System.Windows.Controls.Ribbon;assembly=System.Windows.Controls.Ribbon" 
+             xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core"
+             Name="Company" Header="Company" KeyTip="C">
+    <r:RibbonGroup Header="Company" KeyTip="C">
+        <r:RibbonButton Label="Edit" Command="{x:Static core:ApplicationCommands.NavigateCommand}" CommandParameter="{x:Type local:CompanyView}">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/edit.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/edit.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>
+        <r:RibbonButton Label="Save" Command="{x:Static core:ApplicationCommands.CompanySaveCommand}">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/save.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/save.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>
+        <!--<r:RibbonButton Label="Cancel" Command="{x:Static core:ApplicationCommands.CompanyCancelCommand}">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/cancel.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/cancel.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>-->
+    </r:RibbonGroup>
+    <r:RibbonGroup Header="Employee">
+        <r:RibbonButton Label="New..." Command="{x:Static core:ApplicationCommands.CompanyAddEmployeeCommand}">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/add.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/add.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>
+        <r:RibbonButton Label="Find" Command="{x:Static core:ApplicationCommands.CompanyFindEmployeeCommand}">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/find.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/find.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>
+        <!--<r:RibbonButton Label="Save" LargeImageSource="../Images/save.png" SmallImageSource="../Images/save.png"
+                                    Command="{x:Static core:ApplicationCommands.SaveCompanyCommand}"></r:RibbonButton>-->
+        <r:RibbonButton Label="Delete" Command="{x:Static core:ApplicationCommands.CompanyDeleteEmployeeCommand}">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/delete.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/delete.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>
+    </r:RibbonGroup>
+    <r:RibbonGroup Header="Chart of Accounts">
+        <r:RibbonButton Label="New..." Command="{x:Static core:ApplicationCommands.CompanyAddCOACommand}">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/coa_add.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/coa_add.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>
+        <r:RibbonButton Label="Edit" Command="{x:Static core:ApplicationCommands.CompanyEditCOACommand}">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/coa_edit.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/coa_edit.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>
+        <r:RibbonButton Label="Delete" Command="{x:Static core:ApplicationCommands.CompanyDeleteCOACommand}">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/coa_del.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/coa_del.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>
+    </r:RibbonGroup>
+    <r:RibbonGroup Header="Attributes">
+        <!--<r:RibbonButton Label="New..." LargeImageSource="../Images/32/coa_add.png" SmallImageSource="../Images/coa_add.png"
+                                    Command="{x:Static core:ApplicationCommands.CompanyAddAttributeCommand}"></r:RibbonButton>-->
+        <r:RibbonButton Label="Edit" Command="{x:Static core:ApplicationCommands.CompanyEditAttributeCommand}">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/att_edit.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/att_edit.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>
+        <r:RibbonButton Label="Delete" Command="{x:Static core:ApplicationCommands.CompanyDeleteAttributeCommand}">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/att_del.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/att_del.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>
+    </r:RibbonGroup>
+    <r:RibbonGroup Header="Other"></r:RibbonGroup>
+</r:RibbonTab>

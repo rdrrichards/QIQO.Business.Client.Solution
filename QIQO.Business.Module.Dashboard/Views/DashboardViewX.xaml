@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="QIQO.Business.Module.Dashboard.Views.DashboardViewX"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:inf="clr-namespace:QIQO.Business.Client.Core.Infrastructure;assembly=QIQO.Business.Client.Core"
+             xmlns:local="clr-namespace:QIQO.Business.Module.Dashboard.Views">
+    <Grid>
+            <!--Add several regions here to hold dashboard content-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Home" FontSize="300" Foreground="White" Opacity="0.1" VerticalAlignment="Center" HorizontalAlignment="Left"
+               Grid.ColumnSpan="2"></Label>
+        <StackPanel prism:RegionManager.RegionName="{x:Static inf:RegionNames.DashboardRegion}" Grid.Column="0" HorizontalAlignment="Stretch"></StackPanel>
+        <StackPanel Grid.Column="1">
+            <ContentControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.HomeCalendarRegion}" MinHeight="300"/>
+            <ContentControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.HomeShortcutRegion}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

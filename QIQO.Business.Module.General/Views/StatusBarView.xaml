@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="QIQO.Business.Module.General.Views.StatusBarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QIQO.Business.Module.General.Views">
+    <StatusBar Foreground="Black" Background="DarkKhaki" FontWeight="Bold" VerticalAlignment="Top" FontSize="11" Height="25" 
+               HorizontalAlignment="Stretch" BorderThickness="2" BorderBrush="DarkOliveGreen" Width="Auto">
+        <StatusBarItem Content="{Binding StatusText1, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="800"></StatusBarItem>
+        <StatusBarItem Content="{Binding UserName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="110" HorizontalAlignment="Right"></StatusBarItem>
+        <StatusBarItem Content="{Binding CurrentDate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="80" HorizontalAlignment="Right"></StatusBarItem>
+    </StatusBar>
+    <!--<DockPanel Width="Auto">-->
+        <!--<StatusBar DockPanel.Dock="Bottom" Foreground="Black" Background="DarkKhaki" FontWeight="Bold" VerticalAlignment="Top" FontSize="11" Height="35" 
+               HorizontalAlignment="Left" BorderThickness="2" BorderBrush="DarkOliveGreen"  Width="Auto" MinWidth="700">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="400"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100*"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem>
+                <TextBlock Text="{Binding StatusText1, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="1">
+                <ProgressBar Value="30" Width="100" Height="18"/>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="2">
+                <TextBlock Text="{Binding UserName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="3">
+                <TextBlock Text="{Binding CurrentDate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+            </StatusBarItem>
+        </StatusBar>-->
+    <!--</DockPanel>-->
+</UserControl>

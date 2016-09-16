@@ -1,0 +1,58 @@
+﻿<r:RibbonTab x:Class="QIQO.Business.Module.Product.Views.ProductRibbonView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QIQO.Business.Module.Product.Views"
+             xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core"
+             xmlns:r="clr-namespace:System.Windows.Controls.Ribbon;assembly=System.Windows.Controls.Ribbon" 
+             Name="Product" Header="Products" KeyTip="P">
+    <r:RibbonGroup Header="Products">
+        <r:RibbonMenuButton Label="New...">
+            <r:RibbonMenuButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/add.png" />
+            </r:RibbonMenuButton.LargeImageSource>
+            <r:RibbonMenuButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/add.png"/>
+            </r:RibbonMenuButton.SmallImageSource>
+            <r:RibbonMenuItem Header="Sweet" KeyTip="I" ImageSource="/QIQO.Business.Client.Core.UI;component/Images/20/product.png"
+                                    Command="{x:Static core:ApplicationCommands.NavigateCommand}" CommandParameter="{x:Type local:ProductView}"/>
+            <r:RibbonMenuItem Header="Savory" KeyTip="B" ImageSource="/QIQO.Business.Client.Core.UI;component/Images/20/product.png"
+                                    Command="{x:Static core:ApplicationCommands.NavigateCommand}" CommandParameter="{x:Type local:ProductView}"/>
+        </r:RibbonMenuButton>
+        <r:RibbonButton Label="Find" Command="{x:Static core:ApplicationCommands.NavigateCommand}" CommandParameter="{x:Type local:ProductView}">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/find.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/find.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>
+        <r:RibbonButton Label="Save" Command="{x:Static core:ApplicationCommands.SaveProductCommand}">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/save.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/save.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>
+        <r:RibbonButton Label="Delete" Command="{x:Static core:ApplicationCommands.DeleteProductCommand}">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/delete.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/delete.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>
+    </r:RibbonGroup>
+    <r:RibbonGroup Header="Reports">
+        <r:RibbonButton Label="Print" Command="{Binding SomeCommand}" CommandParameter="Product Reports Print!">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/print.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/print.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>
+    </r:RibbonGroup>
+</r:RibbonTab>

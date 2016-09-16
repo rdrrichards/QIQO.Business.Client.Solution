@@ -1,0 +1,132 @@
+﻿<UserControl x:Class="QIQO.Business.Module.General.FeeScheduleControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core"
+             xmlns:local="clr-namespace:QIQO.Business.Module.General">
+    <UserControl.Resources>
+        <core:FeeScheduleValueConverter x:Key="FeeScheduleValueConverter"/>
+        <CollectionViewSource x:Key="ProductListing" Source="{Binding ProductList}" />
+    </UserControl.Resources>
+    <StackPanel>
+        <DataGrid x:Name="FeeScheduleList" ItemsSource="{Binding FeeSchedules, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" 
+                          AutoGenerateColumns="False" CanUserAddRows="False"
+                          Height="350" Width="Auto" Padding="5" Margin="5" 
+                          SelectedItem="{Binding FeeSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectedIndex="{Binding FeeSelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectionMode="Single" TabIndex="360">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Fee Schedule Key" Binding="{Binding FeeScheduleKey,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Visibility="Hidden"/>
+
+                <DataGridTemplateColumn Header="Product Code" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ProductCode}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <ComboBox x:Name="ProductCombo" SelectedValue="{Binding ProductKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                              DisplayMemberPath="ProductCode" SelectedValuePath="ProductKey" 
+                                              HorizontalContentAlignment="Stretch" ItemsSource="{Binding Source={StaticResource ProductListing}}" 
+                                               IsSynchronizedWithCurrentItem="False">
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="{x:Type ComboBoxItem}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="0"/>
+                                                            <ColumnDefinition Width="75"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Margin="1" Grid.Column="0" Text="{Binding ProductKey}" Visibility="Hidden"  Width="0"/>
+                                                        <TextBlock Margin="1" Grid.Column="1" Text="{Binding ProductCode}" Width="75"/>
+                                                        <TextBlock Margin="1" Grid.Column="2" Text="{Binding ProductDesc}"/>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Header="Product Name" Binding="{Binding ProductDesc,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"  Width="200"/>
+                <DataGridTextColumn Header="Fee Type" Binding="{Binding FeeScheduleTypeCode,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="75"/>
+
+                <DataGridTemplateColumn Header="Fee Schedule Value" Width="130" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource FeeScheduleValueConverter}">
+                                        <Binding Path="FeeScheduleTypeCode"></Binding>
+                                        <Binding Path="FeeScheduleValue"></Binding>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding FeeScheduleValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <!--<MultiBinding Converter="{StaticResource FeeScheduleValueConverter}">
+                                    <Binding Path="FeeScheduleTypeCode"></Binding>
+                                    <Binding Path="FeeScheduleValue"></Binding>
+                                </MultiBinding>-->
+                            </TextBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Start Date" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding FeeScheduleStartDate, StringFormat='{}{0:MM/dd/yyyy}'}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding FeeScheduleStartDate}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="End Date" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding FeeScheduleEndDate, StringFormat='{}{0:MM/dd/yyyy}'}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding FeeScheduleEndDate}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Orientation="Horizontal">
+            <Button Margin="3" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, 
+                                                                        Path=DataContext.NewFeeScheuleCommand}" 
+                    Background="Transparent" BorderBrush="Transparent" ToolTip="Add Fee Schedule...">
+                <Image Source="/QIQO.Business.Client.Core.UI;component/Images/32/add.png"></Image>
+            </Button>
+            <Button Margin="3" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, 
+                                                                        Path=DataContext.EditFeeScheuleCommand}" 
+                    Background="Transparent" BorderBrush="Transparent" ToolTip="Edit Fee Schedule...">
+                <Image Source="/QIQO.Business.Client.Core.UI;component/Images/32/change.png"></Image>
+            </Button>
+            <Button Margin="3" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, 
+                                                                        Path=DataContext.DeleteFeeScheuleCommand}" 
+                    Background="Transparent" BorderBrush="Transparent" ToolTip="Delete Fee Schedule">
+                <Image Source="/QIQO.Business.Client.Core.UI;component/Images/32/delete.png"></Image>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

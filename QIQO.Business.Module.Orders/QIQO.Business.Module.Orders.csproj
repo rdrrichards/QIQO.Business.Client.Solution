@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{29DE8BA2-19CB-43B3-90E3-E2BD0ACA13BA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QIQO.Business.Module.Orders</RootNamespace>
+    <AssemblyName>QIQO.Business.Module.Orders</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Prism, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.6.2.0\lib\net45\Prism.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Prism.Unity.Wpf, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Unity.6.2.0\lib\net45\Prism.Unity.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Prism.Wpf, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.2.0\lib\net45\Prism.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Controls.Ribbon" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Modules\OpenOrderModuleX.cs" />
+    <Compile Include="Modules\OrderModuleX.cs" />
+    <Compile Include="Modules\OrderModule.cs" />
+    <Compile Include="Interfaces\IWorkingOrderService.cs" />
+    <Compile Include="Services\WorkingOrderService.cs" />
+    <Compile Include="ViewModels\FindOrderViewModel.cs" />
+    <Compile Include="ViewModels\OpenOrderViewModelX.cs" />
+    <Compile Include="ViewModels\OpenOrderViewModel.cs" />
+    <Compile Include="ViewModels\OrderHomeViewModel.cs" />
+    <Compile Include="ViewModels\OrderItemViewModel.cs" />
+    <Compile Include="ViewModels\OrderNavigationViewModel.cs" />
+    <Compile Include="ViewModels\OrderNavigationViewModelX.cs" />
+    <Compile Include="ViewModels\OrderRibbonViewModel.cs" />
+    <Compile Include="ViewModels\OrderViewModelX.cs" />
+    <Compile Include="ViewModels\WorkingOrderViewModel.cs" />
+    <Compile Include="Views\FindOrderViewX.xaml.cs">
+      <DependentUpon>FindOrderViewX.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FindOrderView.xaml.cs">
+      <DependentUpon>FindOrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkingOrderView.xaml.cs">
+      <DependentUpon>WorkingOrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OpenOrderViewX.xaml.cs">
+      <DependentUpon>OpenOrderViewX.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrderHomeView.xaml.cs">
+      <DependentUpon>OrderHomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrderItemView.xaml.cs">
+      <DependentUpon>OrderItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrderNavigationView.xaml.cs">
+      <DependentUpon>OrderNavigationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\OrderViewModel.cs" />
+    <Compile Include="Views\OpenOrderView.xaml.cs">
+      <DependentUpon>OpenOrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\OrderShellViewModel.cs" />
+    <Compile Include="Views\OrderNavigationViewX.xaml.cs">
+      <DependentUpon>OrderNavigationViewX.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrderRibbonView.xaml.cs">
+      <DependentUpon>OrderRibbonView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrderShellView.xaml.cs">
+      <DependentUpon>OrderShellView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrderViewX.xaml.cs">
+      <DependentUpon>OrderViewX.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrderView.xaml.cs">
+      <DependentUpon>OrderView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Modules\OpenOrderModule.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QIQO.Business.Client.Contracts\QIQO.Business.Client.Contracts.csproj">
+      <Project>{f2571141-79b0-407c-b7ad-8baec28baa77}</Project>
+      <Name>QIQO.Business.Client.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QIQO.Business.Client.Core.UI\QIQO.Business.Client.Core.UI.csproj">
+      <Project>{17c745fb-abe3-47e8-a349-aaa8b295a7c6}</Project>
+      <Name>QIQO.Business.Client.Core.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QIQO.Business.Client.Core\QIQO.Business.Client.Core.csproj">
+      <Project>{a66e9f0f-87d0-4854-b3a2-3ed5d0c72368}</Project>
+      <Name>QIQO.Business.Client.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QIQO.Business.Client.Entities\QIQO.Business.Client.Entities.csproj">
+      <Project>{02b8e452-5f99-4018-8a5b-80cb8885268d}</Project>
+      <Name>QIQO.Business.Client.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QIQO.Business.Client.Wrappers\QIQO.Business.Client.Wrappers.csproj">
+      <Project>{356c3ed7-d028-47ef-bdb1-684378612def}</Project>
+      <Name>QIQO.Business.Client.Wrappers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QIQO.Business.Module.Account\QIQO.Business.Module.Account.csproj">
+      <Project>{9ecc532c-6529-4d11-9c46-c6fdf7929690}</Project>
+      <Name>QIQO.Business.Module.Account</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QIQO.Business.Module.General\QIQO.Business.Module.General.csproj">
+      <Project>{4b7267bd-01eb-471c-8e6c-d68137c0ac5d}</Project>
+      <Name>QIQO.Business.Module.General</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\FindOrderViewX.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FindOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WorkingOrderView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OpenOrderViewX.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OrderHomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderNavigationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OpenOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderNavigationViewX.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderRibbonView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderShellView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OrderViewX.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

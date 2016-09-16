@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="QIQO.Business.Client.Entities.Account">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BABAAIAAAFAAAAAAAIAAZAAAiAAABAQAAAQCAAgAAQA=</HashCode>
+      <FileName>Account.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.AccountContact">
+    <Position X="8.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>AccountContact.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.AccountEmployee">
+    <Position X="13" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>AccountEmployee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.AccountOwner">
+    <Position X="6.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>AccountOwner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.AccountRepresentative">
+    <Position X="10.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>AccountRepresentative.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.AccountType">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAgCAAAAAAAAAAIAAYAAAgAAAAAQAAAAAgAAAAAA=</HashCode>
+      <FileName>AccountType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.Address">
+    <Position X="21" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAACQAEACEMAAMAAAyAIAAAQAgAAAAAQQAAA=</HashCode>
+      <FileName>Address.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.AddressPostal">
+    <Position X="24.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAIAIAAAAALAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>AddressPostal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.AddressType">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAEAAAAIASIAAAgAAAAAQAAAAEAAAAAAA=</HashCode>
+      <FileName>AddressType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.AttributeType">
+    <Position X="24.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAgIAIAAAAAAAAIAgIAAAhAAAAAQAABAACAAAAAA=</HashCode>
+      <FileName>AttributeType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.AuditLog">
+    <Position X="28.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAwAAAAAAAAAAgAAIIBIAAAgAAAAgQAAABAAAgAAAA=</HashCode>
+      <FileName>AuditLog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.ChartOfAccount">
+    <Position X="21.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEIAAAAAAAAAAAIAAIQAAgQAAAAQAQAQAAAAAAAA=</HashCode>
+      <FileName>ChartOfAccount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.CommentType">
+    <Position X="24.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAABAAIAAIAAIgAAAAAQAAAAIAAAgAAA=</HashCode>
+      <FileName>CommentType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.Company">
+    <Position X="4.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAgAAAAAAIBAIQAAiAAAAAQAAAQUQAAAAAA=</HashCode>
+      <FileName>Company.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.ContactType">
+    <Position X="26.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAKAABEAAAEAAAAAIAAIAAAgAABAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>ContactType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.Employee">
+    <Position X="9.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAgAgAgAgAAAAAAAAAEgAAAA=</HashCode>
+      <FileName>Employee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.EntityAttribute">
+    <Position X="22.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAIAAAAQAAAMIAAIAAAwEEAAAQAABAAACAAAAA=</HashCode>
+      <FileName>EntityAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.EntityProduct">
+    <Position X="2.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAUCEAAAABAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityProduct.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.EntityType">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIUAAAAAAAAAAAAIAAIAAAgAAABAQAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.FeeSchedule">
+    <Position X="28.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BACCAAgAAAAAggAAAIAAIAACgAAIAAQAAAQAAAAAIQA=</HashCode>
+      <FileName>FeeSchedule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.Invoice">
+    <Position X="19.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>hAAAAAAAACACAAAAEoAAIAAAiCABQAQAAABAAgAAkEA=</HashCode>
+      <FileName>Invoice.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.InvoiceItem">
+    <Position X="19.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAICQAIAggAEAoAAoAAAwACgAAQACABAEAAIEAA=</HashCode>
+      <FileName>InvoiceItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.InvoiceItemStatus">
+    <Position X="13.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAYBAIAAAggAAAAQAAAAAAAABAAA=</HashCode>
+      <FileName>InvoiceItemStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.InvoiceStatus">
+    <Position X="13.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgACAAAAAIAIIAIAgAAAAAQBAAAAAAAAAAA=</HashCode>
+      <FileName>InvoiceStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.Ledger">
+    <Position X="21" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IACAAAAAAAAAAAAAAIAAIAAAgAIAAAQEAAQABAAAAAA=</HashCode>
+      <FileName>Ledger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.LedgerTxn">
+    <Position X="23" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAEABEAABABEIAAIACC0AAAAAQAAAAAAAQAAAA=</HashCode>
+      <FileName>LedgerTxn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.Order">
+    <Position X="17.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>hACAAQIAABECAEAAEIAAIAAAgACAAAQABAEAIgAAEEA=</HashCode>
+      <FileName>Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.OrderItem">
+    <Position X="17.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>hAAAAAACAAIAgkAAAoAAoAABgAAiAAQAAgIAAAAIsAI=</HashCode>
+      <FileName>OrderItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.OrderItemStatus">
+    <Position X="15.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIYACIAAAgAAACIQAAAAAAAAAAAA=</HashCode>
+      <FileName>OrderItemStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.OrderStatus">
+    <Position X="15.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAIAAIAEAgIAAAAQAAAAABAAAAAA=</HashCode>
+      <FileName>OrderStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.PersonBase">
+    <Position X="11.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAJQAAAACIABgAAAAIAAIAAAgCAEIAQAAAAAAAAAABA=</HashCode>
+      <FileName>PersonBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.PersonType">
+    <Position X="28.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CABIAAAAAAIACAAAAIAAIAAAgAAAAAQAAAAAAAIAAAA=</HashCode>
+      <FileName>PersonType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.Product">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEBAAAASAAAAggAAAIAAIAAAgAAAAgQAAAAAAAwIIAA=</HashCode>
+      <FileName>Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.ProductType">
+    <Position X="26.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAgAAIQAIAQAgQAAAAQAAAAAAABAAAA=</HashCode>
+      <FileName>ProductType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.SalesRepresentative">
+    <Position X="6.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>SalesRepresentative.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.UserSession">
+    <Position X="26.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAQAAAAAABAAAAAIAAIAAIoAAgEAQgAQQAAAAAAAA=</HashCode>
+      <FileName>UserSession.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.Vendor">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAACAAAAAAAAAAAAAIAAIAAAgAAAQAQAAAAAQAAAIAA=</HashCode>
+      <FileName>Vendor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.VendorRepresentative">
+    <Position X="15.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>VendorRepresentative.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="QIQO.Business.Client.Entities.QIQOAccountType" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAIEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Account.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="QIQO.Business.Client.Entities.QIQOAddressType" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABA=</HashCode>
+      <FileName>Address.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="QIQO.Business.Client.Entities.QIQOAttributeType" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAGGgEAKAIABAJARMcSsAQAQAIAIcMAIBJAAAACQARA=</HashCode>
+      <FileName>EntityAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="QIQO.Business.Client.Entities.QIQOAttributeDataType" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAQEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="QIQO.Business.Client.Entities.QIQOEntityType" Collapsed="true">
+    <Position X="0.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIECAAAAAABCAAAIAAAAAAAAAAAAAABAAAAABAAQAVA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="QIQO.Business.Client.Entities.QIQOEntityNumberType" Collapsed="true">
+    <Position X="0.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAQAAAAAAAAgQAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="QIQO.Business.Client.Entities.QIQOInvoiceStatus" Collapsed="true">
+    <Position X="0.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEgAAAAAAAACIAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Invoice.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="QIQO.Business.Client.Entities.QIQOInvoiceItemStatus" Collapsed="true">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEgAAAAAAAACIAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>InvoiceItem.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="QIQO.Business.Client.Entities.QIQOOrderStatus" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEgAAIAAAAIAIAgAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Order.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="QIQO.Business.Client.Entities.QIQOOrderItemStatus" Collapsed="true">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEgAAIAAAAIAIAgAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OrderItem.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="QIQO.Business.Client.Entities.QIQOPersonType" Collapsed="true">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAABAAAABAAAgAAAAAAAAAEAAAgAAIAQ=</HashCode>
+      <FileName>PersonBase.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="QIQO.Business.Client.Entities.QIQOProductType" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAACgAAgAAAAAAAIAAQAAAAAA=</HashCode>
+      <FileName>Product.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

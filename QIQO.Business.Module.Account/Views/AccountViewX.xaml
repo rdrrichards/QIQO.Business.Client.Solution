@@ -1,0 +1,503 @@
+﻿<UserControl x:Class="QIQO.Business.Module.Account.Views.AccountViewX"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:model="clr-namespace:QIQO.Business.Client.Entities;assembly=QIQO.Business.Client.Entities"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QIQO.Business.Module.Account.Views"
+             xmlns:general="clr-namespace:QIQO.Business.Module.General.Views;assembly=QIQO.Business.Module.General"
+             xmlns:gencntrls="clr-namespace:QIQO.Business.Module.General;assembly=QIQO.Business.Module.General"
+             xmlns:coreui="clr-namespace:QIQO.Business.Client.Core.UI;assembly=QIQO.Business.Client.Core.UI"
+             xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core"
+             xmlns:coreinf="clr-namespace:QIQO.Business.Client.Core.Infrastructure;assembly=QIQO.Business.Client.Core"
+             xmlns:iact="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:prism="http://prismlibrary.com/"  FocusManager.FocusedElement="{Binding ElementName=AccountCodeTxt}">
+    <UserControl.Resources>
+        
+        <ObjectDataProvider MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}"
+                    x:Key="AccountTypeDataProvider">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:QIQOAccountType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}"
+                    x:Key="AttributeDataTypeDataProvider">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:QIQOAttributeDataType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}"
+                    x:Key="ContactTypeDataProvider">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:QIQOContactType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <CollectionViewSource x:Key="ProductListing" Source="{Binding ProductList}" />
+
+        <ObjectDataProvider MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}"
+                    x:Key="EmployeeTypeDataProvider">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:QIQOPersonType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <CollectionViewSource x:Key="CompanyRolesList" Source="{Binding CompanyRoles}" />
+        <core:MouseConverter x:Key="MouseConverter" />
+    </UserControl.Resources>
+    <UserControl.Cursor>
+        <Binding Path="IsBusy" Converter="{StaticResource MouseConverter}"/>
+    </UserControl.Cursor>
+    
+    <iact:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding FindAccountRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+                <prism:PopupWindowAction.WindowContent>
+                    <local:AccountFinderViewX />
+                </prism:PopupWindowAction.WindowContent>
+                <prism:PopupWindowAction.WindowStyle>
+                    <Style TargetType="Window">
+                        <!--<Setter Property="WindowStyle" Value="None" />
+                        <Setter Property="ResizeMode" Value="CanResizeWithGrip" />-->
+                        <Setter Property="SizeToContent" Value="WidthAndHeight" />
+                        <Setter Property="Background" Value="{StaticResource DefaultAppBackgroundBrush}"/>
+                        <Setter Property="ShowInTaskbar" Value="False"/>
+                    </Style>
+                </prism:PopupWindowAction.WindowStyle>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+
+        <prism:InteractionRequestTrigger SourceObject="{Binding EditFeeScheduledRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+                <prism:PopupWindowAction.WindowContent>
+                    <general:FeeScheduleView />
+                </prism:PopupWindowAction.WindowContent>
+                <prism:PopupWindowAction.WindowStyle>
+                    <Style TargetType="Window">
+                        <!--<Setter Property="WindowStyle" Value="None" />
+                        <Setter Property="ResizeMode" Value="CanResizeWithGrip" />-->
+                        <Setter Property="SizeToContent" Value="WidthAndHeight" />
+                        <Setter Property="Background" Value="{StaticResource DefaultAppBackgroundBrush}"/>
+                        <Setter Property="ShowInTaskbar" Value="False"/>
+                    </Style>
+                </prism:PopupWindowAction.WindowStyle>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+
+        <prism:InteractionRequestTrigger SourceObject="{Binding EditAttributeRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+                <prism:PopupWindowAction.WindowContent>
+                    <general:AttributeView />
+                </prism:PopupWindowAction.WindowContent>
+                <prism:PopupWindowAction.WindowStyle>
+                    <Style TargetType="Window">
+                        <!--<Setter Property="WindowStyle" Value="None" />
+                        <Setter Property="ResizeMode" Value="CanResizeWithGrip" />-->
+                        <Setter Property="SizeToContent" Value="WidthAndHeight" />
+                        <Setter Property="Background" Value="{StaticResource DefaultAppBackgroundBrush}"/>
+                        <Setter Property="ShowInTaskbar" Value="False"/>
+                    </Style>
+                </prism:PopupWindowAction.WindowStyle>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+
+        <prism:InteractionRequestTrigger SourceObject="{Binding EditAccountPersonRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+                <prism:PopupWindowAction.WindowContent>
+                    <local:AccountPersonView />
+                </prism:PopupWindowAction.WindowContent>
+                <prism:PopupWindowAction.WindowStyle>
+                    <Style TargetType="Window">
+                        <!--<Setter Property="WindowStyle" Value="None" />
+                        <Setter Property="ResizeMode" Value="CanResizeWithGrip" />-->
+                        <Setter Property="SizeToContent" Value="WidthAndHeight" />
+                        <Setter Property="Background" Value="{StaticResource DefaultAppBackgroundBrush}"/>
+                        <Setter Property="ShowInTaskbar" Value="False"/>
+                    </Style>
+                </prism:PopupWindowAction.WindowStyle>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+
+        <prism:InteractionRequestTrigger SourceObject="{Binding EditContactRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+                <prism:PopupWindowAction.WindowContent>
+                    <general:ContactView />
+                </prism:PopupWindowAction.WindowContent>
+                <prism:PopupWindowAction.WindowStyle>
+                    <Style TargetType="Window">
+                        <!--<Setter Property="WindowStyle" Value="None" />
+                        <Setter Property="ResizeMode" Value="CanResizeWithGrip" />-->
+                        <Setter Property="SizeToContent" Value="WidthAndHeight" />
+                        <Setter Property="Background" Value="{StaticResource DefaultAppBackgroundBrush}"/>
+                        <Setter Property="ShowInTaskbar" Value="False"/>
+                    </Style>
+                </prism:PopupWindowAction.WindowStyle>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+
+        <prism:InteractionRequestTrigger SourceObject="{Binding EditCommentRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+                <prism:PopupWindowAction.WindowContent>
+                    <general:CommentView />
+                </prism:PopupWindowAction.WindowContent>
+                <prism:PopupWindowAction.WindowStyle>
+                    <Style TargetType="Window">
+                        <!--<Setter Property="WindowStyle" Value="None" />
+                        <Setter Property="ResizeMode" Value="CanResizeWithGrip" />-->
+                        <Setter Property="SizeToContent" Value="WidthAndHeight" />
+                        <Setter Property="Background" Value="{StaticResource DefaultAppBackgroundBrush}"/>
+                        <Setter Property="ShowInTaskbar" Value="False"/>
+                    </Style>
+                </prism:PopupWindowAction.WindowStyle>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+
+        <prism:InteractionRequestTrigger SourceObject="{Binding SaveChangesConfirmationRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+
+                <prism:PopupWindowAction.WindowStyle>
+                    <Style TargetType="Window">
+                        <Setter Property="SizeToContent" Value="WidthAndHeight" />
+                        <Setter Property="Background" Value="{StaticResource DefaultAppBackgroundBrush}"/>
+                        <Setter Property="ShowInTaskbar" Value="False"/>
+                    </Style>
+                </prism:PopupWindowAction.WindowStyle>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+
+        <prism:InteractionRequestTrigger SourceObject="{Binding DeleteConfirmationRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+
+                <prism:PopupWindowAction.WindowStyle>
+                    <Style TargetType="Window">
+                        <Setter Property="SizeToContent" Value="WidthAndHeight" />
+                        <Setter Property="Background" Value="{StaticResource DefaultAppBackgroundBrush}"/>
+                        <Setter Property="ShowInTaskbar" Value="False"/>
+                    </Style>
+                </prism:PopupWindowAction.WindowStyle>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+        
+    </iact:Interaction.Triggers>
+    
+    <StackPanel Margin="10">
+        <TabControl Margin="5" Height="426" Background="Transparent" TabStripPlacement="Left" BorderBrush="Transparent" BorderThickness="0">
+            <TabItem Header="_General" FontWeight="DemiBold" Foreground="AntiqueWhite" BorderThickness="0">
+                <StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Account Code:" Grid.Column="0" Grid.Row="0"></Label>
+                        <TextBox Name="AccountCodeTxt" Text="{Binding Account.AccountCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 IsReadOnly="False" Grid.Column="1" Grid.Row="0" Margin="3" TabIndex="0" >
+                            <iact:Interaction.Triggers>
+                                <iact:EventTrigger EventName="LostFocus">
+                                    <iact:InvokeCommandAction 
+                                        Command="{Binding GetAccountCommand}" 
+                                        CommandParameter="{Binding Text, ElementName=AccountCodeTxt}"/>
+                                </iact:EventTrigger>
+                            </iact:Interaction.Triggers>
+                        </TextBox>
+                        <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
+                            <Button x:Name="FindAccount" Grid.Row="0" Grid.Column="2" Margin="3" Width="30" ToolTip="Find Account" Command="{Binding FindAccountCommand}">
+                                <Image Source="/QIQO.Business.Client.Core.UI;component/Images/appbar.page.search.png"></Image>
+                            </Button>
+                            <Button x:Name="NewAccount" Grid.Row="0" Grid.Column="2" Margin="3" Width="30" ToolTip="Generate New Account Number"
+                                     Command="{Binding GenAccountNumCommand}">
+                                <Image Source="/QIQO.Business.Client.Core.UI;component/Images/appbar.new.png"></Image>
+                                </Button>
+                        </StackPanel>
+                        <Label Content="Account Name:" Grid.Column="0" Grid.Row="1"></Label>
+                        <TextBox Text="{Binding Account.AccountName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="3"  TabIndex="10">
+                            <!--<TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Account.AccountNameIsChanged}" Value="True">
+                                            <Setter Property="Background" Value="SteelBlue"/>
+                                            <Setter Property="ToolTip" Value="{Binding Account.AccountNameOriginalValue}"/>
+                                            <Setter Property="coreui:ChangeBehavior.IsActive" Value="True"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>-->
+                        </TextBox>
+                        <Label Content="Description:" Grid.Column="0" Grid.Row="2"></Label>
+                        <TextBox Text="{Binding Account.AccountDesc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Margin="3" TabIndex="20"></TextBox>
+                        <Label Content="Knickname/DBA:" Grid.Column="0" Grid.Row="3"></Label>
+                        <TextBox Text="{Binding Account.AccountDBA, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Margin="3" TabIndex="30"></TextBox>
+                        <!--<Label Content="Order Number:" Grid.Column="3" Grid.Row="0"></Label>
+                <TextBox Text="{Binding OrderNumber}"  IsReadOnly="True" Grid.Column="4" Grid.Row="0" Margin="3"></TextBox>-->
+                        <Label Content="Start Date:" Grid.Column="3" Grid.Row="0"></Label>
+                        <DatePicker Text="{Binding Account.AccountStartDate, Mode=TwoWay}"  Grid.Column="4" Grid.Row="0" Margin="3" TabIndex="40"></DatePicker>
+                        <Label Content="Account Type:" Grid.Column="3" Grid.Row="2"></Label>
+                        <ComboBox Name="AccountTypeCombo" ItemsSource="{Binding Source={StaticResource AccountTypeDataProvider}}" 
+                                SelectedItem="{Binding Account.AccountType}" Grid.Column="4" Grid.Row="2" Margin="3" TabIndex="70"></ComboBox>
+                        <Label Content="End Date:" Grid.Column="3" Grid.Row="1"></Label>
+                        <!--<TextBox Text="{Binding SalesRep.PersonFirstName}" Grid.Column="4" Grid.Row="3" Margin="3"></TextBox>-->
+                        <!--<Label Content="Sale Rep:" Grid.Column="0" Grid.Row="3"></Label>
+                <ComboBox Name="SaleRepCombo" ItemsSource="{Binding SalesRepList}" 
+                    DisplayMemberPath="PersonLastName" SelectedValuePath="PersonLastName"
+                SelectedItem="{Binding SalesRep}"  Grid.Column="1" Grid.Row="3" Margin="3" TabIndex="4"></ComboBox>-->
+                        <DatePicker Text="{Binding Account.AccountEndDate, Mode=TwoWay}"  Grid.Column="4" Grid.Row="1" Margin="3" TabIndex="60"></DatePicker>
+                    </Grid>
+                    <!--<TextBox Text="{Binding OrderKey}" IsReadOnly="True"></TextBox>
+        <TextBox Text="{Binding OrderStatusDate}" ></TextBox>
+        <TextBox Text="{Binding OrderItems[0].ProductName}" ></TextBox>
+        <ComboBox Name="OrderItemStatusCombo" ItemsSource="{Binding Source={StaticResource OrderItemStatusDataProvider}}" 
+                  SelectedItem="{Binding OrderItems[0].OrderItemStatus}"></ComboBox>-->
+
+                    <!--<Label Content="Billing Address:"></Label>-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <!--<ColumnDefinition Width="100"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="100"/>-->
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="1" Grid.Row="0" Content="Billing" Grid.ColumnSpan="3" HorizontalAlignment="Left"></Label>
+                        <Label Grid.Column="4" Grid.Row="0" Content="Shipping" Grid.ColumnSpan="1" HorizontalAlignment="Left"></Label>
+                        <!--<CheckBox Grid.Row="0" Grid.Column="5" Content="Same as Billing" IsChecked="{Binding Same, Mode=TwoWay}" 
+                                      Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,8,3,8" VerticalAlignment="Center" Height="14" Width="99"></CheckBox>-->
+                        <Label Grid.Column="0" Grid.Row="1" Content="Address Line 1" Margin="3"></Label>
+                        <Label Grid.Column="0" Grid.Row="2" Content="Address Line 2" Margin="3"></Label>
+                        <Label Grid.Column="0" Grid.Row="3" Content="Address Line 3" Margin="3"></Label>
+                        <Label Grid.Column="0" Grid.Row="4" Content="Address Line 4" Margin="3"></Label>
+                        <Label Grid.Column="0" Grid.Row="5" Content="City/State/Postal" Margin="3"></Label>
+                        <Label Grid.Column="0" Grid.Row="6" Content="County" Margin="3"></Label>
+                        <Label Grid.Column="0" Grid.Row="7" Content="Country" Margin="3"></Label>
+                        <Label Grid.Column="0" Grid.Row="8" Content="Note" Margin="3"></Label>
+
+                        <gencntrls:AddressControl Address="{Binding DefaultBillingAddress}" 
+                             States="{Binding States}" Grid.Column="1" Grid.RowSpan="9"/>
+
+                        <gencntrls:AddressControl Address="{Binding DefaultShippingAddress}" 
+                             States="{Binding States}" Grid.Column="4" Grid.RowSpan="9"/>
+                    </Grid>
+                    <!--<StackPanel Orientation="Horizontal">
+                        <gencntrls:AddressControl DataContext="{Binding DefaultBillingAddress}"/>
+                        <gencntrls:AddressControl DataContext="{Binding DefaultShippingAddress}"/>
+                    </StackPanel>-->
+                </StackPanel>
+
+            </TabItem>
+            <TabItem Header="_Attributes" TabIndex="300" FontWeight="DemiBold" Foreground="AntiqueWhite" BorderThickness="0">
+                <gencntrls:AttributeControl Attributes="{Binding Account.AccountAttributes}"/>
+            </TabItem>
+            <TabItem Header="_Fee Schedule" TabIndex="350" FontWeight="DemiBold" Foreground="AntiqueWhite" BorderThickness="0">
+                <gencntrls:FeeScheduleControl FeeSchedules="{Binding Account.FeeSchedules}"/>
+            </TabItem>
+            <TabItem Header="_Contacts" TabIndex="400" FontWeight="DemiBold" Foreground="AntiqueWhite" BorderThickness="0">
+                <Grid Width="Auto">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="41"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="41"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid Grid.Row="0" x:Name="EmployeeList" ItemsSource="{Binding Account.Employees}" 
+                          AutoGenerateColumns="False" CanUserAddRows="True"
+                          Height="150" Width="Auto" Padding="5" Margin="5" 
+                          SelectedItem="{Binding EmpSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectedIndex="{Binding EmpSelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectionMode="Single" TabIndex="360">
+                        <!--MouseDoubleClick="EmployeeList_MouseDoubleClick"-->
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Code/No." Binding="{Binding PersonCode, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="70"/>
+                            <DataGridTextColumn Header="First Name" Binding="{Binding PersonFirstName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"  Width="130"/>
+                            <DataGridTextColumn Header="M" Binding="{Binding PersonMI, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="20"/>
+                            <DataGridTextColumn Header="Last Name" Binding="{Binding PersonLastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150"/>
+                            <!--<DataGridTextColumn Header="Code" Binding="{Binding PersonCode,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="70"/>-->
+                            <!--<DataGridTextColumn Header="DOB" Binding="{Binding PersonDOB,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>-->
+                            <DataGridTemplateColumn Header="DOB" Width="80">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding PersonDOB, StringFormat=\{0:MM/dd/yyyy\}}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <DatePicker SelectedDate="{Binding PersonDOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+
+                            <!--<DataGridTextColumn Header="Company Role" Binding="{Binding RoleInCompany,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="130"/>-->
+                            <!--<DataGridComboBoxColumn Header="Company Role" ItemsSource="{Binding Source={StaticResource CompanyRolesList}}" Width="130"
+                            		SelectedItemBinding="{Binding RoleInCompany, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
+
+                            <DataGridTemplateColumn Header="Start Date" Width="80">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding StartDate, StringFormat=\{0:MM/dd/yyyy\}}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <DatePicker SelectedDate="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="End Date" Width="80">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding EndDate, StringFormat=\{0:MM/dd/yyyy\}}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <DatePicker SelectedDate="{Binding EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Comment" Binding="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="130"/>
+                            <DataGridComboBoxColumn Header="Employee Type" ItemsSource="{Binding Source={StaticResource EmployeeTypeDataProvider}}"
+                            		SelectedItemBinding="{Binding CompanyRoleType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="130"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!--<StackPanel Orientation="Horizontal" Grid.Row="1" >
+                        <Button Content="New..." Width="90" HorizontalAlignment="Left" Margin="3" x:Name="NewEmployee" Command="{Binding AddEmployeeCommand}"/>
+                        <Button Content="Edit..." Width="90" HorizontalAlignment="Left" Margin="3" x:Name="EditEmployee" Command="{Binding EditEmployeeCommand}"/>
+                        <Button Content="Delete" Width="90" HorizontalAlignment="Left" Margin="3" x:Name="DelEmployee" Command="{Binding DeleteEmployeeCommand}"/>
+                    </StackPanel>-->
+                    <StackPanel Orientation="Horizontal" Grid.Row="1">
+                        <Button Margin="3" Command="{Binding AddEmployeeCommand}" Background="Transparent" BorderBrush="Transparent" ToolTip="Add Employee...">
+                            <Image Source="/QIQO.Business.Client.Core.UI;component/Images/32/add.png"></Image>
+                        </Button>
+                        <Button Margin="3" Command="{Binding EditEmployeeCommand}" Background="Transparent" BorderBrush="Transparent" ToolTip="Edit Employee...">
+                            <Image Source="/QIQO.Business.Client.Core.UI;component/Images/32/change.png"></Image>
+                        </Button>
+                        <Button Margin="3" Command="{Binding DeleteEmployeeCommand}" Background="Transparent" BorderBrush="Transparent" ToolTip="Delete Employee...">
+                            <Image Source="/QIQO.Business.Client.Core.UI;component/Images/32/delete.png"></Image>
+                        </Button>
+                    </StackPanel>
+                    <!--Add contact stuff here-->
+                    <DataGrid Grid.Row="2" x:Name="ContactList" ItemsSource="{Binding Account.Contacts}" 
+                          AutoGenerateColumns="False" CanUserAddRows="True"
+                          Height="150" Width="Auto" Padding="5" Margin="5" 
+                          SelectedItem="{Binding ContactSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectedIndex="{Binding ContactSelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectionMode="Single" TabIndex="360">
+                        <DataGrid.Columns>
+                            <DataGridComboBoxColumn Header="Contact Type" ItemsSource="{Binding Source={StaticResource ContactTypeDataProvider}}" Width="130"
+                            		SelectedItemBinding="{Binding ContactType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Contact Value" Binding="{Binding ContactValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="250"/>
+                            <DataGridCheckBoxColumn Header="Default" Binding="{Binding ContactDefaultFlg, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="75"/>
+                            <DataGridCheckBoxColumn Header="Active" Binding="{Binding ContactActiveFlg, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="75"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!--<StackPanel Orientation="Horizontal" Grid.Row="3" >
+                        <Button Content="New..." Width="90" HorizontalAlignment="Left" Margin="3" x:Name="NewContact" Command="{Binding AddContactCommand}"/>
+                        <Button Content="Edit..." Width="90" HorizontalAlignment="Left" Margin="3" x:Name="EditContact" Command="{Binding EditContactCommand}"/>
+                        <Button Content="Delete" Width="90" HorizontalAlignment="Left" Margin="3" x:Name="DelContact" Command="{Binding DeleteContactCommand}"/>
+                    </StackPanel>-->
+                    <StackPanel Orientation="Horizontal" Grid.Row="3">
+                        <Button Margin="3" Command="{Binding AddContactCommand}" Background="Transparent" BorderBrush="Transparent" ToolTip="Add Contact...">
+                            <Image Source="/QIQO.Business.Client.Core.UI;component/Images/32/add.png"></Image>
+                        </Button>
+                        <Button Margin="3" Command="{Binding EditContactCommand}" Background="Transparent" BorderBrush="Transparent" ToolTip="Edit Contact...">
+                            <Image Source="/QIQO.Business.Client.Core.UI;component/Images/32/change.png"></Image>
+                        </Button>
+                        <Button Margin="3" Command="{Binding DeleteContactCommand}" Background="Transparent" BorderBrush="Transparent" ToolTip="Delete Contact...">
+                            <Image Source="/QIQO.Business.Client.Core.UI;component/Images/32/delete.png"></Image>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="_Other" TabIndex="370" FontWeight="DemiBold" Foreground="AntiqueWhite" BorderThickness="0">
+                <StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110"/>
+                            <ColumnDefinition Width="500*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="1" Grid.Row="0" Content="Mailing Address" Grid.ColumnSpan="3" HorizontalAlignment="Left"></Label>
+
+                        <Label Grid.Column="0" Grid.Row="1" Content="Address Line 1" Margin="3"></Label>
+                        <Label Grid.Column="0" Grid.Row="2" Content="Address Line 2" Margin="3"></Label>
+                        <Label Grid.Column="0" Grid.Row="3" Content="Address Line 3" Margin="3"></Label>
+                        <Label Grid.Column="0" Grid.Row="4" Content="Address Line 4" Margin="3"></Label>
+                        <Label Grid.Column="0" Grid.Row="5" Content="City/State/Postal" Margin="3"></Label>
+                        <Label Grid.Column="0" Grid.Row="6" Content="County" Margin="3"></Label>
+                        <Label Grid.Column="0" Grid.Row="7" Content="Country" Margin="3"></Label>
+                        <Label Grid.Column="0" Grid.Row="8" Content="Address Note:" Margin="3"></Label>
+                        <!--DefaultMailingAddress-->
+                        <gencntrls:AddressControl Address="{Binding DefaultMailingAddress}" 
+                             States="{Binding States}" Grid.Column="1" Grid.RowSpan="9" Grid.ColumnSpan="4"/>
+
+                    </Grid>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="C_omments" FontWeight="DemiBold" Foreground="AntiqueWhite" BorderThickness="0">
+                <gencntrls:CommentControl Comments="{Binding Account.Comments}"/>
+            </TabItem>
+        </TabControl>
+        <!--<Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="0" Grid.Column="0" Content="Create Order" Margin="3" TabIndex="550" Visibility="Hidden"
+                    Command="{x:Static core:ApplicationCommands.NewOrderNavigateCommand}" CommandParameter="QIQO.Business.Module.Orders.Views.OrderShell"/>
+            <Button Grid.Row="0" Grid.Column="7" Content="Save" Margin="3" Command="{Binding SaveCommand}" TabIndex="500" Visibility="Hidden"></Button>
+            --><!--<Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" Content="{Binding MessageToDisplay,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                       Margin="3,0,3,3" Foreground="White" FontWeight="Bold" VerticalAlignment="Top" FontSize="11" Height="28"></Label>--><!--
+        </Grid>-->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Save" Margin="3" Width="70" Command="{Binding SaveCommand}"></Button>
+            <Button Content="Cancel" IsCancel="True" Margin="3" Width="70" Command="{Binding CancelCommand}"></Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

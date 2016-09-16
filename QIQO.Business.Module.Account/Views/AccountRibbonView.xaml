@@ -1,0 +1,67 @@
+﻿<r:RibbonTab x:Class="QIQO.Business.Module.Account.Views.AccountRibbonView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QIQO.Business.Module.Account.Views"
+             xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core"
+             xmlns:ent="clr-namespace:QIQO.Business.Client.Entities;assembly=QIQO.Business.Client.Entities"
+             xmlns:r="clr-namespace:System.Windows.Controls.Ribbon;assembly=System.Windows.Controls.Ribbon" Header="Accounts"  Name="Account" KeyTip="A">
+    <r:RibbonGroup Header="Accounts">
+        <r:RibbonMenuButton Label="New...">
+            <r:RibbonMenuButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/add.png" />
+            </r:RibbonMenuButton.LargeImageSource>
+            <r:RibbonMenuButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/add.png"/>
+            </r:RibbonMenuButton.SmallImageSource>
+
+            <r:RibbonMenuItem Header="Individual Account" KeyTip="I" ImageSource="/QIQO.Business.Client.Core.UI;component/Images/20/individual.png"
+                                    Command="{Binding AccountNavigateCommand}" CommandParameter="{x:Static ent:QIQOAccountType.Individual}"/>
+            <r:RibbonMenuItem Header="Business Account" KeyTip="B" ImageSource="/QIQO.Business.Client.Core.UI;component/Images/20/company.png"
+                                    Command="{Binding AccountNavigateCommand}" CommandParameter="{x:Static ent:QIQOAccountType.Business}"/>
+        </r:RibbonMenuButton>
+        <r:RibbonButton Label="Find" Command="{x:Static core:ApplicationCommands.FindAccountCommand}">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/find.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/find.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>
+        <r:RibbonButton Label="Save" Command="{x:Static core:ApplicationCommands.SaveAccountCommand}">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/save.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/save.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>
+        <r:RibbonButton Label="Delete" Command="{x:Static core:ApplicationCommands.DeleteAccountCommand}">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/delete.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/delete.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>
+        <r:RibbonButton Label="Cancel" Command="{x:Static core:ApplicationCommands.CancelAccountCommand}">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/cancel.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/cancel.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>
+    </r:RibbonGroup>
+    <r:RibbonGroup Header="Reports">
+        <r:RibbonButton Label="Print" Command="{x:Static core:ApplicationCommands.PrintAccountCommand}">
+            <r:RibbonButton.LargeImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/32/print.png" />
+            </r:RibbonButton.LargeImageSource>
+            <r:RibbonButton.SmallImageSource>
+                <BitmapImage UriSource="/QIQO.Business.Client.Core.UI;component/Images/20/print.png"/>
+            </r:RibbonButton.SmallImageSource>
+        </r:RibbonButton>
+    </r:RibbonGroup>
+</r:RibbonTab>

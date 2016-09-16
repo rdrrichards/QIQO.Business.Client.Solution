@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{356C3ED7-D028-47EF-BDB1-684378612DEF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QIQO.Business.Client.Wrappers</RootNamespace>
+    <AssemblyName>QIQO.Business.Client.Wrappers</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Prism, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.6.2.0\lib\net45\Prism.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Prism.Unity.Wpf, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Unity.6.2.0\lib\net45\Prism.Unity.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Prism.Wpf, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.2.0\lib\net45\Prism.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wrappers\Custom\AccountWrapper.cs" />
+    <Compile Include="Wrappers\Custom\AddressWrapper.cs" />
+    <Compile Include="Wrappers\Custom\ChartOfAccountWrapper.cs" />
+    <Compile Include="Wrappers\Custom\CompanyWrapper.cs" />
+    <Compile Include="Wrappers\Custom\ContactWrapper.cs" />
+    <Compile Include="Wrappers\Custom\EmployeeWrapper.cs" />
+    <Compile Include="Wrappers\Custom\EntityAttributeWrapper.cs" />
+    <Compile Include="Wrappers\Custom\FeeSchedueWrapper.cs" />
+    <Compile Include="Wrappers\Custom\InvoiceItemWrapper.cs" />
+    <Compile Include="Wrappers\Custom\InvoiceWrapper.cs" />
+    <Compile Include="Wrappers\Custom\OrderItemWrapper.cs" />
+    <Compile Include="Wrappers\Custom\OrderWrapper.cs" />
+    <Compile Include="Wrappers\Custom\PersonBaseWrapper.cs" />
+    <Compile Include="Wrappers\Custom\ProductWrapper.cs" />
+    <Compile Include="Wrappers\Generated\AccountPersonWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\CommentWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\ContactWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\QIQOCommentTypeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\QIQOContactTypeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\RepresentativeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\AccountTypeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\AccountWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\AddressPostalWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\AddressTypeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\AddressWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\AttributeTypeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\AuditLogWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\ChartOfAccountWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\CommentTypeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\CompanyWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\ContactTypeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\EmployeeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\EntityAttributeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\EntityProductWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\EntityTypeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\FeeScheduleWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\GenModelWrappers.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GenModelWrappers.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Wrappers\Generated\InvoiceItemStatusWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\InvoiceItemWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\InvoiceStatusWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\InvoiceWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\LedgerTxnWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\LedgerWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\OrderItemStatusWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\OrderItemWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\OrderStatusWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\OrderWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\PersonBaseWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\PersonTypeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\ProductTypeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\ProductWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\QIQOAccountTypeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\QIQOAddressTypeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\QIQOAttributeDataTypeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\QIQOAttributeTypeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\QIQOEntityNumberTypeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\QIQOEntityTypeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\QIQOInvoiceItemStatusWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\QIQOInvoiceStatusWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\QIQOOrderItemStatusWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\QIQOOrderStatusWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\QIQOPersonTypeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\QIQOProductTypeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\UserSessionWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\VendorRepresentativeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\VendorWrapper.g.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QIQO.Business.Client.Core.UI\QIQO.Business.Client.Core.UI.csproj">
+      <Project>{17c745fb-abe3-47e8-a349-aaa8b295a7c6}</Project>
+      <Name>QIQO.Business.Client.Core.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QIQO.Business.Client.Entities\QIQO.Business.Client.Entities.csproj">
+      <Project>{02b8e452-5f99-4018-8a5b-80cb8885268d}</Project>
+      <Name>QIQO.Business.Client.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Wrappers\Generated\GenModelWrappers.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GenModelWrappers.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

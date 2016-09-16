@@ -1,0 +1,219 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Client.Core", "QIQO.Business.Client.Core\QIQO.Business.Client.Core.csproj", "{A66E9F0F-87D0-4854-B3A2-3ED5D0C72368}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Client.UI", "QIQO.Business.Client.UI\QIQO.Business.Client.UI.csproj", "{A537E110-EA85-4DA9-814D-6588D7EE8B70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Client.Proxies", "QIQO.Business.Client.Proxies\QIQO.Business.Client.Proxies.csproj", "{32758E6A-BFD2-403C-A35F-37CA6BC49F12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Client.Wrappers", "QIQO.Business.Client.Wrappers\QIQO.Business.Client.Wrappers.csproj", "{356C3ED7-D028-47EF-BDB1-684378612DEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Client.Tests", "QIQO.Business.Client.Tests\QIQO.Business.Client.Tests.csproj", "{013CCC05-7701-4AA9-8B47-79E2959B64AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "QIQO.Business.Client.Modules", "QIQO.Business.Client.Modules", "{B780BE7A-CFB0-4065-B854-DA729AC16952}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Module.Orders", "QIQO.Business.Module.Orders\QIQO.Business.Module.Orders.csproj", "{29DE8BA2-19CB-43B3-90E3-E2BD0ACA13BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Client.Entities", "QIQO.Business.Client.Entities\QIQO.Business.Client.Entities.csproj", "{02B8E452-5F99-4018-8A5B-80CB8885268D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Client.Contracts", "QIQO.Business.Client.Contracts\QIQO.Business.Client.Contracts.csproj", "{F2571141-79B0-407C-B7AD-8BAEC28BAA77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Module.General", "QIQO.Business.Module.General\QIQO.Business.Module.General.csproj", "{4B7267BD-01EB-471C-8E6C-D68137C0AC5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Module.Account", "QIQO.Business.Module.Account\QIQO.Business.Module.Account.csproj", "{9ECC532C-6529-4D11-9C46-C6FDF7929690}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Module.Product", "QIQO.Business.Module.Product\QIQO.Business.Module.Product.csproj", "{F34210E7-68F6-43AD-A48B-89C03CCB5D4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Module.Company", "QIQO.Business.Module.Company\QIQO.Business.Module.Company.csproj", "{250326A1-6513-41C8-8BB4-EF09E0645ECC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{DCF21021-DFCC-4CC5-9731-B752C2784CA7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{56B18B2E-7E0E-4124-943C-200D0DCCD43B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{032DCC65-3F88-41F6-9275-AF02E9010D01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Client.Core.UI", "QIQO.Business.Client.Core.UI\QIQO.Business.Client.Core.UI.csproj", "{17C745FB-ABE3-47E8-A349-AAA8B295A7C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Module.Dashboard", "QIQO.Business.Module.Dashboard\QIQO.Business.Module.Dashboard.csproj", "{85878524-A371-4504-AADE-63D8C060AA85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Custom.Controls", "QIQO.Custom.Controls\QIQO.Custom.Controls\QIQO.Custom.Controls.csproj", "{FCF334B1-EFFD-412A-91B8-ACC38B1E3FB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Module.Invoices", "QIQO.Business.Module.Invoice\QIQO.Business.Module.Invoices.csproj", "{466958F3-636F-4654-A659-0A27EFA550D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Client.UIX", "QIQO.Business.Client.UIX\QIQO.Business.Client.UIX.csproj", "{A03DC3A0-2B54-4431-8D77-D1E99320F71E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A66E9F0F-87D0-4854-B3A2-3ED5D0C72368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A66E9F0F-87D0-4854-B3A2-3ED5D0C72368}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A66E9F0F-87D0-4854-B3A2-3ED5D0C72368}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A66E9F0F-87D0-4854-B3A2-3ED5D0C72368}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A537E110-EA85-4DA9-814D-6588D7EE8B70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A537E110-EA85-4DA9-814D-6588D7EE8B70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A537E110-EA85-4DA9-814D-6588D7EE8B70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A537E110-EA85-4DA9-814D-6588D7EE8B70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32758E6A-BFD2-403C-A35F-37CA6BC49F12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32758E6A-BFD2-403C-A35F-37CA6BC49F12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32758E6A-BFD2-403C-A35F-37CA6BC49F12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32758E6A-BFD2-403C-A35F-37CA6BC49F12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{356C3ED7-D028-47EF-BDB1-684378612DEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{356C3ED7-D028-47EF-BDB1-684378612DEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{356C3ED7-D028-47EF-BDB1-684378612DEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{356C3ED7-D028-47EF-BDB1-684378612DEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{013CCC05-7701-4AA9-8B47-79E2959B64AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{013CCC05-7701-4AA9-8B47-79E2959B64AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{013CCC05-7701-4AA9-8B47-79E2959B64AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{013CCC05-7701-4AA9-8B47-79E2959B64AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29DE8BA2-19CB-43B3-90E3-E2BD0ACA13BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29DE8BA2-19CB-43B3-90E3-E2BD0ACA13BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29DE8BA2-19CB-43B3-90E3-E2BD0ACA13BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29DE8BA2-19CB-43B3-90E3-E2BD0ACA13BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02B8E452-5F99-4018-8A5B-80CB8885268D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02B8E452-5F99-4018-8A5B-80CB8885268D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02B8E452-5F99-4018-8A5B-80CB8885268D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02B8E452-5F99-4018-8A5B-80CB8885268D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2571141-79B0-407C-B7AD-8BAEC28BAA77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2571141-79B0-407C-B7AD-8BAEC28BAA77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2571141-79B0-407C-B7AD-8BAEC28BAA77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2571141-79B0-407C-B7AD-8BAEC28BAA77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B7267BD-01EB-471C-8E6C-D68137C0AC5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B7267BD-01EB-471C-8E6C-D68137C0AC5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B7267BD-01EB-471C-8E6C-D68137C0AC5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B7267BD-01EB-471C-8E6C-D68137C0AC5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ECC532C-6529-4D11-9C46-C6FDF7929690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ECC532C-6529-4D11-9C46-C6FDF7929690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ECC532C-6529-4D11-9C46-C6FDF7929690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ECC532C-6529-4D11-9C46-C6FDF7929690}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F34210E7-68F6-43AD-A48B-89C03CCB5D4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F34210E7-68F6-43AD-A48B-89C03CCB5D4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F34210E7-68F6-43AD-A48B-89C03CCB5D4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F34210E7-68F6-43AD-A48B-89C03CCB5D4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{250326A1-6513-41C8-8BB4-EF09E0645ECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{250326A1-6513-41C8-8BB4-EF09E0645ECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{250326A1-6513-41C8-8BB4-EF09E0645ECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{250326A1-6513-41C8-8BB4-EF09E0645ECC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17C745FB-ABE3-47E8-A349-AAA8B295A7C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17C745FB-ABE3-47E8-A349-AAA8B295A7C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17C745FB-ABE3-47E8-A349-AAA8B295A7C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17C745FB-ABE3-47E8-A349-AAA8B295A7C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85878524-A371-4504-AADE-63D8C060AA85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85878524-A371-4504-AADE-63D8C060AA85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85878524-A371-4504-AADE-63D8C060AA85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85878524-A371-4504-AADE-63D8C060AA85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCF334B1-EFFD-412A-91B8-ACC38B1E3FB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCF334B1-EFFD-412A-91B8-ACC38B1E3FB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCF334B1-EFFD-412A-91B8-ACC38B1E3FB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCF334B1-EFFD-412A-91B8-ACC38B1E3FB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{466958F3-636F-4654-A659-0A27EFA550D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{466958F3-636F-4654-A659-0A27EFA550D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{466958F3-636F-4654-A659-0A27EFA550D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{466958F3-636F-4654-A659-0A27EFA550D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A03DC3A0-2B54-4431-8D77-D1E99320F71E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A03DC3A0-2B54-4431-8D77-D1E99320F71E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A03DC3A0-2B54-4431-8D77-D1E99320F71E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A03DC3A0-2B54-4431-8D77-D1E99320F71E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A66E9F0F-87D0-4854-B3A2-3ED5D0C72368} = {56B18B2E-7E0E-4124-943C-200D0DCCD43B}
+		{A537E110-EA85-4DA9-814D-6588D7EE8B70} = {032DCC65-3F88-41F6-9275-AF02E9010D01}
+		{32758E6A-BFD2-403C-A35F-37CA6BC49F12} = {032DCC65-3F88-41F6-9275-AF02E9010D01}
+		{356C3ED7-D028-47EF-BDB1-684378612DEF} = {032DCC65-3F88-41F6-9275-AF02E9010D01}
+		{013CCC05-7701-4AA9-8B47-79E2959B64AB} = {DCF21021-DFCC-4CC5-9731-B752C2784CA7}
+		{29DE8BA2-19CB-43B3-90E3-E2BD0ACA13BA} = {B780BE7A-CFB0-4065-B854-DA729AC16952}
+		{02B8E452-5F99-4018-8A5B-80CB8885268D} = {032DCC65-3F88-41F6-9275-AF02E9010D01}
+		{F2571141-79B0-407C-B7AD-8BAEC28BAA77} = {56B18B2E-7E0E-4124-943C-200D0DCCD43B}
+		{4B7267BD-01EB-471C-8E6C-D68137C0AC5D} = {B780BE7A-CFB0-4065-B854-DA729AC16952}
+		{9ECC532C-6529-4D11-9C46-C6FDF7929690} = {B780BE7A-CFB0-4065-B854-DA729AC16952}
+		{F34210E7-68F6-43AD-A48B-89C03CCB5D4A} = {B780BE7A-CFB0-4065-B854-DA729AC16952}
+		{250326A1-6513-41C8-8BB4-EF09E0645ECC} = {B780BE7A-CFB0-4065-B854-DA729AC16952}
+		{17C745FB-ABE3-47E8-A349-AAA8B295A7C6} = {56B18B2E-7E0E-4124-943C-200D0DCCD43B}
+		{85878524-A371-4504-AADE-63D8C060AA85} = {B780BE7A-CFB0-4065-B854-DA729AC16952}
+		{FCF334B1-EFFD-412A-91B8-ACC38B1E3FB0} = {56B18B2E-7E0E-4124-943C-200D0DCCD43B}
+		{466958F3-636F-4654-A659-0A27EFA550D5} = {B780BE7A-CFB0-4065-B854-DA729AC16952}
+		{A03DC3A0-2B54-4431-8D77-D1E99320F71E} = {032DCC65-3F88-41F6-9275-AF02E9010D01}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 18
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://rdrrl7:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = QIQO.Business.Client.Contracts\\QIQO.Business.Client.Contracts.csproj
+		SccProjectTopLevelParentUniqueName1 = QIQO.Business.Client.Solution.sln
+		SccProjectName1 = QIQO.Business.Client.Contracts
+		SccLocalPath1 = QIQO.Business.Client.Contracts
+		SccProjectUniqueName2 = QIQO.Business.Client.Core.UI\\QIQO.Business.Client.Core.UI.csproj
+		SccProjectTopLevelParentUniqueName2 = QIQO.Business.Client.Solution.sln
+		SccProjectName2 = QIQO.Business.Client.Core.UI
+		SccLocalPath2 = QIQO.Business.Client.Core.UI
+		SccProjectUniqueName3 = QIQO.Business.Client.Core\\QIQO.Business.Client.Core.csproj
+		SccProjectTopLevelParentUniqueName3 = QIQO.Business.Client.Solution.sln
+		SccProjectName3 = QIQO.Business.Client.Core
+		SccLocalPath3 = QIQO.Business.Client.Core
+		SccProjectUniqueName4 = QIQO.Business.Client.Entities\\QIQO.Business.Client.Entities.csproj
+		SccProjectTopLevelParentUniqueName4 = QIQO.Business.Client.Solution.sln
+		SccProjectName4 = QIQO.Business.Client.Entities
+		SccLocalPath4 = QIQO.Business.Client.Entities
+		SccProjectUniqueName5 = QIQO.Business.Client.Proxies\\QIQO.Business.Client.Proxies.csproj
+		SccProjectTopLevelParentUniqueName5 = QIQO.Business.Client.Solution.sln
+		SccProjectName5 = QIQO.Business.Client.Proxies
+		SccLocalPath5 = QIQO.Business.Client.Proxies
+		SccProjectUniqueName6 = QIQO.Business.Client.Tests\\QIQO.Business.Client.Tests.csproj
+		SccProjectTopLevelParentUniqueName6 = QIQO.Business.Client.Solution.sln
+		SccProjectName6 = QIQO.Business.Client.Tests
+		SccLocalPath6 = QIQO.Business.Client.Tests
+		SccProjectUniqueName7 = QIQO.Business.Client.UI\\QIQO.Business.Client.UI.csproj
+		SccProjectTopLevelParentUniqueName7 = QIQO.Business.Client.Solution.sln
+		SccProjectName7 = QIQO.Business.Client.UI
+		SccLocalPath7 = QIQO.Business.Client.UI
+		SccProjectUniqueName8 = QIQO.Business.Client.UIX\\QIQO.Business.Client.UIX.csproj
+		SccProjectTopLevelParentUniqueName8 = QIQO.Business.Client.Solution.sln
+		SccProjectName8 = QIQO.Business.Client.UIX
+		SccLocalPath8 = QIQO.Business.Client.UIX
+		SccProjectUniqueName9 = QIQO.Business.Client.Wrappers\\QIQO.Business.Client.Wrappers.csproj
+		SccProjectTopLevelParentUniqueName9 = QIQO.Business.Client.Solution.sln
+		SccProjectName9 = QIQO.Business.Client.Wrappers
+		SccLocalPath9 = QIQO.Business.Client.Wrappers
+		SccProjectUniqueName10 = QIQO.Business.Module.Account\\QIQO.Business.Module.Account.csproj
+		SccProjectTopLevelParentUniqueName10 = QIQO.Business.Client.Solution.sln
+		SccProjectName10 = QIQO.Business.Module.Account
+		SccLocalPath10 = QIQO.Business.Module.Account
+		SccProjectUniqueName11 = QIQO.Business.Module.Company\\QIQO.Business.Module.Company.csproj
+		SccProjectTopLevelParentUniqueName11 = QIQO.Business.Client.Solution.sln
+		SccProjectName11 = QIQO.Business.Module.Company
+		SccLocalPath11 = QIQO.Business.Module.Company
+		SccProjectUniqueName12 = QIQO.Business.Module.Dashboard\\QIQO.Business.Module.Dashboard.csproj
+		SccProjectTopLevelParentUniqueName12 = QIQO.Business.Client.Solution.sln
+		SccProjectName12 = QIQO.Business.Module.Dashboard
+		SccLocalPath12 = QIQO.Business.Module.Dashboard
+		SccProjectUniqueName13 = QIQO.Business.Module.General\\QIQO.Business.Module.General.csproj
+		SccProjectTopLevelParentUniqueName13 = QIQO.Business.Client.Solution.sln
+		SccProjectName13 = QIQO.Business.Module.General
+		SccLocalPath13 = QIQO.Business.Module.General
+		SccProjectUniqueName14 = QIQO.Business.Module.Invoice\\QIQO.Business.Module.Invoices.csproj
+		SccProjectTopLevelParentUniqueName14 = QIQO.Business.Client.Solution.sln
+		SccProjectName14 = QIQO.Business.Module.Invoice
+		SccLocalPath14 = QIQO.Business.Module.Invoice
+		SccProjectUniqueName15 = QIQO.Business.Module.Orders\\QIQO.Business.Module.Orders.csproj
+		SccProjectTopLevelParentUniqueName15 = QIQO.Business.Client.Solution.sln
+		SccProjectName15 = QIQO.Business.Module.Orders
+		SccLocalPath15 = QIQO.Business.Module.Orders
+		SccProjectUniqueName16 = QIQO.Business.Module.Product\\QIQO.Business.Module.Product.csproj
+		SccProjectTopLevelParentUniqueName16 = QIQO.Business.Client.Solution.sln
+		SccProjectName16 = QIQO.Business.Module.Product
+		SccLocalPath16 = QIQO.Business.Module.Product
+		SccProjectUniqueName17 = QIQO.Custom.Controls\\QIQO.Custom.Controls\\QIQO.Custom.Controls.csproj
+		SccProjectTopLevelParentUniqueName17 = QIQO.Business.Client.Solution.sln
+		SccProjectName17 = QIQO.Custom.Controls/QIQO.Custom.Controls
+		SccLocalPath17 = QIQO.Custom.Controls\\QIQO.Custom.Controls
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,29 @@
+﻿<Application x:Class="QIQO.Business.Client.UI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:coreui="clr-namespace:QIQO.Business.Client.Core.UI;assembly=QIQO.Business.Client.Core.UI"
+             xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core">
+    <Application.Resources>
+        <ResourceDictionary>
+            <sys:Double x:Key="DefaultFontSize">18</sys:Double>
+            <core:DatePickerOriginalValueConverter x:Key="DatePickerOriginalValueConverter"/>
+            <!--<converters:ComboBoxOriginalValueConverter x:Key="ComboBoxOriginalValueConverter"/>-->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/Brushes.xaml"/>
+                <ResourceDictionary Source="Styles/ErrorTemplates.xaml"/>
+                <ResourceDictionary Source="Styles/ControlBaseStyle.xaml"/>
+                <ResourceDictionary Source="Styles/Button.xaml"/>
+                <ResourceDictionary Source="Styles/CheckBox.xaml"/>
+                <ResourceDictionary Source="Styles/ComboBox.xaml"/>
+                <ResourceDictionary Source="Styles/DataGrid.xaml"/>
+                <!--<ResourceDictionary Source="Styles/DatePicker.xaml"/>-->
+                <ResourceDictionary Source="Styles/Label.xaml"/>
+                <ResourceDictionary Source="Styles/TabItem.xaml"/>
+                <ResourceDictionary Source="Styles/TextBox.xaml"/>
+                <ResourceDictionary Source="Styles/ToolTip.xaml"/>
+                <ResourceDictionary Source="Styles/Ribbon.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

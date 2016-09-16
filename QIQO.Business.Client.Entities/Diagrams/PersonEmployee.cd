@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="QIQO.Business.Client.Entities.PersonBase">
+    <Position X="6" Y="0.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>BAJQAAAACIABgAAAAIAAIAAAgCAEIAQAAAAAAAAAABA=</HashCode>
+      <FileName>PersonBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.Employee">
+    <Position X="6" Y="6.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAgAgAgAgAAAAAAAAAEgAAAA=</HashCode>
+      <FileName>Employee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.AccountContact">
+    <Position X="0.5" Y="9.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>AccountContact.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.AccountEmployee">
+    <Position X="2.75" Y="9.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>AccountEmployee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.AccountOwner">
+    <Position X="5" Y="9.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>AccountOwner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.AccountRepresentative">
+    <Position X="6.75" Y="9.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>AccountRepresentative.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.SalesRepresentative">
+    <Position X="9" Y="9.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>SalesRepresentative.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QIQO.Business.Client.Entities.VendorRepresentative">
+    <Position X="11.75" Y="9.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>VendorRepresentative.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="QIQO.Business.Client.Entities.QIQOPersonType">
+    <Position X="3" Y="0.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAABAAAABAAAgAAAAAAAAAEAAAgAAIAQ=</HashCode>
+      <FileName>PersonBase.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
