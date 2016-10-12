@@ -15,7 +15,7 @@ This include 2 user interfaces:
 - [QIQO.Business.Client.Tests][10] - Unit tests
 - [QIQO.Business.Client.UI][3] - Classic Windows UI (Prism)
 - [QIQO.Business.Client.UIX][4] - More modern Windows UI (Prism)
-- [QIQO.Business.Client.Wrappers][11] - Entity wrappers (thanks to [Thomas Claudius Huber][20])
+- [QIQO.Business.Client.Wrappers][11] - Model wrappers (thanks to [Thomas Claudius Huber][20])
 - [QIQO.Business.Module.Account][12] - Account module (Prism)
 - [QIQO.Business.Module.Company][13] - Company module (Prism)
 - [QIQO.Business.Module.Dashboard][14] - Dashboard module (Prism)
