@@ -78,6 +78,7 @@ namespace QIQO.Business.Module.General.ViewModels
         public DelegateCommand EditAttributeCommand { get; set; }
         public DelegateCommand DeleteAttributeCommand { get; set; }
         public DelegateCommand ValidateAddressCommand { get; set; }
+        public DelegateCommand GenEmployeeCodeCommand { get; set; }
         public InteractionRequest<ItemEditNotification> EditAttributeRequest { get; set; }
 
         public INotification Notification
@@ -139,7 +140,23 @@ namespace QIQO.Business.Module.General.ViewModels
             EditAttributeCommand = new DelegateCommand(EditAttribute, CanEditAttribute);
             DeleteAttributeCommand = new DelegateCommand(DeleteAttribute, CanDeleteAttribute);
             ValidateAddressCommand = new DelegateCommand(ValidateAddress);
+            GenEmployeeCodeCommand = new DelegateCommand(GenEmployeeCode, CanGenEmployeeCode);
             EditAttributeRequest = new InteractionRequest<ItemEditNotification>();
+        }
+
+        private bool CanGenEmployeeCode()
+        {
+            if (CurrentEmployee != null)
+                return (CurrentEmployee.PersonCode == "" || CurrentEmployee.PersonCode == null);
+            return false;
+        }
+
+        private void GenEmployeeCode()
+        {
+            // TODO: add code to go get an employee code that doesn't already exist!
+            var account_service = service_factory.CreateClient<ICompanyService>();
+            CurrentEmployee.PersonCode = account_service.GetCompanyNextNumber((Company)CurrentCompany, QIQOEntityNumberType.EmployeeNumber);
+            account_service.Dispose();
         }
 
         private bool CanDoSave()
@@ -158,6 +175,7 @@ namespace QIQO.Business.Module.General.ViewModels
             SaveCommand.RaiseCanExecuteChanged();
             EditAttributeCommand.RaiseCanExecuteChanged();
             DeleteAttributeCommand.RaiseCanExecuteChanged();
+            GenEmployeeCodeCommand.RaiseCanExecuteChanged();
         }
 
         private void DoSave()

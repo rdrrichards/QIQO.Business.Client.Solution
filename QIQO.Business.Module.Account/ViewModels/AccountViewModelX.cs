@@ -45,9 +45,9 @@ namespace QIQO.Business.Module.Account.ViewModels
         private object _currentSelectedContact;
         private object _currentSelectedComment;
 
-        public AccountViewModelX(IEventAggregator event_aggtr, IServiceFactory service_fctry, 
+        public AccountViewModelX(IEventAggregator event_aggtr, IServiceFactory service_fctry,
             IRegionManager regionManager, IProductListService product_svc, IStateListService address_postal_serv,
-            IReportService reportService, IAccountEntityService account_entity_svc, 
+            IReportService reportService, IAccountEntityService account_entity_svc,
             IRecentAccountsService recent_acct_servc, IWorkingAccountService working_acct_serv)
         {
             event_aggregator = event_aggtr;
@@ -97,7 +97,8 @@ namespace QIQO.Business.Module.Account.ViewModels
                 confirm.Title = ApplicationStrings.SaveChangesTitle;
                 confirm.Content = ApplicationStrings.SaveChangesPrompt;
                 SaveChangesConfirmationRequest.Raise(confirm,
-                    r => {
+                    r =>
+                    {
                         if (r != null && r.Confirmed)
                         {
                             if (Account.IsValid)
@@ -124,7 +125,8 @@ namespace QIQO.Business.Module.Account.ViewModels
             ItemSelectionNotification notification = new ItemSelectionNotification();
             notification.Title = ApplicationStrings.NotificationFindAccount;
             FindAccountRequest.Raise(notification,
-                r => {
+                r =>
+                {
                     if (r != null && r.Confirmed && r.SelectedItem != null)
                     {
                         Client.Entities.Account found_account = r.SelectedItem as Client.Entities.Account;
@@ -391,7 +393,8 @@ namespace QIQO.Business.Module.Account.ViewModels
             confirm.Title = ApplicationStrings.DeleteAccountTitle;
             confirm.Content = $"Are you sure you want to delete account {Account.AccountName}?\n\nClick OK to delete\nClick Cancel to return to the form.";
             DeleteConfirmationRequest.Raise(confirm,
-                r => {
+                r =>
+                {
                     if (r != null && r.Confirmed)
                     {
                         DeleteAccount();
@@ -744,14 +747,14 @@ namespace QIQO.Business.Module.Account.ViewModels
             var emp_to_edit = employee as AccountPerson;
             if (emp_to_edit != null)
             {
-                ItemEditNotification notification = new ItemEditNotification(emp_to_edit);
+                var notification = new ItemEditNotification(emp_to_edit);
                 notification.Title = action + " Account Employee"; //+ emp_to_edit.PersonCode + " - " + emp_to_edit.PersonFullNameFML;
                 EditAccountPersonRequest.Raise(notification,
                     r =>
                     {
                         if (r != null && r.Confirmed && r.EditibleObject != null) // 
                         {
-                            AccountPerson emp = r.EditibleObject as AccountPerson;
+                            var emp = r.EditibleObject as AccountPerson;
                             if (emp != null)
                             {
                                 if (action == ApplicationStrings.NotificationEdit)
@@ -892,7 +895,7 @@ namespace QIQO.Business.Module.Account.ViewModels
             //event_aggregator.GetEvent<AccountNewOrderEvent>().Publish(Account.AccountCode);
         }
 
-        private void NavigationComplete(NavigationResult result){ }
+        private void NavigationComplete(NavigationResult result) { }
 
         private bool CanSave()
         {
@@ -1074,7 +1077,7 @@ namespace QIQO.Business.Module.Account.ViewModels
 
                     var all_atts = acct_atts.Concat(gcnt_atts.Concat(acnt_atts));
 
-                    List<AttributeType>  available_attribute_types = new List<AttributeType>(all_atts);
+                    List<AttributeType> available_attribute_types = new List<AttributeType>(all_atts);
                     LoadEntityAttrbuteList(available_attribute_types);
                     Account.PropertyChanged += Context_PropertyChanged;
                     InvalidateCommands();

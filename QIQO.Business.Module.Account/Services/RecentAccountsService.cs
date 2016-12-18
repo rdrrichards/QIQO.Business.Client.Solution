@@ -16,9 +16,8 @@ namespace QIQO.Business.Module.Account.Services
         private readonly IEventAggregator event_aggregator;
         private readonly IServiceFactory service_factory;
         private Queue<AccountWrapper> recently_viewed_accounts;
-        public RecentAccountsService(IEventAggregator event_aggtr, IServiceFactory service_fctry)
+        public RecentAccountsService(IEventAggregator event_aggtr, IServiceFactory service_fctry, ICurrentCompanyService company)
         {
-            var company = Unity.Container.Resolve<ICurrentCompanyService>();
             CurrentCompany = company.CurrentCompany;
             event_aggregator = event_aggtr;
             service_factory = service_fctry;
@@ -40,7 +39,7 @@ namespace QIQO.Business.Module.Account.Services
             var acct_in_queue = recently_viewed_accounts.Where(a => a.AccountCode == account.AccountCode).FirstOrDefault();
             if (acct_in_queue == null)
             {
-                string accounts = "";
+                var accounts = "";
                 recently_viewed_accounts.Enqueue(account);
                 //var recent_account_nums = Properties.Settings.Default.RecentViewedAccounts.Split(',').ToList();
                 //recent_account_nums.Add(account.AccountCode);
@@ -78,7 +77,7 @@ namespace QIQO.Business.Module.Account.Services
             {
                 var curr_co = CurrentCompany as Company;
 
-                IAccountService account_service = service_factory.CreateClient<IAccountService>();
+                var account_service = service_factory.CreateClient<IAccountService>();
                 using (account_service)
                 {
                     Client.Entities.Account _account = account_service.GetAccountByCode(account_no, curr_co.CompanyCode);

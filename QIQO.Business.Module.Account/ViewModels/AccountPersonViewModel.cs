@@ -2,6 +2,7 @@
 using Prism.Commands;
 using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
+using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Entities;
@@ -31,6 +32,7 @@ namespace QIQO.Business.Module.Account.ViewModels
         public DelegateCommand CancelCommand { get; set; }
         public DelegateCommand SaveCommand { get; set; }
         public DelegateCommand RoleChangedCommand { get; set; }
+        public DelegateCommand GenPersonCodeCommand { get; set; }
 
         public AccountPersonWrapper CurrentPerson
         {
@@ -54,6 +56,7 @@ namespace QIQO.Business.Module.Account.ViewModels
                     {
                         CurrentPerson = new AccountPersonWrapper(person); // need to confirm this is enough to isolate the passed in object 
                         CurrentPerson.PropertyChanged += Context_PropertyChanged;
+                        InvalidateCommands();
                     }
                     OnPropertyChanged(() => Notification);
                 }
@@ -67,6 +70,22 @@ namespace QIQO.Business.Module.Account.ViewModels
             CancelCommand = new DelegateCommand(DoCancel);
             SaveCommand = new DelegateCommand(DoSave, CanDoSave);
             RoleChangedCommand = new DelegateCommand(OnRoleTypeChanged);
+            GenPersonCodeCommand = new DelegateCommand(GenPersonCode, CanGenPersonCode);
+        }
+
+        private bool CanGenPersonCode()
+        {
+            if (CurrentPerson != null)
+                return (CurrentPerson.PersonCode == "" || CurrentPerson.PersonCode == null);
+            return false;
+        }
+
+        private void GenPersonCode()
+        {
+            // TODO: add code to go get an employee code that doesn't already exist!
+            //var account_service = service_factory.CreateClient<IAccountService>();
+            //CurrentPerson.PersonCode = account_service.GetAccountNextNumber(CurrentPerson.Account.Model, QIQOEntityNumberType.OrderNumber);
+            //account_service.Dispose();
         }
 
         private void OnRoleTypeChanged()
@@ -83,6 +102,8 @@ namespace QIQO.Business.Module.Account.ViewModels
         {
             SaveCommand.RaiseCanExecuteChanged();
             CancelCommand.RaiseCanExecuteChanged();
+            RoleChangedCommand.RaiseCanExecuteChanged();
+            GenPersonCodeCommand.RaiseCanExecuteChanged();
         }
 
         private void DoCancel()

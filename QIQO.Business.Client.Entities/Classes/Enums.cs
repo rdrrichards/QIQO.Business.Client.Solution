@@ -37,7 +37,8 @@
         OrderNumber = 2,
         EmployeeNumber = 3,
         AccountNumber = 4,
-        VendorNumber = 5
+        VendorNumber = 5,
+        ContactNumber = 6
     }
 
     public enum QIQOAccountType
