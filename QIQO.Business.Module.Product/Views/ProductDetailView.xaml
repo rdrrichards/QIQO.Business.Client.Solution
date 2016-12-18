@@ -74,7 +74,7 @@
                                   SelectionMode="Single" VerticalAlignment="Top" HorizontalAlignment="Right">
 
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Name" Binding="{Binding SelectedProduct.AttributeTypeData.AttributeTypeName,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="175"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Name" Binding="{Binding AttributeTypeData.AttributeTypeName,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="175"></DataGridTextColumn>
                                 <!--<DataGridTextColumn Header="Value" Binding="{Binding AttributeValue,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="75"></DataGridTextColumn>-->
                                 <DataGridTemplateColumn Header="Value" Width="75" >
                                     <DataGridTemplateColumn.CellTemplate>
@@ -110,8 +110,8 @@
                 <DataGrid x:Name="FeeScheduleList" ItemsSource="{Binding DataContext.FeeSchedules, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" 
                           AutoGenerateColumns="False" CanUserAddRows="False"
                           Height="350" Width="Auto" Padding="5" Margin="5" 
-                          SelectedItem="{Binding SelectedProduct.FeeSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                          SelectedIndex="{Binding SelectedProduct.FeeSelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectedItem="{Binding SelectedFeeSchedule, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectedIndex="{Binding SelectedFeeScheduleIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                           SelectionMode="Single" TabIndex="360">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Fee Schedule Key" Binding="{Binding FeeScheduleKey,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Visibility="Hidden"/>

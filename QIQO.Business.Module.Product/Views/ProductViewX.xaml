@@ -201,7 +201,10 @@
 
             </Grid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Add New" Margin="0,0,10,0" Command="{Binding AddProductCommand}" HorizontalAlignment="Right" Width="75"></Button>
+                <Button Margin="0,0,10,0" Command="{Binding AddProductCommand}" HorizontalAlignment="Right"
+                        Background="Transparent" BorderBrush="Transparent" ToolTip="Add new product...">
+                    <Image Source="/QIQO.Business.Client.Core.UI;component/Images/32/add.png"></Image>
+                </Button>
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="5">

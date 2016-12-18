@@ -12,7 +12,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Transactions;
 using QIQO.Business.Client.Core.Infrastructure;
@@ -102,6 +101,14 @@ namespace QIQO.Business.Module.Product.ViewModels
             }
         }
         public int SelectedProductIndex { get; set; }
+
+        private object _selectedFeeSchedule;
+        public object SelectedFeeSchedule
+        {
+            get { return _selectedFeeSchedule; }
+            set { SetProperty(ref _selectedFeeSchedule, value); }
+        }
+        public int SelectedFeeScheduleIndex { get; set; }
 
         private object _selectedAttribute;
         public object SelectedAttribute

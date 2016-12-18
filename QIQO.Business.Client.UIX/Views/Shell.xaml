@@ -11,7 +11,7 @@
         mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
         Title="QIQO Business Software" 
         Icon="/QIQO.Business.Client.Core.UI;component/Images/company.ico"
-        Height="868" Width="1224">
+        Height="868" Width="1224" MinHeight="800" MinWidth="1024">
     <Window.Background>
         <LinearGradientBrush Opacity="0.7" >
             <GradientBrush.GradientStops>

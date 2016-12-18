@@ -27,6 +27,8 @@ namespace QIQO.Business.Module.Company.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly IStateListService address_postal_service;
         private readonly Client.Entities.Company _currentCoObject;
+        private AddressWrapper _def_billing;
+        private AddressWrapper _def_shipping;
 
         public CompanyViewModel(IEventAggregator event_aggtr, IServiceFactory service_fctry, IRegionManager region_manager, IStateListService address_postal_serv)
         {
@@ -119,8 +121,19 @@ namespace QIQO.Business.Module.Company.ViewModels
             }
         }
 
-        public AddressWrapper DefaultBillingAddress { get; set; }
-        public AddressWrapper DefaultShippingAddress { get; set; }
+        //public AddressWrapper DefaultBillingAddress { get; set; }
+        //public AddressWrapper DefaultShippingAddress { get; set; }
+
+        public AddressWrapper DefaultBillingAddress //{ get; set; }
+        {
+            get { return _def_billing; }
+            private set { SetProperty(ref _def_billing, value); }
+        }
+        public AddressWrapper DefaultShippingAddress //{ get; set; }
+        {
+            get { return _def_shipping; }
+            private set { SetProperty(ref _def_shipping, value); }
+        }
 
         public object COASelectedItem
         {
