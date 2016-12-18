@@ -45,9 +45,9 @@
         <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
             <TextBox Text="{Binding CurrentPerson.PersonCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                      Margin="3,3,0,3" MaxLength="50" Width="110" HorizontalAlignment="Left" IsReadOnly="True"></TextBox>
-            <!--<Button x:Name="NewEmpCode" Margin="3" Width="30" ToolTip="Generate new code" Command="{Binding GenPersonCodeCommand}">
+            <Button x:Name="NewEmpCode" Margin="3" Width="30" ToolTip="Generate new code" Command="{Binding GenPersonCodeCommand}">
                 <Image Source="/QIQO.Business.Client.Core.UI;component/Images/appbar.new.png"></Image>
-            </Button>-->
+            </Button>
         </StackPanel>
         <Label Content="Name (F,M,L)" Grid.Column="0" Grid.Row="1" Margin="3"></Label>
         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">

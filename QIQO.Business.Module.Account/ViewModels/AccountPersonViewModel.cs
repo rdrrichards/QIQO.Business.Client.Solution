@@ -76,7 +76,9 @@ namespace QIQO.Business.Module.Account.ViewModels
         private bool CanGenPersonCode()
         {
             if (CurrentPerson != null)
-                return (CurrentPerson.PersonCode == "" || CurrentPerson.PersonCode == null);
+                return ((CurrentPerson.PersonCode == "" || CurrentPerson.PersonCode == null) && 
+                    ((CurrentPerson.PersonFirstName != null && CurrentPerson.PersonFirstName.Length > 0) & 
+                    (CurrentPerson.PersonLastName != null && CurrentPerson.PersonLastName.Length > 0)));
             return false;
         }
 
@@ -86,6 +88,8 @@ namespace QIQO.Business.Module.Account.ViewModels
             //var account_service = service_factory.CreateClient<IAccountService>();
             //CurrentPerson.PersonCode = account_service.GetAccountNextNumber(CurrentPerson.Account.Model, QIQOEntityNumberType.OrderNumber);
             //account_service.Dispose();
+            CurrentPerson.PersonCode = CurrentPerson.PersonFirstName[0] + ((CurrentPerson.PersonMI != null && 
+                CurrentPerson.PersonMI.Length > 0) ? CurrentPerson.PersonMI : string.Empty) + CurrentPerson.PersonLastName[0];
         }
 
         private void OnRoleTypeChanged()
