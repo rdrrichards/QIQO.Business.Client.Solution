@@ -103,7 +103,7 @@ namespace QIQO.Business.Module.General.ViewModels
 
         private void SelectOrders(object orders)
         {
-            System.Collections.IList selected_orders = (System.Collections.IList)orders;
+            var selected_orders = orders as System.Collections.IList;
             //var collection = selected_orders
             if (selected_orders != null)
             {
