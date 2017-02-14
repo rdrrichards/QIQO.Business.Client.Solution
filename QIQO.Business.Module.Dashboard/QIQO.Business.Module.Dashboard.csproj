@@ -155,6 +155,10 @@
       <Project>{a66e9f0f-87d0-4854-b3a2-3ed5d0c72368}</Project>
       <Name>QIQO.Business.Client.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\QIQO.Business.Module.General\QIQO.Business.Module.General.csproj">
+      <Project>{4b7267bd-01eb-471c-8e6c-d68137c0ac5d}</Project>
+      <Name>QIQO.Business.Module.General</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\DashboardNavigationViewX.xaml">

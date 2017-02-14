@@ -5,57 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QIQO.Business.Module.Dashboard.Views"
              xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core"
+             xmlns:gencntrls="clr-namespace:QIQO.Business.Module.General;assembly=QIQO.Business.Module.General"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
-    <UserControl.Resources>
-        <core:CountToVisibilityConverter x:Key="CountToVisibilityConverter"/>
-    </UserControl.Resources>
-    <Border BorderThickness="0" CornerRadius="10">
-        <Border.Style>
-            <Style TargetType="{x:Type Border}">
-                <Style.Triggers>
-                    <DataTrigger Value="False" Binding="{Binding IsNavButtonChecked}">
-                        <Setter Property="BorderBrush" Value="Black" />
-                    </DataTrigger>
-                    <DataTrigger Value="True" Binding="{Binding IsNavButtonChecked}">
-                        <Setter Property="BorderBrush" Value="AntiqueWhite" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        </Border.Style>
-        <Border.BitmapEffect>
-            <DropShadowBitmapEffect Color="{Binding DropShadowColor}"/>
-        </Border.BitmapEffect>
-        <Grid Margin="10" Width="60" Height="80">
-            <StackPanel>
-                <Image MaxHeight="55" Source="/QIQO.Business.Client.Core.UI;component/Images/48/home2.png">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseLeftButtonDown">
-                            <i:InvokeCommandAction 
-        					Command="{Binding ShowModuleCommand}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </Image>
-                <TextBlock Text="Home" FontSize="14" HorizontalAlignment="Center" Foreground="AntiqueWhite"/>
-
-            </StackPanel>
-            <Grid Height="25" Width="25"
-                              VerticalAlignment="Top"
-                              HorizontalAlignment="Right"
-              Visibility="{Binding Path=InstanceCount, Converter={StaticResource CountToVisibilityConverter}}">
-                <Ellipse >
-                    <Ellipse.Fill>
-                        <RadialGradientBrush>
-                            <GradientStop Color="Yellow" Offset="0" />
-                            <GradientStop Color="#FFB3D45A" Offset="0.8" />
-                        </RadialGradientBrush>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <TextBlock Foreground="Brown" 
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Text="{Binding InstanceCount}" />
-
-            </Grid>
-        </Grid>
-    </Border>
+    <gencntrls:NavigationControl 
+        ButtonImage="/QIQO.Business.Client.Core.UI;component/Images/48/home2.png"
+            ButtonLabel="Home"></gencntrls:NavigationControl>
 </UserControl>

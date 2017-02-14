@@ -5,72 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QIQO.Business.Module.Orders.Views"
              xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core"
+             xmlns:gencntrls="clr-namespace:QIQO.Business.Module.General;assembly=QIQO.Business.Module.General"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d">
-    <UserControl.Resources>
-        <core:CountToVisibilityConverter x:Key="CountToVisibilityConverter"/>
-    </UserControl.Resources>
-    <!--<RadioButton GroupName="NavigationButton" FontSize="20"
-                                 Background="Transparent" BorderBrush="Transparent">
-        <RadioButton.Style>
-            <Style TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource {x:Type ToggleButton}}">
-                <Setter Property="Background" Value="Transparent"/>
-                <Style.Triggers>
-                    <Trigger Property="IsChecked" Value="true">
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="Foreground" Value="Blue"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-        </RadioButton.Style>-->
-        <Border BorderThickness="0" CornerRadius="10">
-            <Border.Style>
-                <Style TargetType="{x:Type Border}">
-                    <Style.Triggers>
-                        <DataTrigger Value="True" Binding="{Binding IsNavButtonChecked}">
-                            <Setter Property="BorderBrush" Value="AntiqueWhite" />
-                        </DataTrigger>
-                        <DataTrigger Value="False" Binding="{Binding IsNavButtonChecked}">
-                            <Setter Property="BorderBrush" Value="Black" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Border.Style>
-            <Border.BitmapEffect>
-                <DropShadowBitmapEffect Color="{Binding DropShadowColor}"/>
-            </Border.BitmapEffect>
-            <Grid Margin="10" Width="60" Height="80">
-                <StackPanel>
-                    <Image MaxHeight="55" Source="/QIQO.Business.Client.Core.UI;component/Images/48/order.png">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                <i:InvokeCommandAction 
-        					    Command="{Binding ShowModuleCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </Image>
-                    <TextBlock Text="Orders" FontSize="14" HorizontalAlignment="Center" Foreground="AntiqueWhite"/>
-
-                </StackPanel>
-                <Grid Height="25" Width="25"
-                                  VerticalAlignment="Top"
-                                  HorizontalAlignment="Right"
-                  Visibility="{Binding Path=InstanceCount, Converter={StaticResource CountToVisibilityConverter}}">
-                    <Ellipse >
-                        <Ellipse.Fill>
-                            <RadialGradientBrush>
-                                <GradientStop Color="Yellow" Offset="0" />
-                                <GradientStop Color="#FFB3D45A" Offset="0.8" />
-                            </RadialGradientBrush>
-                        </Ellipse.Fill>
-                    </Ellipse>
-                    <TextBlock Foreground="Brown" 
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           Text="{Binding InstanceCount}" />
-
-                </Grid>
-            </Grid>
-        </Border>
-    <!--</RadioButton>-->
+    <gencntrls:NavigationControl 
+        ButtonImage="/QIQO.Business.Client.Core.UI;component/Images/48/order.png"
+            ButtonLabel="Orders"></gencntrls:NavigationControl>
 </UserControl>
