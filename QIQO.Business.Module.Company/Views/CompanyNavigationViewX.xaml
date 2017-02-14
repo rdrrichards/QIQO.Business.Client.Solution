@@ -31,7 +31,7 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonDown">
                             <i:InvokeCommandAction 
-        					Command="{Binding ShowCompanyModuleCommand}"/>
+        					Command="{Binding ShowModuleCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Image>

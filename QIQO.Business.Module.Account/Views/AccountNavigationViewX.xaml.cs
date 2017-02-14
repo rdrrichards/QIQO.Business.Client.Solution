@@ -8,10 +8,10 @@ namespace QIQO.Business.Module.Account.Views
     /// </summary>
     public partial class AccountNavigationViewX : UserControl
     {
-        public AccountNavigationViewX()
+        public AccountNavigationViewX(AccountNavigationViewModelX view_model)
         {
             InitializeComponent();
-            DataContext = new AccountNavigationViewModelX();
+            DataContext = view_model;
         }
     }
 }

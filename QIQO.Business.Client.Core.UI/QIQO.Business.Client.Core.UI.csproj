@@ -113,6 +113,7 @@
     <Compile Include="Interfaces\IShellViewModel.cs" />
     <Compile Include="Interfaces\IStateListService.cs" />
     <Compile Include="Interfaces\ISupportDataContext.cs" />
+    <Compile Include="IUBaseClasses\NavigationViewModelBase.cs" />
     <Compile Include="IUBaseClasses\ViewModelBase.cs" />
     <Compile Include="Services\AccountEntityService.cs" />
     <Compile Include="Services\CleaningUtility.cs" />

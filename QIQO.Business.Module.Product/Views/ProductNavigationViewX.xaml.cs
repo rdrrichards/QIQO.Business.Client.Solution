@@ -8,10 +8,10 @@ namespace QIQO.Business.Module.Product.Views
     /// </summary>
     public partial class ProductNavigationViewX : UserControl
     {
-        public ProductNavigationViewX()
+        public ProductNavigationViewX(ProductNavigationViewModelX view_model)
         {
             InitializeComponent();
-            DataContext = new ProductNavigationViewModelX();
+            DataContext = view_model;
         }
     }
 }

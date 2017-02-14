@@ -23,10 +23,6 @@ namespace QIQO.Custom.Controls
 		{
 			if (new_content == null) return;
 
-			//object current_content = Content;
-			//Content = null;
-			//Header = current_content;
-
 			ContentPresenter header_element = Template.FindName("HeaderContent", this) as ContentPresenter;
 			ContentPresenter content_element = Template.FindName("MainContent", this) as ContentPresenter;
 			TranslateTransform header_transform = Template.FindName("HeaderTranslateTransform", this) as TranslateTransform;
@@ -36,26 +32,6 @@ namespace QIQO.Custom.Controls
 			Content = new_content;
 
 			Storyboard sb = new Storyboard();
-
-			//DoubleAnimation header_anim_x = new DoubleAnimation()
-			//{
-			//	From = 0,
-			//	To = horz_view_trans_amount * -1,
-			//	Duration = new TimeSpan(0,0,0,1),
-			//	EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseInOut }
-			//};
-			//Storyboard.SetTarget(header_anim_x, header_element);
-			//Storyboard.SetTargetProperty(header_anim_x, new PropertyPath("RenderTransform.(TranslateTransform.X)"));
-
-			//DoubleAnimation header_anim_o = new DoubleAnimation()
-			//{
-			//	From = 1,
-			//	To = 0,
-			//	Duration = new TimeSpan(0, 0, 0, 1),
-			//	//EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseInOut }
-			//};
-			//Storyboard.SetTarget(header_anim_o, header_element);
-			//Storyboard.SetTargetProperty(header_anim_o, new PropertyPath("Opacity"));
 
 			DoubleAnimation content_anim_x = new DoubleAnimation()
 			{

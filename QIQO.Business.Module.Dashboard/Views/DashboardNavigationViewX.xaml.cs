@@ -8,10 +8,10 @@ namespace QIQO.Business.Module.Dashboard.Views
     /// </summary>
     public partial class DashboardNavigationViewX : UserControl
     {
-        public DashboardNavigationViewX()
+        public DashboardNavigationViewX(DashboardNavigationViewModelX view_model)
         {
             InitializeComponent();
-            DataContext = new DashboardNavigationViewModelX();
+            DataContext = view_model;
         }
     }
 }

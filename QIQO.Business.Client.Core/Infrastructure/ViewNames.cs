@@ -11,6 +11,7 @@
 
         public static string DashboardRibbonView { get { return "QIQO.Business.Module.Dashboard.Views.DashboardRibbonView"; } }
         public static string DashboardHomeView { get { return "QIQO.Business.Module.Dashboard.Views.DashboardHomeView"; } }
+        public static string DashboardViewX { get { return "QIQO.Business.Module.Dashboard.Views.DashboardViewX"; } }
 
         public static string AccountRibbonView { get { return "QIQO.Business.Module.Account.Views.AccountRibbonView"; } }
         public static string AccountView { get { return "QIQO.Business.Module.Account.Views.AccountView"; } }

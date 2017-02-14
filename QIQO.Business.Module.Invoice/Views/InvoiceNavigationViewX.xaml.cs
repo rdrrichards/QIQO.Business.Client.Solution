@@ -8,10 +8,10 @@ namespace QIQO.Business.Module.Invoices.Views
     /// </summary>
     public partial class InvoiceNavigationViewX : UserControl
     {
-        public InvoiceNavigationViewX()
+        public InvoiceNavigationViewX(InvoiceNavigationViewModelX view_model)
         {
             InitializeComponent();
-            DataContext = new InvoiceNavigationViewModelX();
+            DataContext = view_model;
         }
     }
 }
