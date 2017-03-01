@@ -773,7 +773,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
                         {
                             var rp = order_item.OrderItemProduct.ProductAttributes.Where(item => item.AttributeType == QIQOAttributeType.Product_PRODBASE).FirstOrDefault();
                             if (rp != null)
-                                order_item.ItemPricePer = ApplyFeeSchedule(order_item.ProductKey, Decimal.Parse(rp.AttributeValue));
+                                order_item.ItemPricePer = ApplyFeeSchedule(order_item.ProductKey, decimal.Parse(rp.AttributeValue));
                         }
                     }
                     if (order_item.OrderItemQuantity <= 0)
@@ -782,7 +782,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
                         {
                             var dq = order_item.OrderItemProduct.ProductAttributes.Where(item => item.AttributeType == QIQOAttributeType.Product_PRODDFQTY).FirstOrDefault();
                             if (dq != null)
-                                order_item.OrderItemQuantity = Int32.Parse(dq.AttributeValue);
+                                order_item.OrderItemQuantity = int.Parse(dq.AttributeValue);
                         }
                     }
 
