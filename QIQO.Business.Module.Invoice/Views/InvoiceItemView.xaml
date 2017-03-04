@@ -64,9 +64,9 @@
         <TextBlock Grid.Column="1" Grid.Row="4" Margin="3" Text="{Binding InvoiceItem.InvoiceItemLineSum, Mode=OneWay, StringFormat=\{0:C\}}" />
 
         <Label Content="Ship Date:" Grid.Column="0" Grid.Row="5" Margin="3" ></Label>
-        <DatePicker Grid.Column="1" Grid.Row="5" Margin="3" Text="{Binding InvoiceItem.OrderItemShipDate}" IsEnabled="{Binding DatesEnabled}"></DatePicker>
+        <DatePicker Grid.Column="1" Grid.Row="5" Margin="3" Text="{Binding InvoiceItem.OrderItemShipDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DatesEnabled}"></DatePicker>
         <Label Content="Complete Date:" Grid.Column="0" Grid.Row="6" Margin="3" ></Label>
-        <DatePicker Grid.Column="1" Grid.Row="6" Margin="3" Text="{Binding InvoiceItem.InvoiceItemCompleteDate}" IsEnabled="{Binding DatesEnabled}"></DatePicker>
+        <DatePicker Grid.Column="1" Grid.Row="6" Margin="3" Text="{Binding InvoiceItem.InvoiceItemCompleteDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DatesEnabled}"></DatePicker>
         <Label Content="Shipping Address:" Grid.Column="0" Grid.Row="7" Margin="3" ></Label>
         <ComboBox x:Name="ShipAddressCombo" SelectedValue="{Binding InvoiceItem.OrderItemShipToAddress.AddressKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                 Grid.Column="1" Grid.Row="7" Margin="3"   DisplayMemberPath="AddressLine1" SelectedValuePath="AddressKey" 

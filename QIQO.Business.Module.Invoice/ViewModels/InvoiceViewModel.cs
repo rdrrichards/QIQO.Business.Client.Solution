@@ -701,6 +701,8 @@ namespace QIQO.Business.Module.Invoices.ViewModels
                                     item_to_update.OrderItemShipToAddress.AddressKey = obj.OrderItemShipToAddress.AddressKey;
                                     item_to_update.SalesRep.EntityPersonKey = obj.SalesRep.EntityPersonKey;
                                     item_to_update.AccountRep.EntityPersonKey = obj.AccountRep.EntityPersonKey;
+                                    item_to_update.OrderItemShipDate = obj.OrderItemShipDate;
+                                    item_to_update.InvoiceItemCompleteDate = obj.InvoiceItemCompleteDate;
                                 }
                                 else
                                 {

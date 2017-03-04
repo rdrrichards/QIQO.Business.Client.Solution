@@ -193,7 +193,7 @@
             <Label Content="Invoice Status:" Grid.Column="3" Grid.Row="2"></Label>
             <ComboBox Name="InvoiceStatusCombo" ItemsSource="{Binding Source={StaticResource InvoiceStatusDataProvider}}" 
                   SelectedItem="{Binding Invoice.InvoiceStatus}" Grid.Column="4" Grid.Row="2" Margin="3" TabIndex="2"></ComboBox>
-            <Label Content="Due By:" Grid.Column="3" Grid.Row="3"></Label>
+            <!--<Label Content="Due By:" Grid.Column="3" Grid.Row="3"></Label>-->
             <!--<TextBox Text="{Binding SalesRep.PersonFirstName}" Grid.Column="4" Grid.Row="3" Margin="3"></TextBox>-->
             <Label Content="Sale Rep:" Grid.Column="0" Grid.Row="3"></Label>
             <ComboBox Name="SaleRepCombo" ItemsSource="{Binding SalesRepList}" SelectedValue="{Binding Invoice.SalesRep.EntityPersonKey}"
