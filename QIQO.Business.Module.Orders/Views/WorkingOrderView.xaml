@@ -3,13 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d"
+             mc:Ignorable="d" Name="ctlWorkingOrderView"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:iact="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:gcntrls="clr-namespace:QIQO.Business.Module.General.Controls;assembly=QIQO.Business.Module.General"
-             xmlns:local="clr-namespace:QIQO.Business.Module.Orders.Views">
+             xmlns:local="clr-namespace:QIQO.Business.Module.Orders.Views"
+             xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="B2VConverter"/>
+        <core:UCWidthConverter x:Key="WidthConverter"/>
     </UserControl.Resources>
 
     <!--<iact:Interaction.Triggers>
@@ -42,7 +44,9 @@
         </Button>-->
         </StackPanel>
         <Grid HorizontalAlignment="Left">
-            <Border BorderThickness="0" Margin="5" CornerRadius="20">
+            <Border BorderThickness="0" Margin="5" CornerRadius="20"
+                                Width="{Binding ActualWidth, ElementName=ctlWorkingOrderView, Converter={StaticResource WidthConverter}}"
+                                Height="{Binding ActualHeight, ElementName=ctlWorkingOrderView, Converter={StaticResource WidthConverter}}">
                 <Border.BitmapEffect>
                     <DropShadowBitmapEffect />
                 </Border.BitmapEffect>

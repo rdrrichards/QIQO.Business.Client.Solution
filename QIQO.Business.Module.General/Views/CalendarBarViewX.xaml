@@ -5,7 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QIQO.Business.Module.General.Views"   
              xmlns:qiqo="clr-namespace:QIQO.Custom.Controls;assembly=QIQO.Custom.Controls"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib">
+             xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" Name="ctlCalendarBarView">
+    <UserControl.Resources>
+        <core:UCWidthConverter x:Key="WidthConverter"/>
+    </UserControl.Resources>
 
         <Grid >
             <Grid.ColumnDefinitions>
@@ -15,13 +19,13 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-        <Border Grid.Row="1" BorderBrush="#FF000000" BorderThickness="5" CornerRadius="8" Margin="5" MinWidth="360" MinHeight="280"
+        <Border Grid.Row="1" BorderBrush="#FF000000" BorderThickness="5" CornerRadius="8" Margin="5"
                  ><!--HorizontalAlignment="Stretch" VerticalAlignment="Stretch"-->
             <Border.BitmapEffect>
                 <DropShadowBitmapEffect />
             </Border.BitmapEffect>
             <qiqo:QIQOCalender EventDates="{Binding SelectedDays}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
-                              HorizontalAlignment="Left" VerticalAlignment="Top"
+                              HorizontalAlignment="Left" VerticalAlignment="Top" Name="qiqoCalender"
                               DisplayDate="{Binding CurrentMonthDefaultDate}">
                 <qiqo:QIQOCalender.RenderTransform>
                     <ScaleTransform ScaleX="2.05" ScaleY="1.65"/>

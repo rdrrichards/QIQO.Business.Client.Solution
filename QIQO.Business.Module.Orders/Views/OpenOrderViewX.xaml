@@ -16,7 +16,7 @@
 
     <StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="2">
-            <TextBlock Text="{Binding HeaderMessage}" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Width="650" Foreground="AntiqueWhite">
+            <TextBlock Text="{Binding HeaderMessage}" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="AntiqueWhite">
                 <TextBlock.InputBindings>
                     <MouseBinding MouseAction="LeftClick" Command="{Binding RefreshCommand}"/>
                 </TextBlock.InputBindings>
@@ -56,7 +56,7 @@
                                 </LinearGradientBrush>
                             </Border.Background>
                             <ListBox x:Name="OpenOrdersList" ItemsSource="{Binding OpenOrders}" HorizontalContentAlignment="Stretch"
-                                  Padding="3" Margin="3" SelectionMode="Single" Height="270" VerticalAlignment="Top"
+                                  Padding="3" Margin="3" SelectionMode="Single" VerticalAlignment="Top"
                                   SelectedItem="{Binding SelectedOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"
                                   SelectedIndex="{Binding SelectedOrderIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Transparent">
                                 <ListBox.ItemTemplate>

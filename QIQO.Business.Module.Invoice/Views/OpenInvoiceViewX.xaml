@@ -3,18 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d"
+             mc:Ignorable="d" Name="ctlOpenInvoiceView"
              xmlns:local="clr-namespace:QIQO.Business.Module.Invoices.Views"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:iact="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:gcntrls="clr-namespace:QIQO.Business.Module.General.Controls;assembly=QIQO.Business.Module.General">
+             xmlns:gcntrls="clr-namespace:QIQO.Business.Module.General.Controls;assembly=QIQO.Business.Module.General"
+             xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="B2VConverter"/>
+        <core:UCWidthConverter x:Key="WidthConverter"/>
     </UserControl.Resources>
 
     <StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="2">
-            <TextBlock Text="{Binding HeaderMessage}" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Width="650" Foreground="AntiqueWhite">
+            <TextBlock Text="{Binding HeaderMessage}" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="AntiqueWhite">
                 <TextBlock.InputBindings>
                     <MouseBinding MouseAction="LeftClick" Command="{Binding RefreshCommand}"/>
                 </TextBlock.InputBindings>
@@ -36,7 +38,9 @@
                 <Grid>
                     <!--Content-->
                     <Grid>
-                        <Border x:Name="BDRounded" BorderThickness="0" CornerRadius="15" Opacity="0.7">
+                        <Border x:Name="BDRounded" BorderThickness="0" CornerRadius="15" Opacity="0.7"
+                                Width="{Binding ActualWidth, ElementName=ctlOpenInvoiceView, Converter={StaticResource WidthConverter}}"
+                                Height="{Binding ActualHeight, ElementName=ctlOpenInvoiceView, Converter={StaticResource WidthConverter}}">
                             <Border.Background>
                                 <LinearGradientBrush Opacity="0.6" StartPoint="0,0" EndPoint="0,1">
                                     <GradientBrush.GradientStops>
@@ -51,13 +55,14 @@
                                     </GradientBrush.GradientStops>
                                 </LinearGradientBrush>
                             </Border.Background>
-                            <ListBox x:Name="RecentInvoicesList" ItemsSource="{Binding OpenInvoices}" HorizontalContentAlignment="Stretch"
-                                  Padding="3" Margin="3" SelectionMode="Single" Height="230"
+                            <ListBox x:Name="OpenInvoicesList" ItemsSource="{Binding OpenInvoices}" HorizontalContentAlignment="Stretch"
+                                  Padding="3" Margin="3" SelectionMode="Single" VerticalAlignment="Top"
                                   SelectedItem="{Binding SelectedInvoice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" 
                                   SelectedIndex="{Binding SelectedInvoiceIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Transparent">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <Border CornerRadius="3" Margin="1" BorderThickness="2" BorderBrush="Black" Background="#FF333368" Opacity="1">
+                                        <Border CornerRadius="3" Margin="1" BorderThickness="2" BorderBrush="Black" Background="#FF333368" Opacity="1"
+                                                Width="{Binding ActualWidth, ElementName=OpenInvoicesList, Converter={StaticResource WidthConverter}}">
                                             <Grid Margin="3">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition/>

@@ -14,7 +14,7 @@ namespace QIQO.Business.Module.Invoices.Modules
 
         public override void Initialize()
         {
-            RegionManager.RegisterViewWithRegion(RegionNames.DashboardRegion, typeof(OpenInvoiceViewX));
+            RegionManager.RegisterViewWithRegion(RegionNames.DashboardRegion2, typeof(OpenInvoiceViewX));
         }
     }
 }

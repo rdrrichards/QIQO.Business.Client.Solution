@@ -4,12 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QIQO.Business.Module.Account.Views"
-             mc:Ignorable="d"
+             mc:Ignorable="d" Name="ctlWorkingAccountView"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:iact="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:gcntrls="clr-namespace:QIQO.Business.Module.General.Controls;assembly=QIQO.Business.Module.General">
+             xmlns:gcntrls="clr-namespace:QIQO.Business.Module.General.Controls;assembly=QIQO.Business.Module.General"
+             xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="B2VConverter"/>
+        <core:UCWidthConverter x:Key="WidthConverter"/>
     </UserControl.Resources>
     <StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="2">
@@ -31,7 +33,9 @@
                 <Grid>
                     <!--Content-->
                     <Grid>
-                        <Border x:Name="BDRounded" BorderThickness="0" CornerRadius="15">
+                        <Border x:Name="BDRounded" BorderThickness="0" CornerRadius="15"
+                                Width="{Binding ActualWidth, ElementName=ctlWorkingAccountView, Converter={StaticResource WidthConverter}}"
+                                Height="{Binding ActualHeight, ElementName=ctlWorkingAccountView, Converter={StaticResource WidthConverter}}">
                             <Border.Background>
                                 <LinearGradientBrush Opacity="0.6" StartPoint="0,0" EndPoint="0,1">
                                     <GradientBrush.GradientStops>
@@ -44,13 +48,14 @@
                                     </GradientBrush.GradientStops>
                                 </LinearGradientBrush>
                             </Border.Background>
-                            <ListBox x:Name="WorkingOrdersList" ItemsSource="{Binding WorkingAccounts}" HorizontalContentAlignment="Stretch"
+                            <ListBox x:Name="WorkingAccountsList" ItemsSource="{Binding WorkingAccounts}" HorizontalContentAlignment="Stretch"
                                   Padding="3" Margin="3" SelectionMode="Single" Height="200" MinWidth="550"
                                   SelectedItem="{Binding SelectedAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"
                                   SelectedIndex="{Binding SelectedAccountIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" Opacity="1">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <Border CornerRadius="3" Margin="1" BorderThickness="2" BorderBrush="Black">
+                                        <Border CornerRadius="3" Margin="1" BorderThickness="2" BorderBrush="Black"
+                                                Width="{Binding ActualWidth, ElementName=WorkingAccountsList, Converter={StaticResource WidthConverter}}">
                                             <Grid Margin="3">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="30"/>

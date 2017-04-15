@@ -4,7 +4,7 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:local="clr-namespace:QIQO.Business.Module.Account.Views"
-			 mc:Ignorable="d"
+			 mc:Ignorable="d" Name="ctlFindAccountView"
 			 xmlns:vm="clr-namespace:QIQO.Business.Module.Account.ViewModels"
              xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core"
 			 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -13,6 +13,7 @@
 	<UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="B2VConverter"/>
         <core:MouseConverter x:Key="MouseConverter" />
+        <core:UCWidthConverter x:Key="WidthConverter"/>
     </UserControl.Resources>
     <UserControl.Cursor>
         <Binding Path="IsBusy" Converter="{StaticResource MouseConverter}"/>
@@ -55,7 +56,9 @@
 				<Grid>
 					<!--Content-->
 					<Grid>
-                        <Border x:Name="BDRounded" BorderThickness="0" CornerRadius="15">
+                        <Border x:Name="BDRounded" BorderThickness="0" CornerRadius="15"
+                                Width="{Binding ActualWidth, ElementName=ctlFindAccountView, Converter={StaticResource WidthConverter}}"
+                                Height="{Binding ActualHeight, ElementName=ctlFindAccountView, Converter={StaticResource WidthConverter}}">
                             <Border.Background>
                                 <LinearGradientBrush Opacity="0.7" StartPoint="0,0" EndPoint="0,1">
                                     <GradientBrush.GradientStops>
@@ -70,12 +73,13 @@
                                 </LinearGradientBrush>
                             </Border.Background>
                             <ListBox x:Name="FoundAccountsList" ItemsSource="{Binding Accounts}" HorizontalContentAlignment="Stretch"
-						          Padding="3" Margin="3" SelectionMode="Single" MinWidth="560"
+						          Padding="3" Margin="3" SelectionMode="Single" MinWidth="560" VerticalAlignment="Top"
 						          SelectedItem="{Binding SelectedAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"
 						          SelectedIndex="{Binding SelectedAccountIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Transparent">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <Border CornerRadius="3" Margin="1" BorderThickness="2" BorderBrush="Black" Background="#FFD2D800" Opacity="1">
+                                        <Border CornerRadius="3" Margin="1" BorderThickness="2" BorderBrush="Black" Background="#FFD2D800" Opacity="1"
+                                                Width="{Binding ActualWidth, ElementName=FoundAccountsList, Converter={StaticResource WidthConverter}}">
                                             <Grid Margin="3">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition/>

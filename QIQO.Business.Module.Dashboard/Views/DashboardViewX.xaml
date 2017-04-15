@@ -12,10 +12,15 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Label Content="Home" FontSize="300" Foreground="White" Opacity="0.1" VerticalAlignment="Center" HorizontalAlignment="Left"
                Grid.ColumnSpan="2"></Label>
-        <StackPanel prism:RegionManager.RegionName="{x:Static inf:RegionNames.DashboardRegion}" Grid.Column="0" HorizontalAlignment="Stretch"></StackPanel>
-        <StackPanel Grid.Column="1">
+        <ContentControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.DashboardRegion1}" Grid.Column="0"></ContentControl>
+        <ContentControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.DashboardRegion2}" Grid.Column="0" Grid.Row="1"></ContentControl>
+        <StackPanel Grid.Column="1" Grid.RowSpan="2">
             <ContentControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.HomeCalendarRegion}" MinHeight="300"/>
             <ContentControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.HomeShortcutRegion}"/>
         </StackPanel>

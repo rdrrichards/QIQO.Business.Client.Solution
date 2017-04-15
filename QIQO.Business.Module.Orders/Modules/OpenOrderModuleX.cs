@@ -15,7 +15,7 @@ namespace QIQO.Business.Module.Orders.Modules
 
         public override void Initialize()
         {
-            RegionManager.RegisterViewWithRegion(RegionNames.DashboardRegion, typeof(OpenOrderViewX));
+            RegionManager.RegisterViewWithRegion(RegionNames.DashboardRegion1, typeof(OpenOrderViewX));
             //UnityContainer.RegisterTypeForNavigation<OpenOrderViewX>("OpenOrderViewX");
         }
     }

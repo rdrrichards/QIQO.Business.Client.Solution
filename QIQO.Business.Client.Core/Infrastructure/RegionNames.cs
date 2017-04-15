@@ -8,6 +8,8 @@
         //public static string QuickLinkRegion { get { return "QuickLinkRegion"; } }
         public static string ToolBarRegion { get { return "ToolBarRegion"; } }
         public static string DashboardRegion { get { return "DashboardRegion"; } }
+        public static string DashboardRegion1 { get { return "DashboardRegion1"; } }
+        public static string DashboardRegion2 { get { return "DashboardRegion2"; } }
         public static string HomeCalendarRegion { get { return "HomeCalendarRegion"; } }
         public static string HomeShortcutRegion { get { return "HomeShortcutRegion"; } }
         public static string ContentRegion { get { return "ContentRegion"; } }
