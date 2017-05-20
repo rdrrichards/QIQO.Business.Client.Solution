@@ -111,6 +111,10 @@
     <Compile Include="Controls\NavigationControl.xaml.cs">
       <DependentUpon>NavigationControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\OpenListControl.xaml.cs">
+      <DependentUpon>OpenListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BusinessItem.cs" />
     <Compile Include="Modules\CalendarBarModuleX.cs" />
     <Compile Include="Modules\CalendarBarModule.cs" />
     <Compile Include="Modules\InformationBarModule.cs" />
@@ -242,6 +246,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\NavigationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\OpenListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

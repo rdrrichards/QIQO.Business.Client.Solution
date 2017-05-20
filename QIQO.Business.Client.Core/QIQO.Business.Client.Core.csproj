@@ -97,6 +97,7 @@
     <Compile Include="Converters\MouseConverter.cs" />
     <Compile Include="Converters\SelectedItemToItemsSource.cs" />
     <Compile Include="Converters\UCWidthConverter.cs" />
+    <Compile Include="Converters\WidthConverter.cs" />
     <Compile Include="Converters\YesNoToBooleanConverter.cs" />
     <Compile Include="Events\Events.cs" />
     <Compile Include="Exceptions\AuthorizationValidationException.cs" />
