@@ -10,44 +10,40 @@ using QIQO.Business.Client.Entities;
 using QIQO.Business.Client.Wrappers;
 using QIQO.Business.Module.General.Models;
 using QIQO.Business.Module.Orders.Views;
-using System;
 using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
 
 namespace QIQO.Business.Module.Orders.ViewModels
 {
     public class OpenOrderViewModelX : ViewModelBase
     {
-        private readonly IEventAggregator event_aggregator;
-        private readonly IServiceFactory service_factory;
-        private ObservableCollection<OrderWrapper> _open_orders;
-        private ObservableCollection<BusinessItem> _open_orders_ = new ObservableCollection<BusinessItem>();
-        private object _selected_order;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IServiceFactory _serviceFactory;
         private readonly IRegionManager _regionManager;
-        private string _header_msg;
-        private bool _is_loading;
+        private ObservableCollection<BusinessItem> _openOrders = new ObservableCollection<BusinessItem>();
+        private object _selectedItem;
+        private string _headerMsg;
+        private bool _isLoading;
 
-        public OpenOrderViewModelX(IEventAggregator event_aggtr, IServiceFactory service_fctry, IRegionManager regionManager)
+        public OpenOrderViewModelX(IEventAggregator eventAggregator, IServiceFactory serviceFactory, IRegionManager regionManager)
         {
-            event_aggregator = event_aggtr;
-            service_factory = service_fctry;
+            _eventAggregator = eventAggregator;
+            _serviceFactory = serviceFactory;
             _regionManager = regionManager;
             
             GetCompanyOpenOrders();
             
             RefreshCommand = new DelegateCommand(GetCompanyOpenOrders);
-            //EditOrderCommand = new DelegateCommand(EditOrder, CanEditOrder);
             ChooseItemCommand = new DelegateCommand(EditOrder, CanEditOrder);
         }
 
         private bool CanEditOrder()
         {
-            return SelectedOrder != null;
+            return SelectedItem != null;
         }
 
         private void EditOrder()
         {
-            if (SelectedOrder is BusinessItem busItem)
+            if (SelectedItem is BusinessItem busItem)
             {
                 if (busItem.BusinessObject is Order ord_to_edit)
                 {
@@ -56,38 +52,31 @@ namespace QIQO.Business.Module.Orders.ViewModels
                 }
             }
         }
-
-        public DelegateCommand OpenOrderCommand { get; set; }
+        
         public DelegateCommand RefreshCommand { get; set; }
         public bool IsLoading
         {
-            get { return _is_loading; }
-            set { SetProperty(ref _is_loading, value); }
+            get { return _isLoading; }
+            set { SetProperty(ref _isLoading, value); }
         }
 
         public int SelectedItemIndex { get; set; }
-        public int SelectedOrderIndex { get; set; }
-        public object SelectedOrder
-        {
-            get { return _selected_order; }
-            set { SetProperty(ref _selected_order, value); }
-        }
         public object SelectedItem
         {
-            get { return _selected_order; }
-            set { SetProperty(ref _selected_order, value); }
+            get { return _selectedItem; }
+            set { SetProperty(ref _selectedItem, value); }
         }
 
         public ObservableCollection<BusinessItem> OpenOrders
         {
-            get { return _open_orders_; }
-            private set { SetProperty(ref _open_orders_, value); }
+            get { return _openOrders; }
+            private set { SetProperty(ref _openOrders, value); }
         }
 
         public string HeaderMessage
         {
-            get { return _header_msg; }
-            private set { SetProperty(ref _header_msg, value); }
+            get { return _headerMsg; }
+            private set { SetProperty(ref _headerMsg, value); }
         }
         public InteractionRequest<ItemEditNotification> EditOrderRequest { get; set; }
         public DelegateCommand EditOrderCommand { get; set; }
@@ -98,7 +87,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
             HeaderMessage = "Open Orders (Loading...)";
             IsLoading = true;
 
-            var proxy = service_factory.CreateClient<IOrderService>();
+            var proxy = _serviceFactory.CreateClient<IOrderService>();
             var company = new Company() { CompanyKey = CurrentCompanyKey };
             var open_order_col = new ObservableCollection<OrderWrapper>();
 
@@ -112,13 +101,12 @@ namespace QIQO.Business.Module.Orders.ViewModels
                     foreach (Order order in orders.Result)
                         OpenOrders.Add(Map(order));
 
-                    SelectedOrder = OpenOrders[0];
+                    SelectedItem = OpenOrders[0];
                     SelectedItemIndex = 0;
                     HeaderMessage = "Open Orders (" + OpenOrders.Count.ToString() + ") X";
                 }
                 else
                 {
-                    OpenOrders = null; // open_order_col_;
                     HeaderMessage = "Open Orders (0)";
                 }
 
