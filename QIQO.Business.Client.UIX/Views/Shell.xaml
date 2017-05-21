@@ -28,7 +28,8 @@
     <DockPanel Margin="20" LastChildFill="True">
         <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="{x:Static inf:RegionNames.TitleBarRegion}"/>
         <ListBox DockPanel.Dock="Bottom" prism:RegionManager.RegionName="{x:Static inf:RegionNames.ToolBarRegion}" 
-                  Background="Transparent" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                  Background="Transparent" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                         ItemContainerStyle="{StaticResource ListBoxtemStyleNoHighlighting}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal" />

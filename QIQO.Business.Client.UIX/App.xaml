@@ -22,6 +22,7 @@
                 <ResourceDictionary Source="Styles/ToolTip.xaml"/>
                 <!--<ResourceDictionary Source="Styles/Ribbon.xaml"/>-->
                 <ResourceDictionary Source="Styles/Scrollbar.xaml"/>
+                <ResourceDictionary Source="Styles/ListBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
