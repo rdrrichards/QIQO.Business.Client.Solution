@@ -8,7 +8,7 @@
     <Grid Background="#AAFFFFFF">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="Loading..." Margin="4" FontSize="18" Foreground="Brown"/>
-            <ProgressBar IsIndeterminate="{Binding IsVisible, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" 
+            <ProgressBar IsIndeterminate="{Binding DataContext.IsLoading, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" 
                          Height="12" Margin="4" Foreground="DarkRed" Background="Brown" BorderThickness="0" />
         </StackPanel>        
     </Grid>

@@ -64,7 +64,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
                 if (value is ItemSelectionNotification)
                 {
                     notification = value as ItemSelectionNotification;
-                    OnPropertyChanged(() => Notification);
+                    RaisePropertyChanged(nameof(Notification));
                 }
             }
         }
@@ -153,8 +153,8 @@ namespace QIQO.Business.Module.Invoices.ViewModels
                 MessageToDisplay = Invoices.Count.ToString() + " invoice(s) found";
                 ButtonEnabled = true;
                 GetInvoicesCommand.RaiseCanExecuteChanged();
-                OnPropertyChanged(nameof(FoundSome));
-                OnPropertyChanged(nameof(FoundSomeNo));
+                RaisePropertyChanged(nameof(FoundSome));
+                RaisePropertyChanged(nameof(FoundSomeNo));
             }
             else
             {
