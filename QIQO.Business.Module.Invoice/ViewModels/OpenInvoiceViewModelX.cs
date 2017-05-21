@@ -7,77 +7,75 @@ using QIQO.Business.Client.Core.Infrastructure;
 using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Entities;
 using QIQO.Business.Client.Wrappers;
+using QIQO.Business.Module.General.Models;
 using QIQO.Business.Module.Invoices.Views;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace QIQO.Business.Module.Invoices.ViewModels
 {
     public class OpenInvoiceViewModelX : ViewModelBase
     {
-        IEventAggregator event_aggregator;
-        IServiceFactory service_factory;
-        private ObservableCollection<InvoiceWrapper> _open_orders;
-        private object _selected_order;
-        private IRegionManager _regionManager;
-        private string _header_msg;
-        private bool _is_loading;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IServiceFactory _serviceFactory;
+        private readonly IRegionManager _regionManager;
 
-        public OpenInvoiceViewModelX(IEventAggregator event_aggtr, IServiceFactory service_fctry, IRegionManager regionManager)
+        private ObservableCollection<BusinessItem> _openInvoices = new ObservableCollection<BusinessItem>();
+        private object _selectedItem;
+        private string _headerMsg;
+        private bool _isLoading;
+
+        public OpenInvoiceViewModelX(IEventAggregator eventAggregator, IServiceFactory serviceFactory, IRegionManager regionManager)
         {
-            // add code to this contructor to bring in dependencies and assign them to local variable
-            event_aggregator = event_aggtr;
-            service_factory = service_fctry;
+            _eventAggregator = eventAggregator;
+            _serviceFactory = serviceFactory;
             _regionManager = regionManager;
-
-            //HeaderMessage = "Open Invoices (Loading...)";
+            
             GetCompanyOpenInvoices();
 
-            OpenInvoiceCommand = new DelegateCommand(OpenInvoice);
+            ChooseItemCommand = new DelegateCommand(OpenInvoice);
             RefreshCommand = new DelegateCommand(GetCompanyOpenInvoices);
-            //ApplicationCommands.DashboardRefreshCommand.RegisterCommand(RefreshCommand);
         }
 
         private void OpenInvoice()
         {
-            var selectedInvoice = SelectedInvoice  as InvoiceWrapper;
-            if (selectedInvoice != null)
+            if (SelectedItem is BusinessItem busItem)
             {
-                var parameters = new NavigationParameters();
-                parameters.Add("InvoiceKey", selectedInvoice.InvoiceKey);
-                _regionManager.RequestNavigate(RegionNames.ContentRegion, typeof(InvoiceViewX).FullName, parameters);
+                if (busItem.BusinessObject is Invoice invoice)
+                {
+                    var parameters = new NavigationParameters { { "InvoiceKey", invoice.InvoiceKey } };
+                    _regionManager.RequestNavigate(RegionNames.ContentRegion, typeof(InvoiceViewX).FullName, parameters);
+                }
             }
         }
 
-        public DelegateCommand OpenInvoiceCommand { get; set; }
+        public DelegateCommand ChooseItemCommand { get; set; }
         public DelegateCommand RefreshCommand { get; set; }
 
-        public int SelectedInvoiceIndex { get; set; }
-        public object SelectedInvoice
+        public int SelectedItemIndex { get; set; }
+        public object SelectedItem
         {
-            get { return _selected_order; }
-            set { SetProperty(ref _selected_order, value); }
+            get { return _selectedItem; }
+            set { SetProperty(ref _selectedItem, value); }
         }
 
-        public ObservableCollection<InvoiceWrapper> OpenInvoices
+        public ObservableCollection<BusinessItem> OpenInvoices
         {
-            get { return _open_orders; }
-            private set { SetProperty(ref _open_orders, value); }
+            get { return _openInvoices; }
+            private set { SetProperty(ref _openInvoices, value); }
         }
 
         public string HeaderMessage
         {
-            get { return _header_msg; }
-            private set { SetProperty(ref _header_msg, value); }
+            get { return _headerMsg; }
+            private set { SetProperty(ref _headerMsg, value); }
         }
 
         public bool IsLoading
         {
-            get { return _is_loading; }
-            set { SetProperty(ref _is_loading, value); }
+            get { return _isLoading; }
+            set { SetProperty(ref _isLoading, value); }
         }
 
         private async void GetCompanyOpenInvoices()
@@ -87,30 +85,26 @@ namespace QIQO.Business.Module.Invoices.ViewModels
             IsBusy = true;
             //ExecuteFaultHandledOperation(() =>
             //{
-            IInvoiceService proxy = service_factory.CreateClient<IInvoiceService>();
+            IInvoiceService proxy = _serviceFactory.CreateClient<IInvoiceService>();
             Company company = new Company() { CompanyKey = CurrentCompanyKey };
             ObservableCollection<InvoiceWrapper> open_order_col = new ObservableCollection<InvoiceWrapper>();
 
             using (proxy)
             {
-                Task<List<Invoice>> orders = proxy.GetInvoicesByCompanyAsync(company);
-                await orders;
+                Task<List<Invoice>> invoices = proxy.GetInvoicesByCompanyAsync(company);
+                await invoices;
 
-                if (orders.Result.Count > 0)
+                if (invoices.Result.Count > 0)
                 {
-                    foreach (Invoice order in orders.Result)
-                    {
-                        InvoiceWrapper order_wrapper = new InvoiceWrapper(order);
-                        open_order_col.Add(order_wrapper);
-                    }
-                    OpenInvoices = open_order_col;
-                    SelectedInvoice = OpenInvoices[0];
-                    SelectedInvoiceIndex = 0;
-                    HeaderMessage = "Open Invoices (" + OpenInvoices.Count.ToString() + ")";
+                    foreach (var invoice in invoices.Result)
+                        OpenInvoices.Add(Map(invoice));
+
+                    SelectedItem = OpenInvoices[0];
+                    SelectedItemIndex = 0;
+                    HeaderMessage = "Open Invoices (" + OpenInvoices.Count.ToString() + ") X";
                 }
                 else
                 {
-                    OpenInvoices = new ObservableCollection<InvoiceWrapper>();
                     HeaderMessage = "Open Invoices (0)";
                 }
             }
@@ -120,32 +114,21 @@ namespace QIQO.Business.Module.Invoices.ViewModels
             IsBusy = false;
         }
 
-        //private void SetEventDatesContext()
-        //{
-        //    ObservableCollection<QIQODate> eds = new ObservableCollection<QIQODate>();
-
-        //    foreach (InvoiceWrapper invoice in OpenInvoices)
-        //    {
-        //        QIQODate id = new QIQODate()
-        //        {
-        //            Date = invoice.InvoiceEntryDate.AddDays(15),
-        //            EntityType = "Account",
-        //            EntityName = invoice.Account.AccountName,
-        //            BackgroundBrush = Brushes.LightPink,
-        //            DateDescription = $"Due Date\nInvoice: {invoice.InvoiceNumber}",
-        //            DateType = QIQODateType.InvoiceDueDate,
-        //            FontWeight = FontWeights.Bold
-        //        };
-
-        //        eds.Add(id);
-        //    }
-
-        //    event_aggregator.GetEvent<CalendarContextChangedEvent>().Publish(eds);
-        //}
-
-        protected override void DisplayErrorMessage(Exception ex, [CallerMemberName] string methodName = "")
+        private BusinessItem Map(Invoice order)
         {
-            event_aggregator.GetEvent<GeneralErrorEvent>().Publish(methodName + " - " + ex.Message);
+            return new BusinessItem
+            {
+                ItemId = order.InvoiceNumber,
+                ItemCode = order.Account.AccountCode,
+                ItemName = order.Account.AccountName,
+                ItemEntryDate = order.OrderEntryDate,
+                ItemStatus = order.InvoiceStatus.ToString(),
+                ItemStatusDate = order.InvoiceStatusDate,
+                BusinessObject = order,
+                Total = (double)order.InvoiceValueSum,
+                Quantity = order.InvoiceItemCount
+            };
         }
+
     }
 }

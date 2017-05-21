@@ -9,7 +9,7 @@
     <Grid>
         <gcntrls:OpenListControl SelectedOpenItem="{Binding SelectedOrder, UpdateSourceTrigger=PropertyChanged}" 
                               SelectedOpenItemIndex="{Binding SelectedOrderIndex, UpdateSourceTrigger=PropertyChanged}"
-                          IsRefreshing="{Binding IsBusy, UpdateSourceTrigger=PropertyChanged}" OpenHeaderMessage="{Binding HeaderMessage}"
+                          IsRefreshing="{Binding IsLoading, UpdateSourceTrigger=PropertyChanged}" OpenHeaderMessage="{Binding HeaderMessage}"
                           OpenItems="{Binding OpenOrders, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></gcntrls:OpenListControl>
 
     </Grid>

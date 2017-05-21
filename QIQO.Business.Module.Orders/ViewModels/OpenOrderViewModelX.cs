@@ -78,8 +78,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
             get { return _headerMsg; }
             private set { SetProperty(ref _headerMsg, value); }
         }
-        public InteractionRequest<ItemEditNotification> EditOrderRequest { get; set; }
-        public DelegateCommand EditOrderCommand { get; set; }
+
         public DelegateCommand ChooseItemCommand { get; set; }
 
         private async void GetCompanyOpenOrders()
