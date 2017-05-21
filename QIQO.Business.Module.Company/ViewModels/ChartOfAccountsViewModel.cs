@@ -65,7 +65,7 @@ namespace QIQO.Business.Module.Company.ViewModels
                         ChartOfAccount.PropertyChanged += Context_PropertyChanged;
                         notification.Confirmed = false;
                     }
-                    OnPropertyChanged(() => Notification);
+                    RaisePropertyChanged(nameof(Notification));
                 }
             }
         }

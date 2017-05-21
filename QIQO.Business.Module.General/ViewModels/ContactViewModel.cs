@@ -65,7 +65,7 @@ namespace QIQO.Business.Module.General.ViewModels
                         CurrentContact = new ContactWrapper(contact); // need to confirm this is enough to isolate the passed in object 
                         CurrentContact.PropertyChanged += Context_PropertyChanged;
                     }
-                    OnPropertyChanged(() => Notification);
+                    RaisePropertyChanged(nameof(Notification));
                 }
             }
         }

@@ -83,15 +83,13 @@ namespace QIQO.Business.Module.Invoices.ViewModels
             HeaderMessage = "Open Invoices (Loading...)";
             IsLoading = true;
             IsBusy = true;
-            //ExecuteFaultHandledOperation(() =>
-            //{
-            IInvoiceService proxy = _serviceFactory.CreateClient<IInvoiceService>();
-            Company company = new Company() { CompanyKey = CurrentCompanyKey };
-            ObservableCollection<InvoiceWrapper> open_order_col = new ObservableCollection<InvoiceWrapper>();
+
+            var proxy = _serviceFactory.CreateClient<IInvoiceService>();
+            var company = new Company() { CompanyKey = CurrentCompanyKey };
 
             using (proxy)
             {
-                Task<List<Invoice>> invoices = proxy.GetInvoicesByCompanyAsync(company);
+                var invoices = proxy.GetInvoicesByCompanyAsync(company);
                 await invoices;
 
                 if (invoices.Result.Count > 0)
@@ -108,8 +106,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
                     HeaderMessage = "Open Invoices (0)";
                 }
             }
-            //});
-            //SetEventDatesContext();
+
             IsLoading = false;
             IsBusy = false;
         }

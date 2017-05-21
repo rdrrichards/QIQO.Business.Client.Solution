@@ -24,7 +24,7 @@ namespace QIQO.Business.Client.Core.UI
         protected void OnNavigationOccured(string module_name)
         {
             if (module_name != Module) IsNavButtonChecked = false;
-            OnPropertyChanged(nameof(DropShadowColor));
+            RaisePropertyChanged(nameof(DropShadowColor));
         }
 
         protected virtual void ShowModule()
@@ -51,7 +51,7 @@ namespace QIQO.Business.Client.Core.UI
         protected virtual void NavigationComplete(NavigationResult result)
         {
             IsNavButtonChecked = true;
-            OnPropertyChanged(nameof(DropShadowColor));
+            RaisePropertyChanged(nameof(DropShadowColor));
             Log.Debug($"Navigating to {result.Context.Uri.ToString()}");
             event_aggregator.GetEvent<NavigationEvent>().Publish(Module);
         }

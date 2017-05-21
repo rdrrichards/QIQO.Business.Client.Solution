@@ -289,7 +289,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
         //            {
         //                GetInvoice(passed_object.InvoiceKey);
         //            }
-        //            OnPropertyChanged(() => Notification);
+        //            RaisePropertyChanged(nameof(Notification));
         //        }
         //    }
         //}
@@ -949,7 +949,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
                         DefaultShippingAddress = new AddressWrapper(account.Addresses.Where(item => item.AddressType == QIQOAddressType.Shipping).FirstOrDefault());
                         FeeScheduleList = new ObservableCollection<FeeSchedule>(account.FeeSchedules);
                         _currentAccount = account;
-                        OnPropertyChanged(nameof(Invoice));
+                        RaisePropertyChanged(nameof(Invoice));
                         GridIsEnabled = true;
                     }
                     else

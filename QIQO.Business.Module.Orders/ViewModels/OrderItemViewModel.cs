@@ -118,7 +118,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
                             OrderItem.PropertyChanged += Context_PropertyChanged;
                         }
                     }
-                    OnPropertyChanged(() => Notification);
+                    RaisePropertyChanged(nameof(Notification));
                 }
             }
         }

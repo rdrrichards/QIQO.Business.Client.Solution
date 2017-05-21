@@ -100,7 +100,7 @@ namespace QIQO.Business.Module.Company.ViewModels
                 if (value != _company_addresses)
                 {
                     _company_addresses = value;
-                    OnPropertyChanged();
+                    RaisePropertyChanged();
                     InvalidateCommands();
                 }
             }
@@ -143,7 +143,7 @@ namespace QIQO.Business.Module.Company.ViewModels
                 if (value != _currentSelectedChartOfAccount)
                 {
                     _currentSelectedChartOfAccount = value;
-                    OnPropertyChanged();
+                    RaisePropertyChanged();
                     InvalidateCommands();
                 }
             }
@@ -157,7 +157,7 @@ namespace QIQO.Business.Module.Company.ViewModels
                 if (value != _currentSelectedAttribute)
                 {
                     _currentSelectedAttribute = value;
-                    OnPropertyChanged();
+                    RaisePropertyChanged();
                     InvalidateCommands();
                 }
             }
@@ -171,7 +171,7 @@ namespace QIQO.Business.Module.Company.ViewModels
                 if (value != _currentSelectedEmployee)
                 {
                     _currentSelectedEmployee = value;
-                    OnPropertyChanged();
+                    RaisePropertyChanged();
                     InvalidateCommands();
                 }
             }

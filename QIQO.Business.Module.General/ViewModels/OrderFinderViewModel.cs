@@ -57,7 +57,7 @@ namespace QIQO.Business.Module.General.ViewModels
                         if ((string)payload == ApplicationStrings.FindOrderForInvoicingPayload)
                             _filter_to_account = true;
                     }
-                    OnPropertyChanged(() => Notification);
+                    RaisePropertyChanged(nameof(Notification));
                     GetAccountList();
                 }
             }

@@ -52,7 +52,7 @@ namespace QIQO.Business.Module.General.ViewModels
                         EntityAttribute = new EntityAttributeWrapper(entity_attribute); // need to confirm this is enough to isolate the passed in object 
                         EntityAttribute.PropertyChanged += Context_PropertyChanged;
                     }
-                    OnPropertyChanged(() => Notification);
+                    RaisePropertyChanged(nameof(Notification));
                 }
             }
         }

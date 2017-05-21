@@ -49,7 +49,7 @@ namespace QIQO.Business.Client.Core.UI
             {
                 trackingObject.AcceptChanges();
             }
-            OnPropertyChanged("");
+            RaisePropertyChanged("");
         }
 
         public void RejectChanges()
@@ -64,7 +64,7 @@ namespace QIQO.Business.Client.Core.UI
                 trackingObject.RejectChanges();
             }
             Validate();
-            OnPropertyChanged("");
+            RaisePropertyChanged("");
         }
 
         protected TValue GetValue<TValue>([CallerMemberName] string propertyName = null)
@@ -95,8 +95,8 @@ namespace QIQO.Business.Client.Core.UI
                 UpdateOriginalValue(currentValue, newValue, propertyName);
                 propertyInfo.SetValue(Model, newValue);
                 Validate();
-                OnPropertyChanged(propertyName);
-                OnPropertyChanged(propertyName + "IsChanged");
+                RaisePropertyChanged(propertyName);
+                RaisePropertyChanged(propertyName + "IsChanged");
             }
         }
 
@@ -122,7 +122,7 @@ namespace QIQO.Business.Client.Core.UI
                     OnErrorsChanged(propertyName);
                 }
             }
-            OnPropertyChanged(nameof(IsValid));
+            RaisePropertyChanged(nameof(IsValid));
         }
 
         private void UpdateOriginalValue(object currentValue, object newValue, string propertyName)
@@ -130,14 +130,14 @@ namespace QIQO.Business.Client.Core.UI
             if (!_originalValues.ContainsKey(propertyName))
             {
                 _originalValues.Add(propertyName, currentValue);
-                OnPropertyChanged("IsChanged");
+                RaisePropertyChanged("IsChanged");
             }
             else
             {
                 if (Equals(_originalValues[propertyName], newValue))
                 {
                     _originalValues.Remove(propertyName);
-                    OnPropertyChanged("IsChanged");
+                    RaisePropertyChanged("IsChanged");
                 }
             }
         }
@@ -173,11 +173,11 @@ namespace QIQO.Business.Client.Core.UI
         {
             if (e.PropertyName == nameof(IsChanged))
             {
-                OnPropertyChanged(nameof(IsChanged));
+                RaisePropertyChanged(nameof(IsChanged));
             }
             else if (e.PropertyName == nameof(IsValid))
             {
-                OnPropertyChanged(nameof(IsValid));
+                RaisePropertyChanged(nameof(IsValid));
             }
         }
 

@@ -7,8 +7,8 @@
              xmlns:gcntrls="clr-namespace:QIQO.Business.Module.General.Controls;assembly=QIQO.Business.Module.General">
 
     <Grid>
-        <gcntrls:OpenListControl SelectedOpenItem="{Binding SelectedOrder, UpdateSourceTrigger=PropertyChanged}" 
-                              SelectedOpenItemIndex="{Binding SelectedOrderIndex, UpdateSourceTrigger=PropertyChanged}"
+        <gcntrls:OpenListControl SelectedOpenItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}" 
+                              SelectedOpenItemIndex="{Binding SelectedItemIndex, UpdateSourceTrigger=PropertyChanged}"
                           IsRefreshing="{Binding IsLoading, UpdateSourceTrigger=PropertyChanged}" OpenHeaderMessage="{Binding HeaderMessage}"
                           OpenItems="{Binding OpenOrders, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></gcntrls:OpenListControl>
 

@@ -186,7 +186,7 @@ namespace QIQO.Business.Module.Account.ViewModels
                 if (value != _currentSelectedEmployee)
                 {
                     _currentSelectedEmployee = value;
-                    OnPropertyChanged();
+                    RaisePropertyChanged();
                     InvalidateCommands();
                 }
             }
@@ -200,7 +200,7 @@ namespace QIQO.Business.Module.Account.ViewModels
                 if (value != _currentSelectedContact)
                 {
                     _currentSelectedContact = value;
-                    OnPropertyChanged();
+                    RaisePropertyChanged();
                     InvalidateCommands();
                 }
             }
@@ -214,7 +214,7 @@ namespace QIQO.Business.Module.Account.ViewModels
                 if (value != _currentSelectedComment)
                 {
                     _currentSelectedComment = value;
-                    OnPropertyChanged();
+                    RaisePropertyChanged();
                     InvalidateCommands();
                 }
             }

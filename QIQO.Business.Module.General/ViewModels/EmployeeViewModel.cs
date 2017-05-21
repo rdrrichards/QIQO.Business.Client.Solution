@@ -107,7 +107,7 @@ namespace QIQO.Business.Module.General.ViewModels
                             Supervisors = supers;
                         }
 
-                        OnPropertyChanged(() => Notification);
+                        RaisePropertyChanged(nameof(Notification));
                     }
                 }
             }
@@ -122,7 +122,7 @@ namespace QIQO.Business.Module.General.ViewModels
                 if (value != _currentSelectedAttribute)
                 {
                     _currentSelectedAttribute = value;
-                    OnPropertyChanged();
+                    RaisePropertyChanged();
                     InvalidateCommands();
                 }
             }

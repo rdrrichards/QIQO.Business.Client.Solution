@@ -56,7 +56,7 @@ namespace QIQO.Business.Module.General.ViewModels
                         CurrentComment = new CommentWrapper(contact); // need to confirm this is enough to isolate the passed in object 
                         CurrentComment.PropertyChanged += Context_PropertyChanged;
                     }
-                    OnPropertyChanged(() => Notification);
+                    RaisePropertyChanged(nameof(Notification));
                 }
             }
         }

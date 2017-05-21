@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="QIQO.Business.Module.General.Controls.RecentListControl"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:local="clr-namespace:QIQO.Business.Module.General.Controls"
+			 xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core"
+			 mc:Ignorable="d" Name="ctlRecentLst">
+	<UserControl.Resources>
+		<BooleanToVisibilityConverter x:Key="B2VConverter"/>
+		<core:MouseConverter x:Key="MouseConverter" />
+		<core:WidthConverter x:Key="WidthConverter"/>
+	</UserControl.Resources>
+	<UserControl.Cursor>
+		<Binding Path="IsBusy" Converter="{StaticResource MouseConverter}"/>
+	</UserControl.Cursor>
+	<StackPanel Width="{Binding ActualWidth, ElementName=ctlRecentLst, Converter={StaticResource WidthConverter}}"
+		   Height="{Binding ActualHeight, ElementName=ctlRecentLst, Converter={StaticResource WidthConverter}}">
+		<TextBlock Text="{Binding HeaderMessage}" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" 
+				   Width="{Binding ActualWidth, ElementName=RecentItemsList}" Foreground="AntiqueWhite"/>
+		<Grid>
+			<!--Content-->
+			<Grid HorizontalAlignment="Left">
+				<Border BorderThickness="0" Margin="5" CornerRadius="20" Width="{Binding ActualWidth, ElementName=ctlRecentLst, Converter={StaticResource WidthConverter}}"
+						Height="{Binding ActualHeight, ElementName=ctlRecentLst, Converter={StaticResource WidthConverter}}">
+					<Grid>
+						<Border x:Name="BDRounded" BorderThickness="0" Background="DarkKhaki" Opacity="0.7">
+							<ListBox x:Name="RecentItemsList" ItemsSource="{Binding RecentItems, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" HorizontalContentAlignment="Stretch"
+					  Padding="3" Margin="3" SelectionMode="Single" ScrollViewer.VerticalScrollBarVisibility="Visible" 
+					  SelectedItem="{Binding DataContext.SelectedItem, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"
+					  SelectedIndex="{Binding DataContext.SelectedItemIndex, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged}" Background="Transparent">
+								<ListBox.ItemTemplate>
+									<DataTemplate>
+										<Border CornerRadius="3" Margin="1" BorderThickness="1" BorderBrush="Black" Opacity="1"
+													Width="{Binding ActualWidth, ElementName=RecentItemsList, Converter={StaticResource WidthConverter}}">
+											<Grid Margin="3">
+												<Grid.RowDefinitions>
+													<RowDefinition/>
+												</Grid.RowDefinitions>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="100"/>
+													<ColumnDefinition Width="260"/>
+												</Grid.ColumnDefinitions>
+												<TextBlock Text="{Binding ItemCode}" FontWeight="DemiBold" FontSize="12" Foreground="White" Grid.Column="0"/>
+												<TextBlock Text="{Binding ItemName}" FontWeight="DemiBold" FontSize="12" Foreground="White" Grid.Column="1" Margin="10,0,0,0"/>
+											</Grid>
+											<Border.InputBindings>
+												<MouseBinding MouseAction="LeftDoubleClick" Command="{Binding DataContext.ChooseItemCommand, 
+															RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+											</Border.InputBindings>
+										</Border>
+									</DataTemplate>
+								</ListBox.ItemTemplate>
+
+								<ListBox.InputBindings>
+									<KeyBinding Key="Enter" Command="{Binding DataContext.ChooseItemCommand, 
+															RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+								</ListBox.InputBindings>
+							</ListBox>
+						</Border>
+
+					</Grid>
+
+				</Border>
+
+			</Grid>
+			<!--Overlay-->
+			<local:LoadingOverlay d:IsHidden="True" Visibility="{Binding DataContext.IsBusy, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,
+															RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, 
+															Converter={StaticResource B2VConverter}}"/>
+		</Grid>
+	</StackPanel>
+</UserControl>

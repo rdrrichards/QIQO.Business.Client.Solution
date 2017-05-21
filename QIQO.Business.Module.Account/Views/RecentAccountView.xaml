@@ -3,63 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:QIQO.Business.Module.Account.Views"
-             xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core"
+             xmlns:ui="clr-namespace:QIQO.Business.Module.General.Controls;assembly=QIQO.Business.Module.General"
              mc:Ignorable="d" Name="ctlRecentAccountView">
-    <UserControl.Resources>
-        <core:UCWidthConverter x:Key="WidthConverter"/>
-    </UserControl.Resources>
-    <StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="2">
-            <TextBlock Text="{Binding HeaderMessage}" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Foreground="AntiqueWhite"/>
-        </StackPanel>
-        <Grid HorizontalAlignment="Left">
-            <Border BorderThickness="0" Margin="5" CornerRadius="20"
-                                Width="{Binding ActualWidth, ElementName=ctlRecentAccountView, Converter={StaticResource WidthConverter}}">
-                <!--<Border.BitmapEffect>
-                    <DropShadowBitmapEffect />
-                </Border.BitmapEffect>-->
-
-                <Grid>
-                    <Border x:Name="BDRounded" BorderThickness="0" Background="DarkKhaki" Opacity="0.7"/>
-                    <ListBox x:Name="RecentAccountsList" ItemsSource="{Binding RecentAccountItems}" HorizontalContentAlignment="Stretch"
-                      Padding="3" Margin="3" SelectionMode="Single" MinHeight="200" Width="Auto" MinWidth="380"
-                      SelectedItem="{Binding SelectedAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"
-                      SelectedIndex="{Binding SelectedAccountIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Transparent">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Border CornerRadius="3" Margin="1" BorderThickness="2" BorderBrush="Black" Opacity="1">
-                                    <Grid Margin="3">
-                                        <Grid.RowDefinitions>
-                                                <RowDefinition/>
-                                            </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="260"/>
-                                            </Grid.ColumnDefinitions>
-                                        <TextBlock Text="{Binding AccountCode}" FontWeight="DemiBold" FontSize="12" Foreground="White" Grid.Column="0"/>
-                                        <TextBlock Text="{Binding AccountName}" FontWeight="DemiBold" FontSize="12" Foreground="White" Grid.Column="1" Margin="10,0,0,0"/>
-                                        <Grid.OpacityMask>
-                                            <VisualBrush Visual="{Binding ElementName=BDRounded}"/>
-                                        </Grid.OpacityMask>
-                                    </Grid>
-                                    <Border.InputBindings>
-                                        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding DataContext.GotoAccountCommand, 
-                                                            RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
-                                    </Border.InputBindings>
-                                </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-
-                        <ListBox.InputBindings>
-                            <KeyBinding Key="Enter" Command="{Binding DataContext.GotoAccountCommand, 
-                                                            RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
-                        </ListBox.InputBindings>
-                    </ListBox>
-                </Grid>
-
-            </Border>
-
-        </Grid>
-    </StackPanel>
+    <Grid>
+        <ui:RecentListControl SelectedRecentItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}" 
+                              SelectedRecentItemIndex="{Binding SelectedItemIndex, UpdateSourceTrigger=PropertyChanged}"
+                          IsLoading="{Binding IsLoading, UpdateSourceTrigger=PropertyChanged}" HeaderMessage="{Binding HeaderMessage}"
+                          RecentItems="{Binding RecentAccountItems, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></ui:RecentListControl>
+    </Grid>
+ 
 </UserControl>

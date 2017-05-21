@@ -86,7 +86,7 @@ namespace QIQO.Business.Module.General.ViewModels
                         FeeSchedule = new FeeScheduleWrapper(fee_schedule); // need to confirm this is enough to isolate the passed in object 
                         FeeSchedule.PropertyChanged += Context_PropertyChanged;
                     }
-                    OnPropertyChanged(() => Notification);
+                    RaisePropertyChanged(nameof(Notification));
                 }
             }
         }

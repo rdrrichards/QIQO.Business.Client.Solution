@@ -171,7 +171,7 @@ namespace QIQO.Business.Module.Account.ViewModels
                 if (value != _currentSelectedEmployee)
                 {
                     _currentSelectedEmployee = value;
-                    OnPropertyChanged();
+                    RaisePropertyChanged();
                     InvalidateCommands();
                 }
             }
@@ -185,7 +185,7 @@ namespace QIQO.Business.Module.Account.ViewModels
                 if (value != _currentSelectedContact)
                 {
                     _currentSelectedContact = value;
-                    OnPropertyChanged();
+                    RaisePropertyChanged();
                     InvalidateCommands();
                 }
             }
@@ -925,7 +925,7 @@ namespace QIQO.Business.Module.Account.ViewModels
                         var.FeeScheduleEndDate = DateTime.Today.AddYears(2);
                         var.ProductCode = sp.ProductCode;
                         var.ProductDesc = sp.ProductDesc;
-                        OnPropertyChanged("FeeSchedules");
+                        RaisePropertyChanged("FeeSchedules");
                     }
                 }
             }

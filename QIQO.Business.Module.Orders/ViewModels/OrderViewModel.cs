@@ -268,7 +268,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
                     {
                         GetOrder(passed_object.OrderKey);
                     }
-                    OnPropertyChanged(() => Notification);
+                    RaisePropertyChanged(nameof(Notification));
                 }
             }
         }
@@ -823,7 +823,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
                         DefaultShippingAddress = new AddressWrapper(account.Addresses.Where(item => item.AddressType == QIQOAddressType.Shipping).FirstOrDefault());
                         FeeScheduleList = new ObservableCollection<FeeSchedule>(account.FeeSchedules);
                         _currentAccount = account;
-                        OnPropertyChanged(nameof(Order));
+                        RaisePropertyChanged(nameof(Order));
                         GridIsEnabled = true;
                     }
                     else

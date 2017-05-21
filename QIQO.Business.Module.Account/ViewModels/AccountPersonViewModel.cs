@@ -58,7 +58,7 @@ namespace QIQO.Business.Module.Account.ViewModels
                         CurrentPerson.PropertyChanged += Context_PropertyChanged;
                         InvalidateCommands();
                     }
-                    OnPropertyChanged(() => Notification);
+                    RaisePropertyChanged(nameof(Notification));
                 }
             }
         }

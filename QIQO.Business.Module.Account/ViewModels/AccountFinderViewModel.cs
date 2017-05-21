@@ -54,7 +54,7 @@ namespace QIQO.Business.Module.Account.ViewModels
                 if (value is ItemSelectionNotification)
                 {
                     notification = value as ItemSelectionNotification;
-                    OnPropertyChanged(() => Notification);
+                    RaisePropertyChanged(nameof(Notification));
                 }
             }
         }

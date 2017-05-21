@@ -114,6 +114,9 @@
     <Compile Include="Controls\OpenListControl.xaml.cs">
       <DependentUpon>OpenListControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\RecentListControl.xaml.cs">
+      <DependentUpon>RecentListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\BusinessItem.cs" />
     <Compile Include="Modules\CalendarBarModuleX.cs" />
     <Compile Include="Modules\CalendarBarModule.cs" />
@@ -250,6 +253,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\OpenListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RecentListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

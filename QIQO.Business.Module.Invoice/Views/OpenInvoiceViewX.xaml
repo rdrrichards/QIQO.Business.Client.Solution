@@ -6,8 +6,8 @@
              mc:Ignorable="d" Name="ctlOpenInvoiceView"
              xmlns:gcntrls="clr-namespace:QIQO.Business.Module.General.Controls;assembly=QIQO.Business.Module.General">
     <Grid>
-        <gcntrls:OpenListControl SelectedOpenItem="{Binding SelectedInvoice, UpdateSourceTrigger=PropertyChanged}" 
-                              SelectedOpenItemIndex="{Binding SelectedInvoiceIndex, UpdateSourceTrigger=PropertyChanged}"
+        <gcntrls:OpenListControl SelectedOpenItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}" 
+                              SelectedOpenItemIndex="{Binding SelectedItemIndex, UpdateSourceTrigger=PropertyChanged}"
                           IsRefreshing="{Binding IsLoading, UpdateSourceTrigger=PropertyChanged}" OpenHeaderMessage="{Binding HeaderMessage}"
                           OpenItems="{Binding OpenInvoices, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></gcntrls:OpenListControl>
 

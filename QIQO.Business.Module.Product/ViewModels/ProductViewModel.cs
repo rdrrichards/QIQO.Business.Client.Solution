@@ -325,7 +325,7 @@ namespace QIQO.Business.Module.Product.ViewModels
                         //Products.Add(product);
                         AddNewProductToCache(product);
                         SelectedProduct = null;
-                        OnPropertyChanged("Products");
+                        RaisePropertyChanged("Products");
                     }
                     scope.Complete();
                 }

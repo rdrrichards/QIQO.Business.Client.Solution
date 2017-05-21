@@ -118,7 +118,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
                             InvoiceItem.PropertyChanged += Context_PropertyChanged;
                         }
                     }
-                    OnPropertyChanged(() => Notification);
+                    RaisePropertyChanged(nameof(Notification));
                 }
             }
         }

@@ -44,7 +44,7 @@ namespace QIQO.Business.Client.Core.UI
             set
             {
                 _messageToDisplay = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
         public bool IsMessageVisible
@@ -53,7 +53,7 @@ namespace QIQO.Business.Client.Core.UI
             set
             {
                 _isMessageVisible = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
         public bool IsBusy
@@ -62,7 +62,7 @@ namespace QIQO.Business.Client.Core.UI
             set
             {
                 _isbusy = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
