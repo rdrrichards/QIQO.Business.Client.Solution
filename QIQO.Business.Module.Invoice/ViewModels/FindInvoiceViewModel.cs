@@ -99,8 +99,8 @@ namespace QIQO.Business.Module.Invoices.ViewModels
             private set { SetProperty(ref _buttonEnabled, value); }
         }
 
-        public bool FoundSome => FoundItems.Count > 0;
-        public bool FoundSomeNo => FoundItems.Count == 0;
+        //public bool FoundSome => FoundItems.Count > 0;
+        //public bool FoundSomeNo => FoundItems.Count == 0;
 
         public DelegateCommand GetInvoicesCommand { get; set; }
         public DelegateCommand SearchCommand { get; set; }
@@ -155,8 +155,8 @@ namespace QIQO.Business.Module.Invoices.ViewModels
                 MessageToDisplay = FoundItems.Count.ToString() + " invoice(s) found";
                 ButtonEnabled = true;
                 GetInvoicesCommand.RaiseCanExecuteChanged();
-                RaisePropertyChanged(nameof(FoundSome));
-                RaisePropertyChanged(nameof(FoundSomeNo));
+                //RaisePropertyChanged(nameof(FoundSome));
+                //RaisePropertyChanged(nameof(FoundSomeNo));
             }
             else
             {
