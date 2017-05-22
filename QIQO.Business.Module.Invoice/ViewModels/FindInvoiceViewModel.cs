@@ -8,48 +8,48 @@ using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.Infrastructure;
 using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Entities;
+using QIQO.Business.Module.General.Models;
 using QIQO.Business.Module.Invoices.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 
 namespace QIQO.Business.Module.Invoices.ViewModels
 {
     public class FindInvoiceViewModel : ViewModelBase
     {
-        IEventAggregator event_aggregator;
-        IServiceFactory service_factory;
-        private ObservableCollection<Invoice> _invoices = new ObservableCollection<Invoice>();
-        private string _viewTitle = "Invoice Find";
-        private string _search_term = "";
-        private ItemSelectionNotification notification;
-        private IRegionManager _regionManager;
-        private string _button_text = "Find";
-        private bool _button_enabled = true;
-        private object _selected_order;
-        private bool _is_searching;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IServiceFactory _serviceFactory;
+        private readonly IRegionManager _regionManager;
 
-        public object SelectedInvoice
+        private ObservableCollection<BusinessItem> _invoices = new ObservableCollection<BusinessItem>();
+        private string _viewTitle = "Invoice Find";
+        private string _searchTerm = "";
+        private ItemSelectionNotification notification;
+        private string _buttonText = "Find";
+        private bool _buttonEnabled = true;
+        private object _selectedItem;
+        private bool _isSearching;
+
+        public object SelectedItem
         {
-            get { return _selected_order; }
+            get { return _selectedItem; }
             set
             {
-                SetProperty(ref _selected_order, value);
-                ChooseInvoiceCommand.RaiseCanExecuteChanged();
-                ChooseInvoiceCommandX.RaiseCanExecuteChanged();
+                SetProperty(ref _selectedItem, value);
+                ChooseItemCommand.RaiseCanExecuteChanged();
+                ChooseItemCommandX.RaiseCanExecuteChanged();
             }
         }
-        public int SelectedIndex { get; set; }
+        public int SelectedItemIndex { get; set; }
 
         public FindInvoiceViewModel()
         {
-            event_aggregator = Unity.Container.Resolve<IEventAggregator>();
-            service_factory = Unity.Container.Resolve<IServiceFactory>();
+            _eventAggregator = Unity.Container.Resolve<IEventAggregator>();
+            _serviceFactory = Unity.Container.Resolve<IServiceFactory>();
             _regionManager = Unity.Container.Resolve<IRegionManager>();
 
             BindCommands();
-            event_aggregator.GetEvent<InvoiceLoadedEvent>().Publish(string.Empty);
+            _eventAggregator.GetEvent<InvoiceLoadedEvent>().Publish(string.Empty);
         }
         public override string ViewTitle { get { return _viewTitle; } }
         public Action FinishInteraction { get; set; }
@@ -69,7 +69,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
             }
         }
 
-        public ObservableCollection<Invoice> Invoices
+        public ObservableCollection<BusinessItem> FoundItems
         {
             get { return _invoices; }
             private set { SetProperty(ref _invoices, value); }
@@ -77,41 +77,42 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         public string SearchTerm
         {
-            get { return _search_term; }
-            set { SetProperty(ref _search_term, value); GetInvoicesCommand.RaiseCanExecuteChanged(); }
+            get { return _searchTerm; }
+            set { SetProperty(ref _searchTerm, value); GetInvoicesCommand.RaiseCanExecuteChanged(); }
         }
 
         public string ButtonContent
         {
-            get { return _button_text; }
-            private set { SetProperty(ref _button_text, value); }
+            get { return _buttonText; }
+            private set { SetProperty(ref _buttonText, value); }
         }
 
         public bool IsLoading
         {
-            get { return _is_searching; }
-            private set { SetProperty(ref _is_searching, value); }
+            get { return _isSearching; }
+            private set { SetProperty(ref _isSearching, value); }
         }
 
         public bool ButtonEnabled
         {
-            get { return _button_enabled; }
-            private set { SetProperty(ref _button_enabled, value); }
+            get { return _buttonEnabled; }
+            private set { SetProperty(ref _buttonEnabled, value); }
         }
 
-        public bool FoundSome => Invoices.Count > 0;
-        public bool FoundSomeNo => Invoices.Count == 0;
+        public bool FoundSome => FoundItems.Count > 0;
+        public bool FoundSomeNo => FoundItems.Count == 0;
 
         public DelegateCommand GetInvoicesCommand { get; set; }
-        public DelegateCommand ChooseInvoiceCommand { get; set; }
-        public DelegateCommand ChooseInvoiceCommandX { get; set; }
+        public DelegateCommand SearchCommand { get; set; }
+        public DelegateCommand ChooseItemCommand { get; set; }
+        public DelegateCommand ChooseItemCommandX { get; set; }
 
         private void BindCommands()
         {
-            //CloseWindowCommand = new DelegateCommand(DoCancel);
+            SearchCommand = new DelegateCommand(GetInvoices, CanGetInvoices);
             GetInvoicesCommand = new DelegateCommand(GetInvoices, CanGetInvoices);
-            ChooseInvoiceCommand = new DelegateCommand(ChooseInvoice, CanChooseInvoice);
-            ChooseInvoiceCommandX = new DelegateCommand(ChooseInvoiceX, CanChooseInvoice);
+            ChooseItemCommand = new DelegateCommand(ChooseInvoiceX, CanChooseInvoice);
+            ChooseItemCommandX = new DelegateCommand(ChooseInvoiceX, CanChooseInvoice);
         }
 
         private bool CanGetInvoices()
@@ -121,7 +122,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         private bool CanChooseInvoice()
         {
-            return SelectedInvoice != null;
+            return SelectedItem != null;
         }
 
         private async void GetInvoices()
@@ -133,24 +134,25 @@ namespace QIQO.Business.Module.Invoices.ViewModels
                 ButtonEnabled = false;
                 IsLoading = true;
                 GetInvoicesCommand.RaiseCanExecuteChanged();
-                IInvoiceService order_service = service_factory.CreateClient<IInvoiceService>();
+                var proxy = _serviceFactory.CreateClient<IInvoiceService>();
 
-                using (order_service)
+                using (proxy)
                 {
-                    try
+                    var invoices = proxy.FindInvoicesByCompanyAsync((Company)CurrentCompany, SearchTerm);
+                    await invoices;
+                    // FoundItems = new ObservableCollection<Invoice>(orders.Result);
+
+                    if (invoices.Result.Count > 0)
                     {
-                        Task<List<Invoice>> orders = order_service.FindInvoicesByCompanyAsync((Company)CurrentCompany, SearchTerm);
-                        await orders;
-                        Invoices = new ObservableCollection<Invoice>(orders.Result);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageToDisplay = ex.Message;
-                        return;
+                        foreach (var invoice in invoices.Result)
+                            FoundItems.Add(Map(invoice));
+
+                        SelectedItem = FoundItems[0];
+                        SelectedItemIndex = 0;
                     }
                 }
 
-                MessageToDisplay = Invoices.Count.ToString() + " invoice(s) found";
+                MessageToDisplay = FoundItems.Count.ToString() + " invoice(s) found";
                 ButtonEnabled = true;
                 GetInvoicesCommand.RaiseCanExecuteChanged();
                 RaisePropertyChanged(nameof(FoundSome));
@@ -166,16 +168,8 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         private void ChooseInvoice()
         {
-            Invoice sel_acct = SelectedInvoice as Invoice;
-            if (sel_acct != null)
+            if (SelectedItem is Invoice sel_acct)
             {
-                //if (notification != null)
-                //{
-                //    notification.SelectedItem = sel_acct;
-                //    notification.Confirmed = true;
-                //}
-
-                //FinishInteraction();
                 var parameters = new NavigationParameters();
                 parameters.Add("InvoiceKey", sel_acct.InvoiceKey);
                 _regionManager.RequestNavigate(RegionNames.ContentRegion, typeof(InvoiceShellView).FullName);
@@ -186,13 +180,30 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         private void ChooseInvoiceX()
         {
-            Invoice sel_acct = SelectedInvoice as Invoice;
-            if (sel_acct != null)
+            if (SelectedItem is BusinessItem busItem)
             {
-                var parameters = new NavigationParameters();
-                parameters.Add("InvoiceKey", sel_acct.InvoiceKey);
-                _regionManager.RequestNavigate(RegionNames.ContentRegion, typeof(InvoiceViewX).FullName, parameters);
+                if (busItem.BusinessObject is Invoice invoice)
+                {
+                    var parameters = new NavigationParameters { { "InvoiceKey", invoice.InvoiceKey } };
+                    _regionManager.RequestNavigate(RegionNames.ContentRegion, typeof(InvoiceViewX).FullName, parameters);
+                }
             }
+        }
+
+        private BusinessItem Map(Invoice order)
+        {
+            return new BusinessItem
+            {
+                ItemId = order.InvoiceNumber,
+                ItemCode = order.Account.AccountCode,
+                ItemName = order.Account.AccountName,
+                ItemEntryDate = order.OrderEntryDate,
+                ItemStatus = order.InvoiceStatus.ToString(),
+                ItemStatusDate = order.InvoiceStatusDate,
+                BusinessObject = order,
+                Total = (double)order.InvoiceValueSum,
+                Quantity = order.InvoiceItemCount
+            };
         }
     }
 }

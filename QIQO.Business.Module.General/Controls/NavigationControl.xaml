@@ -33,13 +33,6 @@
             <StackPanel>
                 <Image MaxHeight="55" Source="{Binding ButtonImage, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, 
                     Mode=OneWay}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseLeftButtonDown">
-                            <i:InvokeCommandAction 
-        					Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, 
-                                                                        Path=DataContext.ShowModuleCommand}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
                 </Image>
                 <TextBlock Text="{Binding ButtonLabel, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, 
                     Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
@@ -68,4 +61,11 @@
             </Grid>
         </Grid>
     </Border>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction 
+        					Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, 
+                                                                        Path=DataContext.ShowModuleCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 </UserControl>

@@ -1,0 +1,168 @@
+﻿<UserControl x:Class="QIQO.Business.Module.General.Controls.SearchControl"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core"
+			 xmlns:local="clr-namespace:QIQO.Business.Module.General.Controls"
+			 mc:Ignorable="d"  Name="ctlSeachList">
+	<UserControl.Resources>
+		<BooleanToVisibilityConverter x:Key="B2VConverter"/>
+		<core:MouseConverter x:Key="MouseConverter" />
+		<core:WidthConverter x:Key="WidthConverter"/>
+	</UserControl.Resources>
+	<UserControl.Cursor>
+		<Binding Path="IsBusy" Converter="{StaticResource MouseConverter}"/>
+	</UserControl.Cursor>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Grid Name="spSearch" Width="{Binding ActualWidth, ElementName=FoundItemsList}" HorizontalAlignment="Left">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="100*"/>
+				<ColumnDefinition Width="20"/>
+			</Grid.ColumnDefinitions>
+			<TextBox x:Name="txtSearchTerm" HorizontalAlignment="Stretch"
+				 Text="{Binding SearchTerm, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center">
+				<TextBox.Resources>
+					<Style TargetType="{x:Type Border}">
+						<Setter Property="CornerRadius" Value="3"/>
+					</Style>
+				</TextBox.Resources>
+				<TextBox.InputBindings>
+					<KeyBinding Key="Enter" Command="{Binding DataContext.SearchCommand, 
+															RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+				</TextBox.InputBindings>
+			</TextBox>
+			<Button Content="X" Command="{Binding DataContext.ClearCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+					Grid.Column="1" Margin="4"></Button>
+		</Grid>
+		<Grid HorizontalAlignment="Left" Grid.Row="1">
+			<Border BorderThickness="0" Margin="5" Width="{Binding ActualWidth, ElementName=ctlSeachList, Converter={StaticResource WidthConverter}}">
+				<Border.BitmapEffect>
+					<DropShadowBitmapEffect />
+				</Border.BitmapEffect>
+				<Grid>
+					<!--Content-->
+					<Grid MinWidth="500">
+						<Label Content="Search" FontSize="100" Opacity=".4" HorizontalAlignment="Center" VerticalAlignment="Center">
+							<!--<Label.BitmapEffect>
+								<DropShadowBitmapEffect Color="Black" Direction="320" ShadowDepth="10" Opacity=".9" Softness="100" />
+							</Label.BitmapEffect>-->
+						</Label>
+						<Border x:Name="BDRounded" BorderThickness="0">
+							<Border.Background>
+								<LinearGradientBrush Opacity="0.6" StartPoint="0,0" EndPoint="0,1">
+									<GradientBrush.GradientStops>
+										<GradientStopCollection>
+											<GradientStop Color="#FF086D9C" Offset="0.0"/>
+											<GradientStop Color="#FF072057" Offset="0.33"/>
+											<GradientStop Color="#FF141738" Offset="0.66"/>
+											<GradientStop Color="#FF13122C" Offset="1"/>
+
+										</GradientStopCollection>
+									</GradientBrush.GradientStops>
+								</LinearGradientBrush>
+							</Border.Background>
+							<ListBox x:Name="FoundItemsList" ItemsSource="{Binding FoundItems, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+						  Padding="3" Margin="3" SelectionMode="Single" BorderThickness="0" Background="Transparent" Opacity="1" HorizontalContentAlignment="Stretch"
+						  SelectedItem="{Binding DataContext.SelectedItem, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged}" 
+						  SelectedIndex="{Binding DataContext.SelectedItemIndex, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged}" >
+								<ListBox.ItemTemplate>
+									<DataTemplate>
+										<Border CornerRadius="3" Margin="1" BorderThickness="2" BorderBrush="Black"
+													Width="{Binding ActualWidth, ElementName=FoundItemsList, Converter={StaticResource WidthConverter}}">
+                                            <Grid Margin="3">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="210"/>
+                                                    <ColumnDefinition Width="120"/>
+                                                    <ColumnDefinition Width="250"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding ItemId}" FontWeight="Bold" FontSize="16" Foreground="AntiqueWhite"/>
+                                                <TextBlock Text="{Binding ItemCode}" Grid.Column="1" FontWeight="Bold" Foreground="AntiqueWhite"/>
+                                                <TextBlock Text="{Binding ItemName}" Grid.Column="2" FontWeight="Bold" Foreground="AntiqueWhite"/>
+                                                <TextBlock Text="{Binding ItemStatus, StringFormat='Status: {0}'}"  Grid.Column="3" FontWeight="Bold" Foreground="AntiqueWhite"/>
+                                                <TextBlock Text="{Binding ItemEntryDate, StringFormat='Item Date: {0:MM/dd/yyyy HH:mm}'}" Grid.Row="1" Foreground="AntiqueWhite"/>
+                                                <TextBlock Text="{Binding Total, StringFormat='Total: {0:C}'}" Grid.Row="1" Grid.Column="1" Foreground="AntiqueWhite"/>
+                                                <TextBlock Text="{Binding Quantity, StringFormat='Item Count: {0}'}" Grid.Row="1" Grid.Column="2" Foreground="AntiqueWhite"/>
+                                                <TextBlock Text="{Binding ItemStatusDate, StringFormat='Status Date: {0:MM/dd/yyyy}'}" 
+												   Grid.Row="1" Grid.Column="3">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ItemStatus}" Value="InProcess">
+                                                                    <Setter Property="Foreground" Value="LightGreen"></Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ItemStatus}" Value="Fulfilled">
+                                                                    <Setter Property="Foreground" Value="LightBlue"></Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ItemStatus}" Value="Open">
+                                                                    <Setter Property="Foreground" Value="LightPink"></Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ItemStatus}" Value="Scheduled">
+                                                                    <Setter Property="Foreground" Value="AntiqueWhite"></Setter>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </Grid>
+                                            <!--<i:Interaction.Triggers>
+											<i:EventTrigger EventName="MouseLeftButtonDown">
+												<prism:InvokeCommandAction Command="{Binding DataContext.ChooseItemCommand, 
+															RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+											</i:EventTrigger>
+										</i:Interaction.Triggers>-->
+											<Border.InputBindings>
+												<MouseBinding MouseAction="LeftDoubleClick" Command="{Binding DataContext.ChooseItemCommand, 
+															RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+											</Border.InputBindings>
+											<!--<Border.Style>
+												<Style TargetType="Border">
+													<Style.Triggers>
+														<DataTrigger Binding="{Binding ItemStatusOpenList}" Value="{x:Static ui:ItemStatus.PENDING_CURR_USER}">
+															<Setter Property="Background" Value="DarkBlue"></Setter>
+														</DataTrigger>
+														<DataTrigger Binding="{Binding ItemStatusOpenList}" Value="{x:Static ui:ItemStatus.PENDING_OTHER_USER}">
+															<Setter Property="Background" Value="DarkRed"></Setter>
+														</DataTrigger>
+														<DataTrigger Binding="{Binding ItemStatusOpenList}" Value="{x:Static ui:ItemStatus.COMPLETE}">
+															<Setter Property="Background" Value="#FF2A82AC"></Setter>
+														</DataTrigger>
+														<DataTrigger Binding="{Binding ItemStatusOpenList}" Value="{x:Static ui:ItemStatus.OPEN}">
+															<Setter Property="Background" Value="#FF41545D"></Setter>
+														</DataTrigger>
+													</Style.Triggers>
+												</Style>
+											</Border.Style>-->
+										</Border>
+									</DataTemplate>
+								</ListBox.ItemTemplate>
+
+								<ListBox.InputBindings>
+									<KeyBinding Key="Enter" Command="{Binding DataContext.ChooseItemCommand, 
+															RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+								</ListBox.InputBindings>
+							</ListBox>
+						</Border>
+					</Grid>
+					<!--Overlay-->
+					<local:LoadingOverlay d:IsHidden="True" Visibility="{Binding DataContext.IsBusy, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,
+															RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, 
+															Converter={StaticResource B2VConverter}}"/>
+				</Grid>
+			</Border>
+
+		</Grid>
+	</Grid>
+</UserControl>

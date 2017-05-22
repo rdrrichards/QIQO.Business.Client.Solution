@@ -117,6 +117,9 @@
     <Compile Include="Controls\RecentListControl.xaml.cs">
       <DependentUpon>RecentListControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SearchControl.xaml.cs">
+      <DependentUpon>SearchControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\BusinessItem.cs" />
     <Compile Include="Modules\CalendarBarModuleX.cs" />
     <Compile Include="Modules\CalendarBarModule.cs" />
@@ -257,6 +260,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\RecentListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SearchControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
