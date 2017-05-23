@@ -11,7 +11,7 @@ namespace QIQO.Business.Module.Account.Views
         public AccountFinderViewX()
         {
             InitializeComponent();
-            DataContext = new AccountFinderViewModel();
+            DataContext = new AccountFinderViewModelX();
         }
     }
 }

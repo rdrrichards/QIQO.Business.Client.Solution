@@ -101,6 +101,7 @@
     <Compile Include="Services\RecentAccountsService.cs" />
     <Compile Include="Services\WorkingAccountService.cs" />
     <Compile Include="ViewModels\AccountFinderViewModel.cs" />
+    <Compile Include="ViewModels\AccountFinderViewModelX.cs" />
     <Compile Include="ViewModels\AccountHomeViewModel.cs" />
     <Compile Include="ViewModels\AccountNavigationViewModelX.cs" />
     <Compile Include="ViewModels\AccountNavigationViewModel.cs" />

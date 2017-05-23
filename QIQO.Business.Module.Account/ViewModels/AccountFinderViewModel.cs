@@ -8,38 +8,34 @@ using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Entities;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
-using QIQO.Business.Client.Core.Infrastructure;
 using Prism.Regions;
-using QIQO.Business.Module.Account.Views;
 
 namespace QIQO.Business.Module.Account.ViewModels
 {
     public class AccountFinderViewModel : ViewModelBase, IInteractionRequestAware
     {
-        private readonly IEventAggregator event_aggregator;
-        private readonly IServiceFactory service_factory;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IServiceFactory _serviceFactory;
         private readonly IRegionManager _regionManager;
-        private ObservableCollection<Client.Entities.Account> _accounts;
+        private ObservableCollection<Client.Entities.Account> _accounts = new ObservableCollection<Client.Entities.Account>();
         private string _viewTitle = "Account Find";
-        private string _search_term;
+        private string _searchTerm;
         private ItemSelectionNotification notification;
-        private bool _is_searching;
+        private bool _isSearching;
 
         public object SelectedAccount { get; set; }
         public int SelectedIndex { get; set; }
 
         public AccountFinderViewModel()
         {
-            event_aggregator = Unity.Container.Resolve<IEventAggregator>();
-            service_factory = Unity.Container.Resolve<IServiceFactory>();
+            _eventAggregator = Unity.Container.Resolve<IEventAggregator>();
+            _serviceFactory = Unity.Container.Resolve<IServiceFactory>();
             _regionManager = Unity.Container.Resolve<IRegionManager>();
             BindCommands();
         }
-        public ICommand GetAccountsCommand { get; set; }
-        public ICommand ChooseAccountCommand { get; set; }
-        public ICommand ChooseAccountCommandX { get; set; }
-        public ICommand CloseWindowCommand { get; set; }
+        public DelegateCommand GetAccountsCommand { get; set; }
+        public DelegateCommand ChooseAccountCommand { get; set; }
+        public DelegateCommand CloseWindowCommand { get; set; }
 
         public override string ViewTitle { get { return _viewTitle; } }
         public Action FinishInteraction { get; set; }
@@ -67,21 +63,20 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         public string SearchTerm
         {
-            get { return _search_term; }
-            set { SetProperty(ref _search_term, value); }
+            get { return _searchTerm; }
+            set { SetProperty(ref _searchTerm, value); }
         }
 
         public bool IsLoading
         {
-            get { return _is_searching; }
-            private set { SetProperty(ref _is_searching, value); }
+            get { return _isSearching; }
+            private set { SetProperty(ref _isSearching, value); }
         }
 
         private void BindCommands()
         {
             GetAccountsCommand = new DelegateCommand(GetAccounts);
             ChooseAccountCommand = new DelegateCommand(ChooseAccount);
-            ChooseAccountCommandX = new DelegateCommand(ChooseAccountX);
         }
 
         private void GetAccounts()
@@ -90,7 +85,7 @@ namespace QIQO.Business.Module.Account.ViewModels
             {
                 IsBusy = true;
                 IsLoading = true;
-                IAccountService account_service = service_factory.CreateClient<IAccountService>();
+                var account_service = _serviceFactory.CreateClient<IAccountService>();
 
                 using (account_service)
                 {
@@ -129,17 +124,5 @@ namespace QIQO.Business.Module.Account.ViewModels
                 FinishInteraction();
             }
         }
-
-        private void ChooseAccountX()
-        {
-            Client.Entities.Account sel_acct = SelectedAccount as Client.Entities.Account;
-            if (sel_acct != null)
-            {
-                var parameters = new NavigationParameters();
-                parameters.Add("AccountKey", sel_acct.AccountKey);
-                _regionManager.RequestNavigate(RegionNames.ContentRegion, typeof(AccountViewX).FullName, parameters);
-            }
-        }
-
     }
 }
