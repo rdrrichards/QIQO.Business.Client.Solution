@@ -8,10 +8,10 @@ namespace QIQO.Business.Module.Account.Views
     /// </summary>
     public partial class AccountFinderViewX : UserControl
     {
-        public AccountFinderViewX()
+        public AccountFinderViewX(AccountFinderViewModelX viewModel)
         {
             InitializeComponent();
-            DataContext = new AccountFinderViewModelX();
+            DataContext = viewModel;
         }
     }
 }

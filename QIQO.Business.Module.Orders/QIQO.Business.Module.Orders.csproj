@@ -101,6 +101,7 @@
     <Compile Include="Interfaces\IWorkingOrderService.cs" />
     <Compile Include="Services\WorkingOrderService.cs" />
     <Compile Include="ViewModels\FindOrderViewModel.cs" />
+    <Compile Include="ViewModels\FindOrderViewModelX.cs" />
     <Compile Include="ViewModels\OpenOrderViewModelX.cs" />
     <Compile Include="ViewModels\OpenOrderViewModel.cs" />
     <Compile Include="ViewModels\OrderHomeViewModel.cs" />

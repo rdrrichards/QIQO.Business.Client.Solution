@@ -8,10 +8,10 @@ namespace QIQO.Business.Module.Invoices.Views
     /// </summary>
     public partial class FindInvoiceViewX : UserControl
     {
-        public FindInvoiceViewX()
+        public FindInvoiceViewX(FindInvoiceViewModelX viewModel)
         {
             InitializeComponent();
-            DataContext = new FindInvoiceViewModel();
+            DataContext = viewModel;
         }
     }
 }

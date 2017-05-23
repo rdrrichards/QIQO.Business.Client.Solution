@@ -1,6 +1,5 @@
 ﻿using Prism.Commands;
 using Prism.Events;
-using Microsoft.Practices.Unity;
 using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.UI;
@@ -17,7 +16,7 @@ namespace QIQO.Business.Module.Account.ViewModels
     public class AccountFinderViewModelX : ViewModelBase
     {
         private readonly IEventAggregator _eventAggregator;
-        private readonly IServiceFactory serviceFactory;
+        private readonly IServiceFactory _serviceFactory;
         private readonly IRegionManager _regionManager;
         private ObservableCollection<BusinessItem> _accounts = new ObservableCollection<BusinessItem>();
         private string _viewTitle = "Account Find";
@@ -36,11 +35,11 @@ namespace QIQO.Business.Module.Account.ViewModels
         }
         public int SelectedItemIndex { get; set; }
 
-        public AccountFinderViewModelX()
+        public AccountFinderViewModelX(IEventAggregator eventAggregator, IServiceFactory serviceFactory, IRegionManager regionManager)
         {
-            _eventAggregator = Unity.Container.Resolve<IEventAggregator>();
-            serviceFactory = Unity.Container.Resolve<IServiceFactory>();
-            _regionManager = Unity.Container.Resolve<IRegionManager>();
+            _eventAggregator = eventAggregator;
+            _serviceFactory = serviceFactory;
+            _regionManager = regionManager;
             BindCommands();
         }
         public DelegateCommand SearchCommand { get; set; }
@@ -78,7 +77,7 @@ namespace QIQO.Business.Module.Account.ViewModels
             {
                 IsBusy = true;
                 IsLoading = true;
-                var account_service = serviceFactory.CreateClient<IAccountService>();
+                var account_service = _serviceFactory.CreateClient<IAccountService>();
 
                 using (account_service)
                 {
@@ -117,13 +116,6 @@ namespace QIQO.Business.Module.Account.ViewModels
                     _regionManager.RequestNavigate(RegionNames.ContentRegion, typeof(AccountViewX).FullName, parameters);
                 }
             }
-            //Client.Entities.Account sel_acct = SelectedAccount as Client.Entities.Account;
-            //if (sel_acct != null)
-            //{
-            //    var parameters = new NavigationParameters();
-            //    parameters.Add("AccountKey", sel_acct.AccountKey);
-            //    _regionManager.RequestNavigate(RegionNames.ContentRegion, typeof(AccountViewX).FullName, parameters);
-            //}
         }
 
         private BusinessItem Map(Client.Entities.Account account)

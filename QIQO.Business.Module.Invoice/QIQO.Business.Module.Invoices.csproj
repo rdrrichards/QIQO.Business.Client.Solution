@@ -99,6 +99,7 @@
     <Compile Include="Modules\OpenInvoiceModuleX.cs" />
     <Compile Include="Services\WorkingInvoiceService.cs" />
     <Compile Include="ViewModels\FindInvoiceViewModel.cs" />
+    <Compile Include="ViewModels\FindInvoiceViewModelX.cs" />
     <Compile Include="ViewModels\InvoiceHomeViewModel.cs" />
     <Compile Include="ViewModels\InvoiceItemViewModel.cs" />
     <Compile Include="ViewModels\InvoiceNavigationViewModelX.cs" />

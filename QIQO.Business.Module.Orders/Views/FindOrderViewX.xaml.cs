@@ -8,7 +8,7 @@ namespace QIQO.Business.Module.Orders.Views
     /// </summary>
     public partial class FindOrderViewX : UserControl
     {
-        public FindOrderViewX(FindOrderViewModel view_model)
+        public FindOrderViewX(FindOrderViewModelX view_model)
         {
             InitializeComponent();
             DataContext = view_model;
