@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="QIQO.Business.Module.General.Controls.OpenListControl"
+﻿<UserControl x:Class="QIQO.Business.Module.General.Controls.InProcessListControl"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:core="clr-namespace:QIQO.Business.Client.Core;assembly=QIQO.Business.Client.Core"
 			 xmlns:local="clr-namespace:QIQO.Business.Module.General.Controls"
-			 mc:Ignorable="d" Name="ctlOpenList">
+			 mc:Ignorable="d"  Name="ctlInProcessList">
 	<UserControl.Resources>
 		<BooleanToVisibilityConverter x:Key="B2VConverter"/>
 		<core:MouseConverter x:Key="MouseConverter" />
@@ -15,18 +15,18 @@
 		<Binding Path="IsBusy" Converter="{StaticResource MouseConverter}"/>
 	</UserControl.Cursor>
 
-    <Grid Width="{Binding ActualWidth, ElementName=ctlOpenList, Converter={StaticResource WidthConverter}}"
-						 Height="{Binding ActualHeight, ElementName=ctlOpenList, Converter={StaticResource WidthConverter}}" Name="grdContent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-		<TextBlock Text="{Binding HeaderMessage}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding ActualWidth, ElementName=OpenItemsList}" 
+	<Grid Width="{Binding ActualWidth, ElementName=ctlInProcessList, Converter={StaticResource WidthConverter}}"
+						 Height="{Binding ActualHeight, ElementName=ctlInProcessList, Converter={StaticResource WidthConverter}}" Name="grdContent">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<TextBlock Text="{Binding HeaderMessage}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding ActualWidth, ElementName=InProcessItemsList}" 
 				   Foreground="AntiqueWhite" Height="30"/>
 
 		<Grid Grid.Row="1">
 			<Grid HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Border BorderThickness="0" Margin="5" CornerRadius="20" Width="{Binding ActualWidth, ElementName=grdContent, Converter={StaticResource WidthConverter}}"
+				<Border BorderThickness="0" Margin="5" CornerRadius="20" Width="{Binding ActualWidth, ElementName=grdContent, Converter={StaticResource WidthConverter}}"
 						 Height="Auto">
 					<Border.BitmapEffect>
 						<DropShadowBitmapEffect />
@@ -49,14 +49,14 @@
 										</GradientBrush.GradientStops>
 									</LinearGradientBrush>
 								</Border.Background>
-								<ListBox x:Name="OpenItemsList" ItemsSource="{Binding OpenItems, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" HorizontalContentAlignment="Stretch"
+								<ListBox x:Name="InProcessItemsList" ItemsSource="{Binding InProcessItems, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" HorizontalContentAlignment="Stretch"
 						  Padding="3" Margin="3" SelectionMode="Single" ScrollViewer.VerticalScrollBarVisibility="Visible" MinHeight="600" 
 						  SelectedItem="{Binding DataContext.SelectedItem, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"
 						  SelectedIndex="{Binding DataContext.SelectedItemIndex, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" Opacity="1">
 									<ListBox.ItemTemplate>
 										<DataTemplate>
 											<Border Margin="1" BorderThickness="2" BorderBrush="Black"
-													Width="{Binding ActualWidth, ElementName=OpenItemsList, Converter={StaticResource WidthConverter}}">
+													Width="{Binding ActualWidth, ElementName=InProcessItemsList, Converter={StaticResource WidthConverter}}">
 												<Grid Margin="3">
 													<Grid.RowDefinitions>
 														<RowDefinition/>

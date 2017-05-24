@@ -8,7 +8,7 @@ namespace QIQO.Business.Client.Core
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (double)value * .94;
+            return (double)value * .95;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

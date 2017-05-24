@@ -105,6 +105,9 @@
     <Compile Include="Controls\FeeScheduleControl.xaml.cs">
       <DependentUpon>FeeScheduleControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\InProcessListControl.xaml.cs">
+      <DependentUpon>InProcessListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\LoadingOverlay.xaml.cs">
       <DependentUpon>LoadingOverlay.xaml</DependentUpon>
     </Compile>
@@ -244,6 +247,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\FeeScheduleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\InProcessListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1002,8 +1002,10 @@ namespace QIQO.Business.Module.Invoices.ViewModels
             });
             if (Invoice.InvoiceKey > 0)
             {
-                GetInvoice(Invoice.InvoiceKey);
+                // GetInvoice(Invoice.InvoiceKey);
                 event_aggregator.GetEvent<InvoiceUpdatedEvent>().Publish($"Invoice {Invoice.InvoiceNumber} updated successfully");
+                working_invoice_service.CloseInvoice(Invoice);
+                region_manager.RequestNavigate(RegionNames.ContentRegion, ViewNames.InvoiceHomeView);
             }
             InvalidateCommands();
         }

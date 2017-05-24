@@ -4,7 +4,8 @@ using Prism.Regions;
 using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.Infrastructure;
 using QIQO.Business.Client.Core.UI;
-using QIQO.Business.Client.Wrappers;
+using QIQO.Business.Client.Entities;
+using QIQO.Business.Module.General.Models;
 using QIQO.Business.Module.Invoices.Services;
 using QIQO.Business.Module.Invoices.Views;
 using System.Collections.ObjectModel;
@@ -13,22 +14,22 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 {
     public class WorkingInvoiceViewModel : ViewModelBase, IRegionMemberLifetime
     {
-        private readonly IWorkingInvoiceService working_orders_service;
-        private readonly IEventAggregator event_aggregator;
+        private readonly IWorkingInvoiceService _workingOrdersService;
+        private readonly IEventAggregator _eventAggregator;
         private readonly IRegionManager _regionManager;
-        private ObservableCollection<InvoiceWrapper> _working_orders;
+        private ObservableCollection<BusinessItem> _workingInvoices = new ObservableCollection<BusinessItem>();
         private object _selected_order;
         private string _header_msg = "Working Invoices";
 
-        public WorkingInvoiceViewModel(IWorkingInvoiceService working_orders_svc, IEventAggregator event_aggtr, IRegionManager regionManager)
+        public WorkingInvoiceViewModel(IWorkingInvoiceService workingOrdersService, IEventAggregator eventAggregator, IRegionManager regionManager)
         {
-            working_orders_service = working_orders_svc;
-            event_aggregator = event_aggtr;
+            _workingOrdersService = workingOrdersService;
+            _eventAggregator = eventAggregator;
             _regionManager = regionManager;
 
-            OpenInvoiceCommand = new DelegateCommand(OpenInvoice);
+            ChooseItemCommand = new DelegateCommand(OpenInvoice);
             InitWorkingInvoiceList();
-            event_aggregator.GetEvent<OpenInvoiceServiceEvent>().Subscribe(OnOpenInvoiceChangedEvent, ThreadOption.BackgroundThread);
+            _eventAggregator.GetEvent<OpenInvoiceServiceEvent>().Subscribe(OnOpenInvoiceChangedEvent, ThreadOption.UIThread);
         }
 
         private void OnOpenInvoiceChangedEvent(int open_order_cnt)
@@ -40,20 +41,23 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         private void InitWorkingInvoiceList()
         {
-            WorkingInvoices = working_orders_service.GetWorkingInvoices();
+            var workingInvoices = _workingOrdersService.GetWorkingInvoices();
+            WorkingInvoices.Clear();
+            foreach (var wi in workingInvoices)
+                WorkingInvoices.Add(Map(wi.Model));
         }
 
         public bool KeepAlive => false;
-        public DelegateCommand OpenInvoiceCommand { get; set; }
+        public DelegateCommand ChooseItemCommand { get; set; }
 
-        public ObservableCollection<InvoiceWrapper> WorkingInvoices
+        public ObservableCollection<BusinessItem> WorkingInvoices
         {
-            get { return _working_orders; }
-            private set { SetProperty(ref _working_orders, value); }
+            get { return _workingInvoices; }
+            private set { SetProperty(ref _workingInvoices, value); }
         }
 
         public int SelectedInvoiceIndex { get; set; }
-        public object SelectedInvoice
+        public object SelectedItem
         {
             get { return _selected_order; }
             set { SetProperty(ref _selected_order, value); }
@@ -64,15 +68,33 @@ namespace QIQO.Business.Module.Invoices.ViewModels
             get { return _header_msg; }
             private set { SetProperty(ref _header_msg, value); }
         }
+
         private void OpenInvoice()
         {
-            var selectedInvoice = SelectedInvoice as InvoiceWrapper;
-            if (selectedInvoice != null)
+            if (SelectedItem is BusinessItem busItem)
             {
-                var parameters = new NavigationParameters();
-                parameters.Add("InvoiceNumber", selectedInvoice.InvoiceNumber);
-                _regionManager.RequestNavigate(RegionNames.ContentRegion, typeof(InvoiceViewX).FullName, parameters);
+                if (busItem.BusinessObject is Invoice invoiceToEdit)
+                {
+                    var parameters = new NavigationParameters { { "InvoiceNumber", invoiceToEdit.InvoiceNumber } };
+                    _regionManager.RequestNavigate(RegionNames.ContentRegion, typeof(InvoiceViewX).FullName, parameters);
+                }
             }
+        }
+
+        private BusinessItem Map(Invoice order)
+        {
+            return new BusinessItem
+            {
+                ItemId = order.InvoiceNumber,
+                ItemCode = order.Account.AccountCode,
+                ItemName = order.Account.AccountName,
+                ItemEntryDate = order.OrderEntryDate,
+                ItemStatus = order.InvoiceStatus.ToString(),
+                ItemStatusDate = order.InvoiceStatusDate,
+                BusinessObject = order,
+                Total = (double)order.InvoiceValueSum,
+                Quantity = order.InvoiceItemCount
+            };
         }
     }
 }

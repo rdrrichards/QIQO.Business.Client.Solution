@@ -88,7 +88,6 @@ namespace QIQO.Business.Module.Orders.ViewModels
 
             var proxy = _serviceFactory.CreateClient<IOrderService>();
             var company = new Company() { CompanyKey = CurrentCompanyKey };
-            var open_order_col = new ObservableCollection<OrderWrapper>();
 
             using (proxy)
             {
