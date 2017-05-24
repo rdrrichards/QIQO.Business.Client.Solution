@@ -15,18 +15,18 @@
 		<Binding Path="IsBusy" Converter="{StaticResource MouseConverter}"/>
 	</UserControl.Cursor>
 
-    <Grid Width="{Binding ActualWidth, ElementName=ctlOpenList, Converter={StaticResource WidthConverter}}"
+	<Grid Width="{Binding ActualWidth, ElementName=ctlOpenList, Converter={StaticResource WidthConverter}}"
 						 Height="{Binding ActualHeight, ElementName=ctlOpenList, Converter={StaticResource WidthConverter}}" Name="grdContent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
 		<TextBlock Text="{Binding HeaderMessage}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding ActualWidth, ElementName=OpenItemsList}" 
 				   Foreground="AntiqueWhite" Height="30"/>
 
 		<Grid Grid.Row="1">
 			<Grid HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Border BorderThickness="0" Margin="5" CornerRadius="20" Width="{Binding ActualWidth, ElementName=grdContent, Converter={StaticResource WidthConverter}}"
+				<Border BorderThickness="0" Margin="5" CornerRadius="20" Width="{Binding ActualWidth, ElementName=grdContent, Converter={StaticResource WidthConverter}}"
 						 Height="Auto">
 					<Border.BitmapEffect>
 						<DropShadowBitmapEffect />
@@ -50,7 +50,7 @@
 									</LinearGradientBrush>
 								</Border.Background>
 								<ListBox x:Name="OpenItemsList" ItemsSource="{Binding OpenItems, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" HorizontalContentAlignment="Stretch"
-						  Padding="3" Margin="3" SelectionMode="Single" ScrollViewer.VerticalScrollBarVisibility="Visible" MinHeight="600" 
+						  Padding="3" Margin="3" SelectionMode="Single" ScrollViewer.VerticalScrollBarVisibility="Visible" 
 						  SelectedItem="{Binding DataContext.SelectedItem, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"
 						  SelectedIndex="{Binding DataContext.SelectedItemIndex, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" Opacity="1">
 									<ListBox.ItemTemplate>

@@ -50,7 +50,7 @@
 									</LinearGradientBrush>
 								</Border.Background>
 								<ListBox x:Name="InProcessItemsList" ItemsSource="{Binding InProcessItems, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" HorizontalContentAlignment="Stretch"
-						  Padding="3" Margin="3" SelectionMode="Single" ScrollViewer.VerticalScrollBarVisibility="Visible" MinHeight="600" 
+						  Padding="3" Margin="3" SelectionMode="Single" ScrollViewer.VerticalScrollBarVisibility="Visible" MinHeight="200" 
 						  SelectedItem="{Binding DataContext.SelectedItem, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"
 						  SelectedIndex="{Binding DataContext.SelectedItemIndex, Mode=OneWayToSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" Opacity="1">
 									<ListBox.ItemTemplate>
