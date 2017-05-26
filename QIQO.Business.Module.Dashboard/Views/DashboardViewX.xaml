@@ -17,7 +17,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Label Content="Home" FontSize="300" Foreground="White" Opacity="0.1" VerticalAlignment="Center" HorizontalAlignment="Left"
-               Grid.ColumnSpan="2"></Label>
+               Grid.ColumnSpan="2" Grid.RowSpan="2"></Label>
         <ContentControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.DashboardRegion1}" Grid.Column="0"></ContentControl>
         <ContentControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.DashboardRegion2}" Grid.Column="0" Grid.Row="1"></ContentControl>
         <StackPanel Grid.Column="1" Grid.RowSpan="2">

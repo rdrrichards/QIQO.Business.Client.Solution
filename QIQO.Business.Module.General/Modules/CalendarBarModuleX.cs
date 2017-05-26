@@ -13,7 +13,7 @@ namespace QIQO.Business.Module.General.Modules
         }
         public override void Initialize()
         {
-            RegionManager.RegisterViewWithRegion(RegionNames.HomeCalendarRegion, typeof(CalendarBarViewX));
+            // RegionManager.RegisterViewWithRegion(RegionNames.HomeCalendarRegion, typeof(CalendarBarViewX));
         }
     }
 }
