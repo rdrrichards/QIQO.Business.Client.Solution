@@ -93,7 +93,7 @@ namespace QIQO.Business.Module.Account.ViewModels
         {
             if (Account.IsChanged && !string.IsNullOrWhiteSpace(Account.AccountCode))
             {
-                Confirmation confirm = new Confirmation();
+                var confirm = new Confirmation();
                 confirm.Title = ApplicationStrings.SaveChangesTitle;
                 confirm.Content = ApplicationStrings.SaveChangesPrompt;
                 SaveChangesConfirmationRequest.Raise(confirm,
@@ -122,7 +122,7 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void FindAccount()
         {
-            ItemSelectionNotification notification = new ItemSelectionNotification();
+            var notification = new ItemSelectionNotification();
             notification.Title = ApplicationStrings.NotificationFindAccount;
             FindAccountRequest.Raise(notification,
                 r =>
@@ -389,7 +389,7 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void DoDelete()
         {
-            Confirmation confirm = new Confirmation();
+            var confirm = new Confirmation();
             confirm.Title = ApplicationStrings.DeleteAccountTitle;
             confirm.Content = $"Are you sure you want to delete account {Account.AccountName}?\n\nClick OK to delete\nClick Cancel to return to the form.";
             DeleteConfirmationRequest.Raise(confirm,
@@ -504,8 +504,7 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void EditComment()
         {
-            var comm_to_edit = CommentSelectedItem as CommentWrapper;
-            if (comm_to_edit != null)
+            if (CommentSelectedItem is CommentWrapper comm_to_edit)
             {
                 Comment att_copy = comm_to_edit.Model.Copy();
                 ChangeComment(att_copy, ApplicationStrings.NotificationEdit);
@@ -519,8 +518,7 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void DeleteComment()
         {
-            var comm_to_remove = CommentSelectedItem as CommentWrapper;
-            if (comm_to_remove != null)
+            if (CommentSelectedItem is CommentWrapper comm_to_remove)
             {
                 Account.Comments.Remove(comm_to_remove);
             }
@@ -534,23 +532,20 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void ChangeComment(Comment comment, string action)
         {
-            var emp_to_edit = comment as Comment;
-            if (emp_to_edit != null)
+            if (comment is Comment emp_to_edit)
             {
-                ItemEditNotification notification = new ItemEditNotification(emp_to_edit);
+                var notification = new ItemEditNotification(emp_to_edit);
                 notification.Title = action + " Comment";
                 EditCommentRequest.Raise(notification,
                     r =>
                     {
                         if (r != null && r.Confirmed && r.EditibleObject != null) // 
                         {
-                            Comment comm = r.EditibleObject as Comment;
-                            if (comm != null)
+                            if (r.EditibleObject is Comment comm)
                             {
                                 if (action == ApplicationStrings.NotificationEdit)
                                 {
-                                    var comm_to_change = CommentSelectedItem as CommentWrapper;
-                                    if (comm_to_change != null)
+                                    if (CommentSelectedItem is CommentWrapper comm_to_change)
                                     {
                                         comm_to_change.CommentType = comm.CommentType;
                                         comm_to_change.CommentValue = comm.CommentValue;
@@ -573,8 +568,7 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void DeleteAttribute()
         {
-            var att_to_remove = AttSelectedItem as EntityAttributeWrapper;
-            if (att_to_remove != null) att_to_remove.AttributeValue = ""; //Account.AccountAttributes.Remove(att_to_remove);
+            if (AttSelectedItem is EntityAttributeWrapper att_to_remove) att_to_remove.AttributeValue = ""; //Account.AccountAttributes.Remove(att_to_remove);
         }
 
         private bool CanEditAttribute()
@@ -584,8 +578,7 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void EditAttribute()
         {
-            var att_to_edit = AttSelectedItem as EntityAttributeWrapper;
-            if (att_to_edit != null)
+            if (AttSelectedItem is EntityAttributeWrapper att_to_edit)
             {
                 EntityAttribute att_copy = att_to_edit.Model.Copy();
                 ChangeAttribute(att_copy, ApplicationStrings.NotificationEdit);
@@ -600,21 +593,18 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void ChangeAttribute(EntityAttribute attribute, string action)
         {
-            var att_to_edit = attribute as EntityAttribute;
-            if (att_to_edit != null)
+            if (attribute is EntityAttribute att_to_edit)
             {
-                ItemEditNotification notification = new ItemEditNotification(att_to_edit);
+                var notification = new ItemEditNotification(att_to_edit);
                 notification.Title = action + " Attribute"; //+ emp_to_edit.PersonCode + " - " + emp_to_edit.PersonFullNameFML;
                 EditAttributeRequest.Raise(notification,
                     r =>
                     {
                         if (r != null && r.Confirmed && r.EditibleObject != null) // 
                         {
-                            EntityAttribute att = r.EditibleObject as EntityAttribute;
-                            if (att != null)
+                            if (r.EditibleObject is EntityAttribute att)
                             {
-                                var att_to_change = AttSelectedItem as EntityAttributeWrapper;
-                                if (att_to_change != null)
+                                if (AttSelectedItem is EntityAttributeWrapper att_to_change)
                                 {
                                     att_to_change.AttributeValue = att.AttributeValue;
                                 }
@@ -631,8 +621,7 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void DeleteFeeScheule()
         {
-            var fee_to_remove = FeeSelectedItem as FeeScheduleWrapper;
-            if (fee_to_remove != null)
+            if (FeeSelectedItem is FeeScheduleWrapper fee_to_remove)
             {
                 if (fee_to_remove.FeeScheduleKey != 0)
                     fee_to_remove.FeeScheduleEndDate = DateTime.Today;
@@ -648,8 +637,7 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void EditFeeSchedule()
         {
-            var fee_to_edit = FeeSelectedItem as FeeScheduleWrapper;
-            if (fee_to_edit != null)
+            if (FeeSelectedItem is FeeScheduleWrapper fee_to_edit)
             {
                 FeeSchedule fee_copy = fee_to_edit.Model.Copy();
                 ChangeFeeSchedule(fee_copy, ApplicationStrings.NotificationEdit);
@@ -671,8 +659,7 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void ChangeFeeSchedule(FeeSchedule schedule, string action)
         {
-            var fee_to_edit = schedule as FeeSchedule;
-            if (fee_to_edit != null)
+            if (schedule is FeeSchedule fee_to_edit)
             {
                 ItemEditNotification notification = new ItemEditNotification(fee_to_edit);
                 notification.Title = action + " Fee Schedule"; //+ emp_to_edit.PersonCode + " - " + emp_to_edit.PersonFullNameFML;
@@ -681,14 +668,12 @@ namespace QIQO.Business.Module.Account.ViewModels
                     {
                         if (r != null && r.Confirmed && r.EditibleObject != null) // 
                         {
-                            FeeSchedule fee = r.EditibleObject as FeeSchedule;
-                            if (fee != null)
+                            if (r.EditibleObject is FeeSchedule fee)
                             {
                                 // We need to actually add the fee shedule to something
                                 if (action == ApplicationStrings.NotificationEdit)
                                 {
-                                    var fee_to_change = FeeSelectedItem as FeeScheduleWrapper;
-                                    if (fee_to_change != null)
+                                    if (FeeSelectedItem is FeeScheduleWrapper fee_to_change)
                                     {
                                         //fee_to_change.CompanyKey = fee.CompanyKey;
                                         //fee_to_change.FeeScheduleKey = fee.FeeScheduleKey;
@@ -721,8 +706,7 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void EditEmployee()
         {
-            var emp_to_edit = EmpSelectedItem as AccountPersonWrapper;
-            if (emp_to_edit != null)
+            if (EmpSelectedItem is AccountPersonWrapper emp_to_edit)
             {
                 AccountPerson ap_copy = emp_to_edit.Model.Copy();
                 ChangeEmployee(ap_copy, ApplicationStrings.NotificationEdit);
@@ -744,8 +728,7 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void ChangeEmployee(AccountPerson employee, string action)
         {
-            var emp_to_edit = employee as AccountPerson;
-            if (emp_to_edit != null)
+            if (employee is AccountPerson emp_to_edit)
             {
                 var notification = new ItemEditNotification(emp_to_edit);
                 notification.Title = action + " Account Employee"; //+ emp_to_edit.PersonCode + " - " + emp_to_edit.PersonFullNameFML;
@@ -754,13 +737,11 @@ namespace QIQO.Business.Module.Account.ViewModels
                     {
                         if (r != null && r.Confirmed && r.EditibleObject != null) // 
                         {
-                            var emp = r.EditibleObject as AccountPerson;
-                            if (emp != null)
+                            if (r.EditibleObject is AccountPerson emp)
                             {
                                 if (action == ApplicationStrings.NotificationEdit)
                                 {
-                                    var emp_to_change = EmpSelectedItem as AccountPersonWrapper;
-                                    if (emp_to_change != null)
+                                    if (EmpSelectedItem is AccountPersonWrapper emp_to_change)
                                     {
                                         emp_to_change.Comment = emp.Comment;
                                         emp_to_change.CompanyRoleType = emp.CompanyRoleType;
@@ -791,8 +772,7 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void DeleteEmployee()
         {
-            var emp_to_remove = EmpSelectedItem as AccountPersonWrapper;
-            if (emp_to_remove != null)
+            if (EmpSelectedItem is AccountPersonWrapper emp_to_remove)
             {
                 if (emp_to_remove.PersonKey != 0)
                     emp_to_remove.EndDate = DateTime.Today;
@@ -809,8 +789,7 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void EditContact()
         {
-            var cont_to_edit = ContactSelectedItem as ContactWrapper;
-            if (cont_to_edit != null)
+            if (ContactSelectedItem is ContactWrapper cont_to_edit)
             {
                 Contact cnt_copy = cont_to_edit.Model.Copy();
                 ChangeContact(cnt_copy, ApplicationStrings.NotificationEdit);
@@ -834,8 +813,7 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void ChangeContact(Contact contact, string action)
         {
-            var emp_to_edit = contact as Contact;
-            if (emp_to_edit != null)
+            if (contact is Contact emp_to_edit)
             {
                 ItemEditNotification notification = new ItemEditNotification(emp_to_edit);
                 notification.Title = action + " Contact";
@@ -844,13 +822,11 @@ namespace QIQO.Business.Module.Account.ViewModels
                     {
                         if (r != null && r.Confirmed && r.EditibleObject != null) // 
                         {
-                            Contact cnt = r.EditibleObject as Contact;
-                            if (cnt != null)
+                            if (r.EditibleObject is Contact cnt)
                             {
                                 if (action == ApplicationStrings.NotificationEdit)
                                 {
-                                    var cnt_to_change = ContactSelectedItem as ContactWrapper;
-                                    if (cnt_to_change != null)
+                                    if (ContactSelectedItem is ContactWrapper cnt_to_change)
                                     {
                                         cnt_to_change.ContactActiveFlg = cnt.ContactActiveFlg;
                                         cnt_to_change.ContactDefaultFlg = cnt.ContactDefaultFlg;
@@ -876,8 +852,7 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void DeleteContact()
         {
-            var cont_to_remove = ContactSelectedItem as ContactWrapper;
-            if (cont_to_remove != null)
+            if (ContactSelectedItem is ContactWrapper cont_to_remove)
                 Account.Contacts.Remove(cont_to_remove);
         }
 

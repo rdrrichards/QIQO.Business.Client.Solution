@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Client.Core", "QIQO.Business.Client.Core\QIQO.Business.Client.Core.csproj", "{A66E9F0F-87D0-4854-B3A2-3ED5D0C72368}"
 EndProject
@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Client.Wrappe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Client.Tests", "QIQO.Business.Client.Tests\QIQO.Business.Client.Tests.csproj", "{013CCC05-7701-4AA9-8B47-79E2959B64AB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "QIQO.Business.Client.Modules", "QIQO.Business.Client.Modules", "{B780BE7A-CFB0-4065-B854-DA729AC16952}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{B780BE7A-CFB0-4065-B854-DA729AC16952}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIQO.Business.Module.Orders", "QIQO.Business.Module.Orders\QIQO.Business.Module.Orders.csproj", "{29DE8BA2-19CB-43B3-90E3-E2BD0ACA13BA}"
 EndProject
@@ -142,78 +142,7 @@ Global
 		{466958F3-636F-4654-A659-0A27EFA550D5} = {B780BE7A-CFB0-4065-B854-DA729AC16952}
 		{A03DC3A0-2B54-4431-8D77-D1E99320F71E} = {032DCC65-3F88-41F6-9275-AF02E9010D01}
 	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 18
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://rdrrl7:8080/tfs/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = QIQO.Business.Client.Contracts\\QIQO.Business.Client.Contracts.csproj
-		SccProjectTopLevelParentUniqueName1 = QIQO.Business.Client.Solution.sln
-		SccProjectName1 = QIQO.Business.Client.Contracts
-		SccLocalPath1 = QIQO.Business.Client.Contracts
-		SccProjectUniqueName2 = QIQO.Business.Client.Core.UI\\QIQO.Business.Client.Core.UI.csproj
-		SccProjectTopLevelParentUniqueName2 = QIQO.Business.Client.Solution.sln
-		SccProjectName2 = QIQO.Business.Client.Core.UI
-		SccLocalPath2 = QIQO.Business.Client.Core.UI
-		SccProjectUniqueName3 = QIQO.Business.Client.Core\\QIQO.Business.Client.Core.csproj
-		SccProjectTopLevelParentUniqueName3 = QIQO.Business.Client.Solution.sln
-		SccProjectName3 = QIQO.Business.Client.Core
-		SccLocalPath3 = QIQO.Business.Client.Core
-		SccProjectUniqueName4 = QIQO.Business.Client.Entities\\QIQO.Business.Client.Entities.csproj
-		SccProjectTopLevelParentUniqueName4 = QIQO.Business.Client.Solution.sln
-		SccProjectName4 = QIQO.Business.Client.Entities
-		SccLocalPath4 = QIQO.Business.Client.Entities
-		SccProjectUniqueName5 = QIQO.Business.Client.Proxies\\QIQO.Business.Client.Proxies.csproj
-		SccProjectTopLevelParentUniqueName5 = QIQO.Business.Client.Solution.sln
-		SccProjectName5 = QIQO.Business.Client.Proxies
-		SccLocalPath5 = QIQO.Business.Client.Proxies
-		SccProjectUniqueName6 = QIQO.Business.Client.Tests\\QIQO.Business.Client.Tests.csproj
-		SccProjectTopLevelParentUniqueName6 = QIQO.Business.Client.Solution.sln
-		SccProjectName6 = QIQO.Business.Client.Tests
-		SccLocalPath6 = QIQO.Business.Client.Tests
-		SccProjectUniqueName7 = QIQO.Business.Client.UI\\QIQO.Business.Client.UI.csproj
-		SccProjectTopLevelParentUniqueName7 = QIQO.Business.Client.Solution.sln
-		SccProjectName7 = QIQO.Business.Client.UI
-		SccLocalPath7 = QIQO.Business.Client.UI
-		SccProjectUniqueName8 = QIQO.Business.Client.UIX\\QIQO.Business.Client.UIX.csproj
-		SccProjectTopLevelParentUniqueName8 = QIQO.Business.Client.Solution.sln
-		SccProjectName8 = QIQO.Business.Client.UIX
-		SccLocalPath8 = QIQO.Business.Client.UIX
-		SccProjectUniqueName9 = QIQO.Business.Client.Wrappers\\QIQO.Business.Client.Wrappers.csproj
-		SccProjectTopLevelParentUniqueName9 = QIQO.Business.Client.Solution.sln
-		SccProjectName9 = QIQO.Business.Client.Wrappers
-		SccLocalPath9 = QIQO.Business.Client.Wrappers
-		SccProjectUniqueName10 = QIQO.Business.Module.Account\\QIQO.Business.Module.Account.csproj
-		SccProjectTopLevelParentUniqueName10 = QIQO.Business.Client.Solution.sln
-		SccProjectName10 = QIQO.Business.Module.Account
-		SccLocalPath10 = QIQO.Business.Module.Account
-		SccProjectUniqueName11 = QIQO.Business.Module.Company\\QIQO.Business.Module.Company.csproj
-		SccProjectTopLevelParentUniqueName11 = QIQO.Business.Client.Solution.sln
-		SccProjectName11 = QIQO.Business.Module.Company
-		SccLocalPath11 = QIQO.Business.Module.Company
-		SccProjectUniqueName12 = QIQO.Business.Module.Dashboard\\QIQO.Business.Module.Dashboard.csproj
-		SccProjectTopLevelParentUniqueName12 = QIQO.Business.Client.Solution.sln
-		SccProjectName12 = QIQO.Business.Module.Dashboard
-		SccLocalPath12 = QIQO.Business.Module.Dashboard
-		SccProjectUniqueName13 = QIQO.Business.Module.General\\QIQO.Business.Module.General.csproj
-		SccProjectTopLevelParentUniqueName13 = QIQO.Business.Client.Solution.sln
-		SccProjectName13 = QIQO.Business.Module.General
-		SccLocalPath13 = QIQO.Business.Module.General
-		SccProjectUniqueName14 = QIQO.Business.Module.Invoice\\QIQO.Business.Module.Invoices.csproj
-		SccProjectTopLevelParentUniqueName14 = QIQO.Business.Client.Solution.sln
-		SccProjectName14 = QIQO.Business.Module.Invoice
-		SccLocalPath14 = QIQO.Business.Module.Invoice
-		SccProjectUniqueName15 = QIQO.Business.Module.Orders\\QIQO.Business.Module.Orders.csproj
-		SccProjectTopLevelParentUniqueName15 = QIQO.Business.Client.Solution.sln
-		SccProjectName15 = QIQO.Business.Module.Orders
-		SccLocalPath15 = QIQO.Business.Module.Orders
-		SccProjectUniqueName16 = QIQO.Business.Module.Product\\QIQO.Business.Module.Product.csproj
-		SccProjectTopLevelParentUniqueName16 = QIQO.Business.Client.Solution.sln
-		SccProjectName16 = QIQO.Business.Module.Product
-		SccLocalPath16 = QIQO.Business.Module.Product
-		SccProjectUniqueName17 = QIQO.Custom.Controls\\QIQO.Custom.Controls\\QIQO.Custom.Controls.csproj
-		SccProjectTopLevelParentUniqueName17 = QIQO.Business.Client.Solution.sln
-		SccProjectName17 = QIQO.Custom.Controls/QIQO.Custom.Controls
-		SccLocalPath17 = QIQO.Custom.Controls\\QIQO.Custom.Controls
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B9F8C1F8-FFD8-4D88-859A-7CC259D43BD2}
 	EndGlobalSection
 EndGlobal
