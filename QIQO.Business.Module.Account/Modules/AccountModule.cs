@@ -1,25 +1,24 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Prism.Ioc;
+using Prism.Modularity;
 using Prism.Regions;
-using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.Infrastructure;
 using QIQO.Business.Module.Account.Views;
 
 namespace QIQO.Business.Module.Account.Modules
 {
-    public class AccountModule : ModuleBase
+    public class AccountModule : IModule
     {
-        public AccountModule(IUnityContainer container, IRegionManager region_manager) : base(container, region_manager)
+        public void OnInitialized(IContainerProvider containerProvider)
         {
+            var regionManager = containerProvider.Resolve<IRegionManager>();
+            regionManager.RegisterViewWithRegion(RegionNames.ToolBarRegion, typeof(AccountNavigationView));
         }
-        public override void Initialize()
-        {
-            //RegionManager.RegisterViewWithRegion(RegionNames.AccountsRegion, typeof(AccountView));
-            RegionManager.RegisterViewWithRegion(RegionNames.ToolBarRegion, typeof(AccountNavigationView));
-            //RegionManager.RegisterViewWithRegion(RegionNames.RibbonRegion, typeof(AccountRibbonView));
 
-            UnityContainer.RegisterType(typeof(object), typeof(AccountFinderView), typeof(AccountFinderView).FullName);
-            UnityContainer.RegisterType(typeof(object), typeof(AccountView), typeof(AccountView).FullName);
-            UnityContainer.RegisterType(typeof(object), typeof(AccountRibbonView), typeof(AccountRibbonView).FullName);
+        public void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.Register(typeof(object), typeof(AccountFinderView), typeof(AccountFinderView).FullName);
+            containerRegistry.Register(typeof(object), typeof(AccountView), typeof(AccountView).FullName);
+            containerRegistry.Register(typeof(object), typeof(AccountRibbonView), typeof(AccountRibbonView).FullName);
         }
     }
 }
