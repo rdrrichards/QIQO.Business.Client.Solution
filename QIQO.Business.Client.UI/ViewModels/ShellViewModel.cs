@@ -88,13 +88,13 @@ namespace QIQO.Business.Client.UI
         //private void AccountNewOrder(string obj)
         //{
         //    //Unity.Container.Registrations.
-        //    //var view = Unity.Container.Resolve<OrderView>();
+        //    //var view = ServiceLocator.Current.GetInstance<OrderView>();
         //    var parameters = new NavigationParameters();
         //    parameters.Add("AccountCode", obj);
         //    //_regionManager.RequestNavigate(RegionNames.ContentRegion, typeof(OrderView).FullName, NavigationComplete, parameters);
         //    //_regionManager.RequestNavigate(RegionNames.ContentRegion, typeof(OrderView).FullName);
         //    IRegion cnt_region = _regionManager.Regions[RegionNames.ContentRegion];
-        //    OrderView ord_view = Unity.Container.Resolve<OrderView>();
+        //    OrderView ord_view = ServiceLocator.Current.GetInstance<OrderView>();
         //    cnt_region.Add(ord_view);
         //    cnt_region.Activate(ord_view);
         //    //_regionManager.RequestNavigate(RegionNames.ContentRegion, typeof(OrderView).FullName, parameters);

@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Unity;
+﻿using CommonServiceLocator;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
@@ -694,7 +694,7 @@ namespace QIQO.Business.Module.Company.ViewModels
 
         private void MapPropsToObject()
         {
-            ICleaningUtility cleaner = Unity.Container.Resolve<ICleaningUtility>();
+            ICleaningUtility cleaner = ServiceLocator.Current.GetInstance<ICleaningUtility>();
             // Need to add the addresses one at a time from properties??? Ah, yeah!
             Company.CompanyAddresses.Clear(); // clear this for updates and inserts
 

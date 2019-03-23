@@ -1,7 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
-using Microsoft.Practices.Unity;
+using CommonServiceLocator;
 using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.UI;
@@ -779,7 +779,7 @@ namespace QIQO.Business.Module.Account.ViewModels
             ExecuteFaultHandledOperation(() =>
             {
                 event_aggregator.GetEvent<AccountUpdatedEvent>().Publish(ApplicationStrings.BeginningSave);
-                ICleaningUtility cleaner = Unity.Container.Resolve<ICleaningUtility>();
+                ICleaningUtility cleaner = ServiceLocator.Current.GetInstance<ICleaningUtility>();
 
                 using (TransactionScope scope = new TransactionScope()) // TransactionScopeAsyncFlowOption.Enabled
                 {

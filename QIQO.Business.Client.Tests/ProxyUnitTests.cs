@@ -1,21 +1,23 @@
-﻿using Microsoft.Practices.Unity;
+﻿using CommonServiceLocator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Entities;
 using QIQO.Business.Client.Proxies;
+using Unity;
 
 namespace QIQO.Business.Client.Tests
 {
     [TestClass]
     public class ProxyUnitTests
     {
+        private IUnityContainer container;
         [TestInitialize]
         public void Initialize()
         {
-            IUnityContainer container = new UnityContainer();
+            container = new UnityContainer();
             container.RegisterType<IAccountService, AccountClient>();
-            Unity.Container = container;
+            // Unity.Container = container;
         }
 
         [TestMethod]
@@ -42,7 +44,7 @@ namespace QIQO.Business.Client.Tests
         [TestMethod]
         public void ServiceFactoryTest()
         {
-            IServiceFactory sf = new ServiceFactory();
+            IServiceFactory sf = new ServiceFactory(container);
             IAccountService proxy = sf.CreateClient<IAccountService>();
 
             using (proxy)

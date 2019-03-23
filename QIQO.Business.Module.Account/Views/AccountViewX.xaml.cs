@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Unity;
+﻿using CommonServiceLocator;
 using Prism.Events;
 using Prism.Regions;
 using QIQO.Business.Client.Core;
@@ -13,13 +13,13 @@ namespace QIQO.Business.Module.Account.Views
     /// </summary>
     public partial class AccountViewX : UserControl
     {
-        //public AccountViewX() : this(new AccountViewModel(Unity.Container.Resolve<IEventAggregator>(),
-        //    Unity.Container.Resolve<IServiceFactory>(),
-        //    Unity.Container.Resolve<IRegionManager>(),
-        //    Unity.Container.Resolve<IProductListService>(),
-        //    Unity.Container.Resolve<IStateListService>(),
-        //    Unity.Container.Resolve<IReportService>(),
-        //    Unity.Container.Resolve<IAccountEntityService>()))
+        //public AccountViewX() : this(new AccountViewModel(ServiceLocator.Current.GetInstance<IEventAggregator>(),
+        //    ServiceLocator.Current.GetInstance<IServiceFactory>(),
+        //    ServiceLocator.Current.GetInstance<IRegionManager>(),
+        //    ServiceLocator.Current.GetInstance<IProductListService>(),
+        //    ServiceLocator.Current.GetInstance<IStateListService>(),
+        //    ServiceLocator.Current.GetInstance<IReportService>(),
+        //    ServiceLocator.Current.GetInstance<IAccountEntityService>()))
         //{ }
         public AccountViewX(AccountViewModelX view_model)
         {

@@ -1,7 +1,6 @@
 ﻿using Prism.Commands;
-//using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
-using Microsoft.Practices.Unity;
+using CommonServiceLocator;
 using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.UI;
@@ -10,7 +9,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using QIQO.Business.Client.Core.Infrastructure;
-using System.Linq;
 
 namespace QIQO.Business.Module.General.ViewModels
 {
@@ -30,8 +28,8 @@ namespace QIQO.Business.Module.General.ViewModels
 
         public OrderFinderViewModel()
         {
-            //event_aggregator = Unity.Container.Resolve<IEventAggregator>();
-            service_factory = Unity.Container.Resolve<IServiceFactory>();
+            // event_aggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+            service_factory = ServiceLocator.Current.GetInstance<IServiceFactory>();
             BindCommands();
         }
         public DelegateCommand GetOrdersCommand { get; set; }
@@ -167,7 +165,7 @@ namespace QIQO.Business.Module.General.ViewModels
         private void GetAccountList()
         {
             IAccountService account_service = service_factory.CreateClient<IAccountService>();
-            ICurrentCompanyService company_service = Unity.Container.Resolve<ICurrentCompanyService>();
+            ICurrentCompanyService company_service = ServiceLocator.Current.GetInstance<ICurrentCompanyService>();
 
             using (account_service)
             {

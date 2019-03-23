@@ -1,38 +1,28 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Prism.Ioc;
+using Prism.Modularity;
 using Prism.Regions;
-using Prism.Unity;
-using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.Infrastructure;
 using QIQO.Business.Module.Orders.Services;
 using QIQO.Business.Module.Orders.Views;
 
 namespace QIQO.Business.Module.Orders.Modules
 {
-    public class OrderModuleX : ModuleBase
+    public class OrderModuleX : IModule
     {
-        public OrderModuleX(IUnityContainer container, IRegionManager region_manager) : base(container, region_manager)
+        public void OnInitialized(IContainerProvider containerProvider)
         {
+            var regionManager = containerProvider.Resolve<IRegionManager>();
+            regionManager.RegisterViewWithRegion(RegionNames.ToolBarRegion, typeof(OrderNavigationViewX));
+            regionManager.RegisterViewWithRegion(RegionNames.OrdersHomeOpenOrderRegion, typeof(OpenOrderViewX));
+            regionManager.RegisterViewWithRegion(RegionNames.OrdersHomeRecentOrderRegion, typeof(WorkingOrderView));
+            regionManager.RegisterViewWithRegion(RegionNames.OrdersHomeSearchOrderRegion, typeof(FindOrderViewX));
         }
-        public override void Initialize()
+        public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            UnityContainer.RegisterType<IWorkingOrderService, WorkingOrderService>(new ContainerControlledLifetimeManager());
+            containerRegistry.RegisterSingleton<IWorkingOrderService, WorkingOrderService>();
 
-            //RegionManager.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(OrderHomeView));
-            RegionManager.RegisterViewWithRegion(RegionNames.ToolBarRegion, typeof(OrderNavigationViewX));
-            //RegionManager.RegisterViewWithRegion(RegionNames.ToolBarRegion, typeof(OrderNavigationViewX));
-
-
-            RegionManager.RegisterViewWithRegion(RegionNames.OrdersHomeOpenOrderRegion, typeof(OpenOrderViewX));
-            RegionManager.RegisterViewWithRegion(RegionNames.OrdersHomeRecentOrderRegion, typeof(WorkingOrderView));
-            RegionManager.RegisterViewWithRegion(RegionNames.OrdersHomeSearchOrderRegion, typeof(FindOrderViewX));
-
-            UnityContainer.RegisterTypeForNavigation<OrderHomeView>(typeof(OrderHomeView).FullName);
-            UnityContainer.RegisterTypeForNavigation<OrderViewX>(typeof(OrderViewX).FullName);
-
-            //UnityContainer.RegisterType(typeof(object), typeof(OrderShellView), typeof(OrderShellView).FullName);
-            //UnityContainer.RegisterType(typeof(object), typeof(OrderView), typeof(OrderView).FullName);
-            //UnityContainer.RegisterType(typeof(object), typeof(FindOrderView), typeof(FindOrderView).FullName);
-            //UnityContainer.RegisterType(typeof(object), typeof(OrderRibbonView), typeof(OrderRibbonView).FullName);
+            containerRegistry.RegisterForNavigation<OrderHomeView>(typeof(OrderHomeView).FullName);
+            containerRegistry.RegisterForNavigation<OrderViewX>(typeof(OrderViewX).FullName);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Unity;
+﻿using CommonServiceLocator;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
@@ -18,8 +18,8 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         public InvoiceNavigationViewModel()
         {
-            event_aggregator = Unity.Container.Resolve<IEventAggregator>();
-            _regionManager = Unity.Container.Resolve<IRegionManager>();
+            event_aggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+            _regionManager = ServiceLocator.Current.GetInstance<IRegionManager>();
 
             ShowInvoiceModuleCommand = new DelegateCommand(ShowInvoiceModule);
             event_aggregator.GetEvent<InvoiceLoadedEvent>().Subscribe(OnInvoiceLoaded, ThreadOption.BackgroundThread);

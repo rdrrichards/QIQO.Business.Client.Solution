@@ -1,13 +1,19 @@
 ﻿using QIQO.Business.Client.Core;
-using Microsoft.Practices.Unity;
+using Unity;
 
 namespace QIQO.Business.Client.Proxies
 {
     public class ServiceFactory : IServiceFactory
     {
+        private readonly IUnityContainer _unityContainer;
+
+        public ServiceFactory(IUnityContainer unityContainer)
+        {
+            _unityContainer = unityContainer;
+        }
         public T CreateClient<T>() where T : IServiceContract
         {
-            return Unity.Container.Resolve<T>();
+            return _unityContainer.Resolve<T>();
         }
     }
 }

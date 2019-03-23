@@ -1,7 +1,7 @@
 ﻿using QIQO.Business.Client.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Practices.Unity;
+using CommonServiceLocator;
 
 namespace QIQO.Business.Client.Core.UI
 {
@@ -10,7 +10,7 @@ namespace QIQO.Business.Client.Core.UI
         private readonly ICurrentCompanyService _company_service;
         public UserSettingsViewModel()
         {
-            _company_service = Unity.Container.Resolve<ICurrentCompanyService>(); ;
+            _company_service = ServiceLocator.Current.GetInstance<ICurrentCompanyService>(); ;
 
         }
 

@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Unity;
+﻿using CommonServiceLocator;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
@@ -7,7 +7,6 @@ using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Entities;
 using QIQO.Business.Client.Wrappers;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace QIQO.Business.Module.General.ViewModels
@@ -22,8 +21,8 @@ namespace QIQO.Business.Module.General.ViewModels
 
         public CommentViewModel()
         {
-            event_aggregator = Unity.Container.Resolve<IEventAggregator>();
-            service_factory = Unity.Container.Resolve<IServiceFactory>();
+            event_aggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+            service_factory = ServiceLocator.Current.GetInstance<IServiceFactory>();
 
             CurrentComment = new CommentWrapper(new Comment());
             BindCommands();

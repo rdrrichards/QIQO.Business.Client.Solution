@@ -1,8 +1,9 @@
-using Microsoft.Practices.Unity;
+using CommonServiceLocator;
 using QIQO.Business.Client.Contracts;
 using System.ServiceModel;
 using QIQO.Business.Client.Entities;
 using System.Threading.Tasks;
+using Unity.Attributes;
 
 namespace QIQO.Business.Client.Proxies
 {

@@ -1,24 +1,22 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Prism.Ioc;
+using Prism.Modularity;
 using Prism.Regions;
-using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.Infrastructure;
 using QIQO.Business.Module.Product.Views;
 
 namespace QIQO.Business.Module.Product.Modules
 {
-    public class ProductModule : ModuleBase
+    public class ProductModule : IModule
     {
-        public ProductModule(IUnityContainer container, IRegionManager region_manager) : base(container, region_manager)
+        public void OnInitialized(IContainerProvider containerProvider)
         {
+            var regionManager = containerProvider.Resolve<IRegionManager>();
+            regionManager.RegisterViewWithRegion(RegionNames.ToolBarRegion, typeof(ProductNavigationView));
         }
-        public override void Initialize()
+        public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            //RegionManager.RegisterViewWithRegion(RegionNames.ProductsRegion, typeof(ProductView));
-            RegionManager.RegisterViewWithRegion(RegionNames.ToolBarRegion, typeof(ProductNavigationView));
-            //RegionManager.RegisterViewWithRegion(RegionNames.RibbonRegion, typeof(ProductRibbonView));
-
-            UnityContainer.RegisterType(typeof(object), typeof(ProductView), typeof(ProductView).FullName);
-            UnityContainer.RegisterType(typeof(object), typeof(ProductRibbonView), typeof(ProductRibbonView).FullName);
+            containerRegistry.Register(typeof(object), typeof(ProductView), typeof(ProductView).FullName);
+            containerRegistry.Register(typeof(object), typeof(ProductRibbonView), typeof(ProductRibbonView).FullName);
         }
     }
 }

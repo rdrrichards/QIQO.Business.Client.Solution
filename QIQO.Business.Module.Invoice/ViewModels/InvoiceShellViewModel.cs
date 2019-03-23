@@ -19,7 +19,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         public InvoiceShellViewModel(IRegionManager regionManager, IEventAggregator event_aggtr)
         {
-            _regionManager = regionManager; // Unity.Container.Resolve<IRegionManager>(); ;
+            _regionManager = regionManager; // ServiceLocator.Current.GetInstance<IRegionManager>(); ;
             event_aggregator = event_aggtr;
 
             NavigateCommand = new DelegateCommand<object>(Navigate);

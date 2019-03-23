@@ -1,5 +1,4 @@
-﻿using Microsoft.Practices.ObjectBuilder2;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
 using Prism.Regions;
@@ -15,6 +14,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Transactions;
+using Unity.Interception.Utilities;
 
 namespace QIQO.Business.Module.Orders.ViewModels
 {

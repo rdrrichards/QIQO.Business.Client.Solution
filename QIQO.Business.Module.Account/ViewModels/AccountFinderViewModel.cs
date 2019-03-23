@@ -1,7 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
-using Microsoft.Practices.Unity;
+using CommonServiceLocator;
 using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.UI;
@@ -28,9 +28,9 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         public AccountFinderViewModel()
         {
-            _eventAggregator = Unity.Container.Resolve<IEventAggregator>();
-            _serviceFactory = Unity.Container.Resolve<IServiceFactory>();
-            _regionManager = Unity.Container.Resolve<IRegionManager>();
+            _eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+            _serviceFactory = ServiceLocator.Current.GetInstance<IServiceFactory>();
+            _regionManager = ServiceLocator.Current.GetInstance<IRegionManager>();
             BindCommands();
         }
         public DelegateCommand GetAccountsCommand { get; set; }

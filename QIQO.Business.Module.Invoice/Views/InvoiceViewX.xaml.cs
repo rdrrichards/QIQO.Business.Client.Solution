@@ -8,11 +8,11 @@ namespace QIQO.Business.Module.Invoices.Views
     /// </summary>
     public partial class InvoiceViewX : UserControl
     {
-        //public InvoiceViewX() : this (new InvoiceViewModel(Unity.Container.Resolve<IEventAggregator>(),
-        //    Unity.Container.Resolve<IServiceFactory>(),
-        //    Unity.Container.Resolve<IProductListService>(),
-        //    Unity.Container.Resolve<IRegionManager>(),
-        //    Unity.Container.Resolve<IReportService>()))
+        //public InvoiceViewX() : this (new InvoiceViewModel(ServiceLocator.Current.GetInstance<IEventAggregator>(),
+        //    ServiceLocator.Current.GetInstance<IServiceFactory>(),
+        //    ServiceLocator.Current.GetInstance<IProductListService>(),
+        //    ServiceLocator.Current.GetInstance<IRegionManager>(),
+        //    ServiceLocator.Current.GetInstance<IReportService>()))
         //{
 
         //}
