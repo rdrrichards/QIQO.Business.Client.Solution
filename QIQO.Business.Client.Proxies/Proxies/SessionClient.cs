@@ -3,6 +3,7 @@ using QIQO.Business.Client.Contracts;
 using System.ServiceModel;
 using QIQO.Business.Client.Entities;
 using System.Threading.Tasks;
+using Unity.Attributes;
 
 namespace QIQO.Business.Client.Proxies
 {
@@ -10,7 +11,7 @@ namespace QIQO.Business.Client.Proxies
     {
         private ISessionService channel = null;
 
-        // [InjectionConstructor]
+        [InjectionConstructor]
         public SessionClient() : this("NetTcpBinding_ISessionService") { }
 
         public SessionClient(string endpoint)

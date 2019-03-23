@@ -5,6 +5,7 @@ using QIQO.Business.Client.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
+using Unity.Attributes;
 
 namespace QIQO.Business.Client.Proxies
 {
@@ -12,7 +13,7 @@ namespace QIQO.Business.Client.Proxies
     {
         private IInvoiceService channel = null;
 
-        // [InjectionConstructor]
+        [InjectionConstructor]
         public InvoiceClient() : this("NetTcpBinding_IInvoiceService") { }
 
         public InvoiceClient(string endpoint)

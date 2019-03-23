@@ -5,6 +5,7 @@ using QIQO.Business.Client.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
+using Unity.Attributes;
 
 namespace QIQO.Business.Client.Proxies
 {
@@ -12,7 +13,7 @@ namespace QIQO.Business.Client.Proxies
     {
         private IOrderService channel = null;
 
-        // [InjectionConstructor]
+        [InjectionConstructor]
         public OrderClient() : this("NetTcpBinding_IOrderService") { }
 
         public OrderClient(string endpoint)

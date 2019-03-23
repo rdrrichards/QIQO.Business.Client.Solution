@@ -4,6 +4,7 @@ using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Entities;
 using System.ServiceModel;
 using CommonServiceLocator;
+using Unity.Attributes;
 
 namespace QIQO.Business.Client.Proxies
 {
@@ -11,7 +12,7 @@ namespace QIQO.Business.Client.Proxies
     {
         private IAuditService channel = null;
 
-        // [InjectionConstructor]
+        [InjectionConstructor]
         public AuditClient() : this("NetTcpBinding_IAuditService") { }
 
         public AuditClient(string endpoint)

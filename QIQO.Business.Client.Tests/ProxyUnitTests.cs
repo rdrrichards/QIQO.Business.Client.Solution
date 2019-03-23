@@ -11,10 +11,11 @@ namespace QIQO.Business.Client.Tests
     [TestClass]
     public class ProxyUnitTests
     {
+        private IUnityContainer container;
         [TestInitialize]
         public void Initialize()
         {
-            IUnityContainer container = new UnityContainer();
+            container = new UnityContainer();
             container.RegisterType<IAccountService, AccountClient>();
             // Unity.Container = container;
         }
@@ -43,7 +44,7 @@ namespace QIQO.Business.Client.Tests
         [TestMethod]
         public void ServiceFactoryTest()
         {
-            IServiceFactory sf = new ServiceFactory();
+            IServiceFactory sf = new ServiceFactory(container);
             IAccountService proxy = sf.CreateClient<IAccountService>();
 
             using (proxy)

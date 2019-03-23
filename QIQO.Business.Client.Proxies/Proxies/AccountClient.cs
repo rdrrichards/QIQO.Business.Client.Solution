@@ -4,6 +4,7 @@ using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Entities;
 using System.ServiceModel;
 using CommonServiceLocator;
+using Unity.Attributes;
 
 namespace QIQO.Business.Client.Proxies
 {
@@ -11,7 +12,7 @@ namespace QIQO.Business.Client.Proxies
     {
         private IAccountService channel = null;
 
-        // [InjectionConstructor]
+        [InjectionConstructor]
         public AccountClient() : this ("NetTcpBinding_IAccountService")
         {
             //channel = new ChannelFactory<IAccountService>("NetTcpBinding_IAccountService").CreateChannel();

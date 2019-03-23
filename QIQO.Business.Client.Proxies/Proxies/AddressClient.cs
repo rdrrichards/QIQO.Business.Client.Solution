@@ -4,6 +4,7 @@ using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Entities;
 using System.ServiceModel;
 using CommonServiceLocator;
+using Unity.Attributes;
 
 namespace QIQO.Business.Client.Proxies
 {
@@ -11,7 +12,7 @@ namespace QIQO.Business.Client.Proxies
     {
         private IAddressService channel = null;
 
-        // [InjectionConstructor]
+        [InjectionConstructor]
         public AddressClient() : this("NetTcpBinding_IAddressService") { }
 
         public AddressClient(string endpoint)

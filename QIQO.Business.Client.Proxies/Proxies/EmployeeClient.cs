@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Windows;
+using Unity.Attributes;
+using Unity.Attributes;
 
 namespace QIQO.Business.Client.Proxies
 {
@@ -14,7 +16,7 @@ namespace QIQO.Business.Client.Proxies
     {
         private IEmployeeService channel = null;
 
-        // [InjectionConstructor]
+        [InjectionConstructor]
         public EmployeeClient() : this("NetTcpBinding_IEmployeeService") { }
 
         public EmployeeClient(string endpoint)

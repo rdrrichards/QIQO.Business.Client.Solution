@@ -4,6 +4,7 @@ using System.ServiceModel;
 using QIQO.Business.Client.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.Attributes;
 
 namespace QIQO.Business.Client.Proxies
 {
@@ -11,7 +12,7 @@ namespace QIQO.Business.Client.Proxies
     {
         private ILedgerService channel = null;
 
-        // [InjectionConstructor]
+        [InjectionConstructor]
         public LedgerClient() : this("NetTcpBinding_ILedgerService") { }
 
         public LedgerClient(string endpoint)

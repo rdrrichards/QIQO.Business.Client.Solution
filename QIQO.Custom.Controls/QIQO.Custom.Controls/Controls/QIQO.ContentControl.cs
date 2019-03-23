@@ -23,43 +23,52 @@ namespace QIQO.Custom.Controls
 		{
 			if (new_content == null) return;
 
-			ContentPresenter header_element = Template.FindName("HeaderContent", this) as ContentPresenter;
-			ContentPresenter content_element = Template.FindName("MainContent", this) as ContentPresenter;
-			TranslateTransform header_transform = Template.FindName("HeaderTranslateTransform", this) as TranslateTransform;
-			TranslateTransform content_transform = Template.FindName("ContentTranslateTransform", this) as TranslateTransform;
-			double horz_view_trans_amount = 50;
-			content_transform.X = horz_view_trans_amount;
-			Content = new_content;
-
-			Storyboard sb = new Storyboard();
-
-			DoubleAnimation content_anim_x = new DoubleAnimation()
+			try
 			{
-				From = horz_view_trans_amount,
-				To = 0,
-				Duration = new TimeSpan(0, 0, 0, 1, 500),
-				BeginTime = new TimeSpan(0, 0, 0, 0, 100),
-				EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseInOut }
-			};
-			Storyboard.SetTarget(content_anim_x, content_element);
-			Storyboard.SetTargetProperty(content_anim_x, new PropertyPath("RenderTransform.X"));
+				ContentPresenter header_element = Template.FindName("HeaderContent", this) as ContentPresenter;
+				ContentPresenter content_element = Template.FindName("MainContent", this) as ContentPresenter;
+				TranslateTransform header_transform = Template.FindName("HeaderTranslateTransform", this) as TranslateTransform;
+				TranslateTransform content_transform = Template.FindName("ContentTranslateTransform", this) as TranslateTransform;
+				double horz_view_trans_amount = 50;
+				content_transform.X = horz_view_trans_amount;
+				Content = new_content;
 
-			DoubleAnimation content_anim_o = new DoubleAnimation()
+				Storyboard sb = new Storyboard();
+
+				DoubleAnimation content_anim_x = new DoubleAnimation()
+				{
+					From = horz_view_trans_amount,
+					To = 0,
+					Duration = new TimeSpan(0, 0, 0, 1, 500),
+					BeginTime = new TimeSpan(0, 0, 0, 0, 100),
+					EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseInOut }
+				};
+				Storyboard.SetTarget(content_anim_x, content_element);
+				Storyboard.SetTargetProperty(content_anim_x, new PropertyPath("RenderTransform.X"));
+
+				DoubleAnimation content_anim_o = new DoubleAnimation()
+				{
+					From = 0,
+					To = 1,
+					Duration = new TimeSpan(0, 0, 0, 1),
+					//EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseInOut }
+				};
+				Storyboard.SetTarget(content_anim_o, content_element);
+				Storyboard.SetTargetProperty(content_anim_o, new PropertyPath("Opacity"));
+
+				//sb.Children.Add(header_anim_x);
+				//sb.Children.Add(header_anim_o);
+				sb.Children.Add(content_anim_x);
+				sb.Children.Add(content_anim_o);
+
+				sb.Begin(Content as FrameworkElement);
+
+			}
+			catch (Exception)
 			{
-				From = 0,
-				To = 1,
-				Duration = new TimeSpan(0, 0, 0, 1),
-				//EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseInOut }
-			};
-			Storyboard.SetTarget(content_anim_o, content_element);
-			Storyboard.SetTargetProperty(content_anim_o, new PropertyPath("Opacity"));
-
-			//sb.Children.Add(header_anim_x);
-			//sb.Children.Add(header_anim_o);
-			sb.Children.Add(content_anim_x);
-			sb.Children.Add(content_anim_o);
-
-			sb.Begin(Content as FrameworkElement);
+				// throw;
+			}
+			
 		}
 	}
 }

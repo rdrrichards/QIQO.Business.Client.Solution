@@ -4,6 +4,7 @@ using System.ServiceModel;
 using QIQO.Business.Client.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.Attributes;
 
 namespace QIQO.Business.Client.Proxies
 {
@@ -11,7 +12,7 @@ namespace QIQO.Business.Client.Proxies
     {
         private ITypeService channel = null;
 
-        // [InjectionConstructor]
+        [InjectionConstructor]
         public TypeClient() : this("NetTcpBinding_ITypeService") { }
 
         public TypeClient(string endpoint)
