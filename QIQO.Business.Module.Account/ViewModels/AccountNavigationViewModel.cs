@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Practices.Unity;
+using CommonServiceLocator;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
@@ -19,8 +19,8 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         public AccountNavigationViewModel()
         {
-            event_aggregator = Unity.Container.Resolve<IEventAggregator>();
-            _regionManager = Unity.Container.Resolve<IRegionManager>();
+            event_aggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+            _regionManager = ServiceLocator.Current.GetInstance<IRegionManager>();
 
             ShowAccountModuleCommand = new DelegateCommand(ShowAccountModule);
             event_aggregator.GetEvent<AccountLoadedEvent>().Subscribe(OnFormLoaded, ThreadOption.BackgroundThread);

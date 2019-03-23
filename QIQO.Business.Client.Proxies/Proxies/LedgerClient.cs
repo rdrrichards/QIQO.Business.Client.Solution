@@ -1,4 +1,4 @@
-using Microsoft.Practices.Unity;
+using CommonServiceLocator;
 using QIQO.Business.Client.Contracts;
 using System.ServiceModel;
 using QIQO.Business.Client.Entities;
@@ -11,7 +11,7 @@ namespace QIQO.Business.Client.Proxies
     {
         private ILedgerService channel = null;
 
-        [InjectionConstructor]
+        // [InjectionConstructor]
         public LedgerClient() : this("NetTcpBinding_ILedgerService") { }
 
         public LedgerClient(string endpoint)

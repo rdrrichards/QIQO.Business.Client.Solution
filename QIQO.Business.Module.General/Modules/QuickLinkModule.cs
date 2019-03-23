@@ -1,20 +1,18 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Prism.Ioc;
+using Prism.Modularity;
 using Prism.Regions;
 using QIQO.Business.Module.General.Views;
-using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.Infrastructure;
 
 namespace QIQO.Business.Module.General.Modules
 {
-    public class QuickLinkModule : ModuleBase
+    public class QuickLinkModule : IModule
     {
-        public QuickLinkModule(IUnityContainer container, IRegionManager region_manager) : base(container, region_manager)
+        public void OnInitialized(IContainerProvider containerProvider)
         {
+            var regionManager = containerProvider.Resolve<IRegionManager>();
+            regionManager.RegisterViewWithRegion(RegionNames.HomeShortcutRegion, typeof(QuickLinkView));
         }
-
-        public override void Initialize()
-        {
-            RegionManager.RegisterViewWithRegion(RegionNames.HomeShortcutRegion, typeof(QuickLinkView));
-        }
+        public void RegisterTypes(IContainerRegistry containerRegistry) { }
     }
 }

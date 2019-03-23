@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Unity;
+﻿using CommonServiceLocator;
 using Prism.Events;
 using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Core;

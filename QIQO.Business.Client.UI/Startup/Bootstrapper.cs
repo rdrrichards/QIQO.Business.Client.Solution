@@ -1,5 +1,4 @@
-﻿using Microsoft.Practices.ServiceLocation;
-using Microsoft.Practices.Unity;
+﻿using CommonServiceLocator;
 using Prism.Logging;
 using Prism.Modularity;
 using Prism.Regions;
@@ -57,7 +56,7 @@ namespace QIQO.Business.Client.UI
 
             InitContainer();
 
-            Unity.Container = Container;
+            // Unity.Container = Container;
         }
 
         private void InitContainer()
@@ -100,7 +99,7 @@ namespace QIQO.Business.Client.UI
             var prin = new WindowsPrincipal(ident); //, new string[] { "QIQOCompanyAdmin" });
             Thread.CurrentPrincipal = prin;
 
-            var company = Unity.Container.Resolve<ICurrentCompanyService>();
+            var company = ServiceLocator.Current.GetInstance<ICurrentCompanyService>();
 
             if (!company.IsMultiCompanyEmployee)
             {
@@ -120,8 +119,8 @@ namespace QIQO.Business.Client.UI
         protected override RegionAdapterMappings ConfigureRegionAdapterMappings()
         {
             RegionAdapterMappings mappings = base.ConfigureRegionAdapterMappings();
-            mappings.RegisterMapping(typeof(StackPanel), Container.Resolve<StackPanelRegionAdapter>());
-            mappings.RegisterMapping(typeof(Ribbon), Container.Resolve<RibbonRegionAdapter>());
+            mappings.RegisterMapping(typeof(StackPanel), ServiceLocator.Current.GetInstance<StackPanelRegionAdapter>());
+            mappings.RegisterMapping(typeof(Ribbon), ServiceLocator.Current.GetInstance<RibbonRegionAdapter>());
             return mappings;
         }
 

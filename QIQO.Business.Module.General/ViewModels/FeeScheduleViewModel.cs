@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Unity;
+﻿using CommonServiceLocator;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
@@ -28,9 +28,9 @@ namespace QIQO.Business.Module.General.ViewModels
 
         public FeeScheduleViewModel()
         {
-            event_aggregator = Unity.Container.Resolve<IEventAggregator>();
-            service_factory = Unity.Container.Resolve<IServiceFactory>();
-            product_service = Unity.Container.Resolve<IProductListService>();
+            event_aggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+            service_factory = ServiceLocator.Current.GetInstance<IServiceFactory>();
+            product_service = ServiceLocator.Current.GetInstance<IProductListService>();
 
             GetProductList();
             FeeSchedule = new FeeScheduleWrapper(new FeeSchedule());

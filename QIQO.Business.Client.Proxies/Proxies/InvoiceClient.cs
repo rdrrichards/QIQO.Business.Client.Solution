@@ -1,4 +1,4 @@
-using Microsoft.Practices.Unity;
+using CommonServiceLocator;
 using QIQO.Business.Client.Contracts;
 using System.ServiceModel;
 using QIQO.Business.Client.Entities;
@@ -12,7 +12,7 @@ namespace QIQO.Business.Client.Proxies
     {
         private IInvoiceService channel = null;
 
-        [InjectionConstructor]
+        // [InjectionConstructor]
         public InvoiceClient() : this("NetTcpBinding_IInvoiceService") { }
 
         public InvoiceClient(string endpoint)

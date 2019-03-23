@@ -1,9 +1,10 @@
-﻿using Microsoft.Practices.Unity;
+﻿using CommonServiceLocator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Entities;
 using QIQO.Business.Client.Proxies;
+using Unity;
 
 namespace QIQO.Business.Client.Tests
 {
@@ -15,7 +16,7 @@ namespace QIQO.Business.Client.Tests
         {
             IUnityContainer container = new UnityContainer();
             container.RegisterType<IAccountService, AccountClient>();
-            Unity.Container = container;
+            // Unity.Container = container;
         }
 
         [TestMethod]

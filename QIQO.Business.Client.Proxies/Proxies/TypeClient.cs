@@ -1,4 +1,4 @@
-using Microsoft.Practices.Unity;
+using CommonServiceLocator;
 using QIQO.Business.Client.Contracts;
 using System.ServiceModel;
 using QIQO.Business.Client.Entities;
@@ -11,7 +11,7 @@ namespace QIQO.Business.Client.Proxies
     {
         private ITypeService channel = null;
 
-        [InjectionConstructor]
+        // [InjectionConstructor]
         public TypeClient() : this("NetTcpBinding_ITypeService") { }
 
         public TypeClient(string endpoint)

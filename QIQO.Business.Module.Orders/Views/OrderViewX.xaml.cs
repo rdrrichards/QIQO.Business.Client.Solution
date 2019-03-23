@@ -8,11 +8,11 @@ namespace QIQO.Business.Module.Orders.Views
     /// </summary>
     public partial class OrderViewX : UserControl
     {
-        //public OrderViewX() : this (new OrderViewModelX(Unity.Container.Resolve<IEventAggregator>(),
-        //    Unity.Container.Resolve<IServiceFactory>(),
-        //    Unity.Container.Resolve<IProductListService>(),
-        //    Unity.Container.Resolve<IRegionManager>(),
-        //    Unity.Container.Resolve<IReportService>()))
+        //public OrderViewX() : this (new OrderViewModelX(ServiceLocator.Current.GetInstance<IEventAggregator>(),
+        //    ServiceLocator.Current.GetInstance<IServiceFactory>(),
+        //    ServiceLocator.Current.GetInstance<IProductListService>(),
+        //    ServiceLocator.Current.GetInstance<IRegionManager>(),
+        //    ServiceLocator.Current.GetInstance<IReportService>()))
         //{
 
         //}

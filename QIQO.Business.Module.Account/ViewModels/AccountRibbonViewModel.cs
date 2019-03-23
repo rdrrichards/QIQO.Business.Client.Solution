@@ -1,7 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
-using Microsoft.Practices.Unity;
+using CommonServiceLocator;
 using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.Infrastructure;
@@ -18,8 +18,8 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         public AccountRibbonViewModel()
         {
-            event_aggregator = Unity.Container.Resolve<IEventAggregator>();
-            _regionManager = Unity.Container.Resolve<IRegionManager>();
+            event_aggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+            _regionManager = ServiceLocator.Current.GetInstance<IRegionManager>();
 
             AccountNavigateCommand = new DelegateCommand<object>(DoNavigation);
         }

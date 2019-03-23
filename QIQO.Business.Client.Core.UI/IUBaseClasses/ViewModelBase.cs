@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Unity;
+﻿using CommonServiceLocator;
 using Prism;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -23,7 +23,7 @@ namespace QIQO.Business.Client.Core.UI
 
         protected ViewModelBase() 
         {
-            var company = Unity.Container.Resolve<ICurrentCompanyService>();
+            var company = ServiceLocator.Current.GetInstance<ICurrentCompanyService>();
             CurrentCompanyName = company.CurrentCompany.CompanyName;
             CurrentCompanyKey = company.CurrentCompany.CompanyKey;
             CurrentCompany = company.CurrentCompany;

@@ -1,35 +1,33 @@
-﻿using System;
-using Microsoft.Practices.Unity;
+﻿using Prism.Ioc;
+using Prism.Modularity;
 using Prism.Regions;
-using QIQO.Business.Client.Core;
 using QIQO.Business.Module.Invoices.Views;
 using QIQO.Business.Client.Core.Infrastructure;
-using Prism.Unity;
-using QIQO.Business.Module.Invoices.Services;
 
 namespace QIQO.Business.Module.Invoices.Modules
 {
-    public class InvoiceModuleX : ModuleBase
+    public class InvoiceModuleX : IModule
     {
-        public InvoiceModuleX(IUnityContainer container, IRegionManager region_manager) : base(container, region_manager)
+        public void OnInitialized(IContainerProvider containerProvider)
         {
-
-        }
-
-        public override void Initialize()
-        {
-            UnityContainer.RegisterType<IWorkingInvoiceService, WorkingInvoiceService>(new ContainerControlledLifetimeManager());
-
-            RegionManager.RegisterViewWithRegion(RegionNames.ToolBarRegion, typeof(InvoiceNavigationViewX));
-
-            RegionManager.RegisterViewWithRegion(RegionNames.InvoicesHomeOpenInvoiceRegion, typeof(OpenInvoiceViewX));
+            var regionManager = containerProvider.Resolve<IRegionManager>();
+            regionManager.RegisterViewWithRegion(RegionNames.ToolBarRegion, typeof(InvoiceNavigationViewX));
+            regionManager.RegisterViewWithRegion(RegionNames.InvoicesHomeOpenInvoiceRegion, typeof(OpenInvoiceViewX));
             //RegionManager.RegisterViewWithRegion(RegionNames.OrdersHomeRecentOrderRegion, typeof(WorkingInvoiceView));
-            RegionManager.RegisterViewWithRegion(RegionNames.InvoicesHomeRecentInvoiceRegion, typeof(WorkingInvoiceView));
-            RegionManager.RegisterViewWithRegion(RegionNames.InvoicesHomeSearchInvoiceRegion, typeof(FindInvoiceViewX));
+            regionManager.RegisterViewWithRegion(RegionNames.InvoicesHomeRecentInvoiceRegion, typeof(WorkingInvoiceView));
+            regionManager.RegisterViewWithRegion(RegionNames.InvoicesHomeSearchInvoiceRegion, typeof(FindInvoiceViewX));
+        }
+        public void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.Register(typeof(object), typeof(InvoiceShellView), typeof(InvoiceShellView).FullName);
+            containerRegistry.Register(typeof(object), typeof(InvoiceView), typeof(InvoiceView).FullName);
+            containerRegistry.Register(typeof(object), typeof(FindInvoiceView), typeof(FindInvoiceView).FullName);
+            containerRegistry.Register(typeof(object), typeof(InvoiceRibbonView), typeof(InvoiceRibbonView).FullName);
+
+            containerRegistry.RegisterForNavigation<InvoiceHomeView>(typeof(InvoiceHomeView).FullName);
+            containerRegistry.RegisterForNavigation<InvoiceViewX>(typeof(InvoiceViewX).FullName);
 
 
-            UnityContainer.RegisterTypeForNavigation<InvoiceHomeView>(typeof(InvoiceHomeView).FullName);
-            UnityContainer.RegisterTypeForNavigation<InvoiceViewX>(typeof(InvoiceViewX).FullName);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using QIQO.Business.Client.Core;
-using Microsoft.Practices.Unity;
+using CommonServiceLocator;
 
 namespace QIQO.Business.Client.Proxies
 {
@@ -7,7 +7,7 @@ namespace QIQO.Business.Client.Proxies
     {
         public T CreateClient<T>() where T : IServiceContract
         {
-            return Unity.Container.Resolve<T>();
+            return ServiceLocator.Current.GetInstance<T>();
         }
     }
 }

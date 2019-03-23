@@ -1,22 +1,18 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Prism.Ioc;
+using Prism.Modularity;
 using Prism.Regions;
 using QIQO.Business.Module.Orders.Views;
-using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.Infrastructure;
-using Prism.Unity;
 
 namespace QIQO.Business.Module.Orders.Modules
 {
-    public class OpenOrderModuleX : ModuleBase
+    public class OpenOrderModuleX : IModule
     {
-        public OpenOrderModuleX(IUnityContainer container, IRegionManager region_mgr) : base (container, region_mgr)
+        public void OnInitialized(IContainerProvider containerProvider)
         {
+            var regionManager = containerProvider.Resolve<IRegionManager>();
+            regionManager.RegisterViewWithRegion(RegionNames.DashboardRegion1, typeof(OpenOrderViewX));
         }
-
-        public override void Initialize()
-        {
-            RegionManager.RegisterViewWithRegion(RegionNames.DashboardRegion1, typeof(OpenOrderViewX));
-            //UnityContainer.RegisterTypeForNavigation<OpenOrderViewX>("OpenOrderViewX");
-        }
+        public void RegisterTypes(IContainerRegistry containerRegistry) { }
     }
 }

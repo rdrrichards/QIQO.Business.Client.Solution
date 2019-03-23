@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Unity;
+﻿using CommonServiceLocator;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;

@@ -1,6 +1,6 @@
 ﻿using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
-using Microsoft.Practices.Unity;
+using CommonServiceLocator;
 using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Entities;
@@ -33,9 +33,9 @@ namespace QIQO.Business.Module.General.ViewModels
 
         public EmployeeViewModel()
         {
-            event_aggregator = Unity.Container.Resolve<IEventAggregator>();
-            service_factory = Unity.Container.Resolve<IServiceFactory>();
-            address_postal_service = Unity.Container.Resolve<IStateListService>();
+            event_aggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+            service_factory = ServiceLocator.Current.GetInstance<IServiceFactory>();
+            address_postal_service = ServiceLocator.Current.GetInstance<IStateListService>();
 
             BindCommands();
             GetStateList();
@@ -183,7 +183,7 @@ namespace QIQO.Business.Module.General.ViewModels
             ExecuteFaultHandledOperation(() =>
             {
                 IEmployeeService employee_service = service_factory.CreateClient<IEmployeeService>();
-                ICleaningUtility cleaner = Unity.Container.Resolve<ICleaningUtility>();
+                ICleaningUtility cleaner = ServiceLocator.Current.GetInstance<ICleaningUtility>();
 
                 cleaner.CleanAddress(DefaultAddress.Model);
                 DefaultAddress.AddressType = QIQOAddressType.Mailing;

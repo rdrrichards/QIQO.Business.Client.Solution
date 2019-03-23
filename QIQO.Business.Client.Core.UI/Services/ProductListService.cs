@@ -1,7 +1,7 @@
 ﻿using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Entities;
 using System.Collections.Generic;
-using Microsoft.Practices.Unity;
+using CommonServiceLocator;
 using System.Linq;
 
 namespace QIQO.Business.Client.Core.UI
@@ -18,7 +18,7 @@ namespace QIQO.Business.Client.Core.UI
         private void Initialize()
         {
             IProductService product_service = _service_factor.CreateClient<IProductService>();
-            ICurrentCompanyService curr_co = Unity.Container.Resolve<ICurrentCompanyService>();
+            ICurrentCompanyService curr_co = ServiceLocator.Current.GetInstance<ICurrentCompanyService>();
             using (product_service)
             {
                 try

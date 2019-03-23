@@ -1,4 +1,4 @@
-using Microsoft.Practices.Unity;
+using CommonServiceLocator;
 using QIQO.Business.Client.Contracts;
 using System.ServiceModel;
 using QIQO.Business.Client.Entities;
@@ -12,7 +12,7 @@ namespace QIQO.Business.Client.Proxies
     {
         private IOrderService channel = null;
 
-        [InjectionConstructor]
+        // [InjectionConstructor]
         public OrderClient() : this("NetTcpBinding_IOrderService") { }
 
         public OrderClient(string endpoint)

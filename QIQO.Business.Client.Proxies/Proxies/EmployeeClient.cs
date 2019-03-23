@@ -1,4 +1,4 @@
-using Microsoft.Practices.Unity;
+using CommonServiceLocator;
 using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Entities;
 using QIQO.Common.Core.Logging;
@@ -14,7 +14,7 @@ namespace QIQO.Business.Client.Proxies
     {
         private IEmployeeService channel = null;
 
-        [InjectionConstructor]
+        // [InjectionConstructor]
         public EmployeeClient() : this("NetTcpBinding_IEmployeeService") { }
 
         public EmployeeClient(string endpoint)

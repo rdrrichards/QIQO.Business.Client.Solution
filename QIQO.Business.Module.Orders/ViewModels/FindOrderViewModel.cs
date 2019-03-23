@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Unity;
+﻿using CommonServiceLocator;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
@@ -42,9 +42,9 @@ namespace QIQO.Business.Module.Orders.ViewModels
 
         public FindOrderViewModel()
         {
-            _eventAggregator = Unity.Container.Resolve<IEventAggregator>();
-            _serviceFactory = Unity.Container.Resolve<IServiceFactory>();
-            _regionManager = Unity.Container.Resolve<IRegionManager>();
+            _eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+            _serviceFactory = ServiceLocator.Current.GetInstance<IServiceFactory>();
+            _regionManager = ServiceLocator.Current.GetInstance<IRegionManager>();
 
             BindCommands();
             _eventAggregator.GetEvent<OrderLoadedEvent>().Publish(string.Empty);

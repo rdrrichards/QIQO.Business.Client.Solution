@@ -1,7 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
-using Microsoft.Practices.Unity;
+using CommonServiceLocator;
 using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.Infrastructure;
@@ -19,9 +19,9 @@ namespace QIQO.Business.Module.Dashboard.ViewModels
 
         public DashboardRibbonViewModel()
         {
-            event_aggregator = Unity.Container.Resolve<IEventAggregator>();
-            _regionManager = Unity.Container.Resolve<IRegionManager>();
-            _reportService = Unity.Container.Resolve<IReportService>();
+            event_aggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+            _regionManager = ServiceLocator.Current.GetInstance<IRegionManager>();
+            _reportService = ServiceLocator.Current.GetInstance<IReportService>();
 
             PrintCommand = new DelegateCommand(PrintSomething);
         }

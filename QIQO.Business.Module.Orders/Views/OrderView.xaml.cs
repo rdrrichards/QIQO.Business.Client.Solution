@@ -1,5 +1,5 @@
 ﻿using QIQO.Business.Client.Core;
-using Microsoft.Practices.Unity;
+using CommonServiceLocator;
 using QIQO.Business.Module.Orders.ViewModels;
 using System.Windows.Controls;
 using Prism.Events;
@@ -13,11 +13,11 @@ namespace QIQO.Business.Module.Orders.Views
     /// </summary>
     public partial class OrderView : UserControl
     {
-        public OrderView() : this (new OrderViewModel(Unity.Container.Resolve<IEventAggregator>(),
-            Unity.Container.Resolve<IServiceFactory>(),
-            Unity.Container.Resolve<IProductListService>(),
-            Unity.Container.Resolve<IRegionManager>(),
-            Unity.Container.Resolve<IReportService>()))
+        public OrderView() : this (new OrderViewModel(ServiceLocator.Current.GetInstance<IEventAggregator>(),
+            ServiceLocator.Current.GetInstance<IServiceFactory>(),
+            ServiceLocator.Current.GetInstance<IProductListService>(),
+            ServiceLocator.Current.GetInstance<IRegionManager>(),
+            ServiceLocator.Current.GetInstance<IReportService>()))
         {
 
         }
