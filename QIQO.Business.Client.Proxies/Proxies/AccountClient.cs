@@ -3,8 +3,7 @@ using System.Threading.Tasks;
 using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Entities;
 using System.ServiceModel;
-using CommonServiceLocator;
-using Unity.Attributes;
+using Unity;
 
 namespace QIQO.Business.Client.Proxies
 {
