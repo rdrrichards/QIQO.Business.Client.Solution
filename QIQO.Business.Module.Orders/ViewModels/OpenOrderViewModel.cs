@@ -10,22 +10,18 @@ using QIQO.Business.Client.Wrappers;
 using QIQO.Business.Module.Orders.Views;
 //using QIQO.Custom.Controls;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
 
 namespace QIQO.Business.Module.Orders.ViewModels
 {
     public class OpenOrderViewModel : ViewModelBase
     {
-        IEventAggregator event_aggregator;
-        IServiceFactory service_factory;
+        readonly IEventAggregator event_aggregator;
+        readonly IServiceFactory service_factory;
         private ObservableCollection<OrderWrapper> _open_orders;
         private object _selected_order;
-        private IRegionManager _regionManager;
+        private readonly IRegionManager _regionManager;
         private string _header_msg;
 
         public OpenOrderViewModel(IEventAggregator event_aggtr, IServiceFactory service_fctry, IRegionManager regionManager)
@@ -85,20 +81,20 @@ namespace QIQO.Business.Module.Orders.ViewModels
             HeaderMessage = "Open Orders (Loading...)";
             //ExecuteFaultHandledOperation(() =>
             //{
-            IOrderService proxy = service_factory.CreateClient<IOrderService>();
-            Company company = new Company() { CompanyKey = CurrentCompanyKey };
-            ObservableCollection<OrderWrapper> open_order_col = new ObservableCollection<OrderWrapper>();
+            var proxy = service_factory.CreateClient<IOrderService>();
+            var company = new Company() { CompanyKey = CurrentCompanyKey };
+            var open_order_col = new ObservableCollection<OrderWrapper>();
 
             using (proxy)
             {
-                Task<List<Order>> orders = proxy.GetOrdersByCompanyAsync(company);
+                var orders = proxy.GetOrdersByCompanyAsync(company);
                 await orders;
 
                 if (orders.Result.Count > 0)
                 {
-                    foreach (Order order in orders.Result)
+                    foreach (var order in orders.Result)
                     {
-                        OrderWrapper order_wrapper = new OrderWrapper(order);
+                        var order_wrapper = new OrderWrapper(order);
                         open_order_col.Add(order_wrapper);
                     }
                     OpenOrders = open_order_col;

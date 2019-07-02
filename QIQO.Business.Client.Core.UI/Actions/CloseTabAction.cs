@@ -1,8 +1,8 @@
-﻿using System.Windows;
+﻿using Prism.Regions;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
 using System.Windows.Media;
-using Prism.Regions;
 
 namespace QIQO.Business.Client.Core.UI
 {
@@ -12,19 +12,27 @@ namespace QIQO.Business.Client.Core.UI
         {
             var args = parameter as RoutedEventArgs;
             if (args == null)
+            {
                 return;
+            }
 
             var tabItem = FindParent<TabItem>(args.OriginalSource as DependencyObject);
             if (tabItem == null)
+            {
                 return;
+            }
 
             var tabControl = FindParent<TabControl>(tabItem);
             if (tabControl == null)
+            {
                 return;
+            }
 
-            IRegion region = RegionManager.GetObservableRegion(tabControl).Value;
+            var region = RegionManager.GetObservableRegion(tabControl).Value;
             if (region == null)
+            {
                 return;
+            }
 
             RemoveItemFromRegion(tabItem.Content, region);
         }
@@ -50,12 +58,14 @@ namespace QIQO.Business.Client.Core.UI
         {
             var navigationAwareItem = item as INavigationAware;
             if (navigationAwareItem != null)
+            {
                 navigationAwareItem.OnNavigatedFrom(navigationContext);
+            }
 
             var frameworkElement = item as FrameworkElement;
             if (frameworkElement != null)
             {
-                INavigationAware navigationAwareDataContext = frameworkElement.DataContext as INavigationAware;
+                var navigationAwareDataContext = frameworkElement.DataContext as INavigationAware;
                 if (navigationAwareDataContext != null)
                 {
                     navigationAwareDataContext.OnNavigatedFrom(navigationContext);
@@ -65,7 +75,7 @@ namespace QIQO.Business.Client.Core.UI
 
         bool CanRemove(object item, NavigationContext navigationContext)
         {
-            bool canRemove = true;
+            var canRemove = true;
 
             var confirmRequestItem = item as IConfirmNavigationRequest;
             if (confirmRequestItem != null)
@@ -79,7 +89,7 @@ namespace QIQO.Business.Client.Core.UI
             var frameworkElement = item as FrameworkElement;
             if (frameworkElement != null && canRemove)
             {
-                IConfirmNavigationRequest confirmRequestDataContext = frameworkElement.DataContext as IConfirmNavigationRequest;
+                var confirmRequestDataContext = frameworkElement.DataContext as IConfirmNavigationRequest;
                 if (confirmRequestDataContext != null)
                 {
                     confirmRequestDataContext.ConfirmNavigationRequest(navigationContext, result =>
@@ -94,14 +104,18 @@ namespace QIQO.Business.Client.Core.UI
 
         static T FindParent<T>(DependencyObject child) where T : DependencyObject
         {
-            DependencyObject parentObject = VisualTreeHelper.GetParent(child);
+            var parentObject = VisualTreeHelper.GetParent(child);
 
             if (parentObject == null)
+            {
                 return null;
+            }
 
             var parent = parentObject as T;
             if (parent != null)
+            {
                 return parent;
+            }
 
             return FindParent<T>(parentObject);
         }

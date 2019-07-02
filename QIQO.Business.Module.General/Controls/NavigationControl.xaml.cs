@@ -21,7 +21,7 @@ namespace QIQO.Business.Module.General
 
         // Using a DependencyProperty as the backing store for ButtonImage.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ButtonImageProperty =
-            DependencyProperty.Register("ButtonImage", typeof(string), typeof(NavigationControl), 
+            DependencyProperty.Register("ButtonImage", typeof(string), typeof(NavigationControl),
                 new PropertyMetadata("/QIQO.Business.Client.Core.UI;component/Images/48/individual.png"));
 
         public string ButtonLabel

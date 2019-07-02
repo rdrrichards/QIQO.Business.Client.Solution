@@ -10,10 +10,10 @@ namespace QIQO.Business.Client.Core
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             var att_type = (QIQOAttributeDataType)values[0];
-            string att_value = (string)values[1];
+            var att_value = (string)values[1];
             if (att_type == QIQOAttributeDataType.Number)
             {
-                int num = 0;
+                var num = 0;
                 int.TryParse(att_value.ToString(), out num);
                 return num.ToString("N0");
             }
@@ -30,7 +30,7 @@ namespace QIQO.Business.Client.Core
         {
             decimal num = 0;
             decimal.TryParse(value.ToString(), out num);
-            object[] objects = new object[1]{num};
+            var objects = new object[1] { num };
             return objects;
         }
     }

@@ -5,7 +5,7 @@ namespace QIQO.Business.Client.Entities
     public class ContactType
     {
         public int ContactTypeKey { get; set; }
-    
+
         public string ContactTypeCategory { get; set; }
         public string ContactTypeCode { get; set; }
         public string ContactTypeName { get; set; }

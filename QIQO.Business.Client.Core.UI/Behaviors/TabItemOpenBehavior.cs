@@ -21,9 +21,11 @@ namespace QIQO.Business.Client.Core.UI
 
         private void TabItem_Loaded(object sender, RoutedEventArgs e)
         {
-            IRegion region = RegionManager.GetObservableRegion(AssociatedObject).Value;
+            var region = RegionManager.GetObservableRegion(AssociatedObject).Value;
             if (region == null)
+            {
                 return;
+            }
 
             var context = new NavigationContext(region.NavigationService, null);
             InvokeOnNavigatedTo(GetItemFromTabItem(e.OriginalSource), context);
@@ -33,7 +35,9 @@ namespace QIQO.Business.Client.Core.UI
         {
             var tabItem = source as TabItem;
             if (tabItem == null)
+            {
                 return null;
+            }
 
             return tabItem.Content;
         }
@@ -46,10 +50,10 @@ namespace QIQO.Business.Client.Core.UI
                 navigationAwareItem.OnNavigatedTo(navigationContext);
             }
 
-            FrameworkElement frameworkElement = item as FrameworkElement;
+            var frameworkElement = item as FrameworkElement;
             if (frameworkElement != null)
             {
-                INavigationAware navigationAwareDataContext = frameworkElement.DataContext as INavigationAware;
+                var navigationAwareDataContext = frameworkElement.DataContext as INavigationAware;
                 if (navigationAwareDataContext != null)
                 {
                     navigationAwareDataContext.OnNavigatedTo(navigationContext);

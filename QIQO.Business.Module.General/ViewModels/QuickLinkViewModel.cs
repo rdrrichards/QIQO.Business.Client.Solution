@@ -1,9 +1,8 @@
-﻿using QIQO.Business.Client.Core.UI;
-using System.Collections.ObjectModel;
-using QIQO.Business.Client.Core.Infrastructure;
-using Prism.Commands;
-using System;
+﻿using Prism.Commands;
 using Prism.Regions;
+using QIQO.Business.Client.Core.Infrastructure;
+using QIQO.Business.Client.Core.UI;
+using System.Collections.ObjectModel;
 
 namespace QIQO.Business.Module.General.ViewModels
 {
@@ -25,7 +24,9 @@ namespace QIQO.Business.Module.General.ViewModels
         {
             var action = SelectedAction as ActionItem;
             if (action != null)
+            {
                 _regionManager.RequestNavigate(RegionNames.ContentRegion, action.ActionUri);
+            }
         }
 
         private void InitializeActions()

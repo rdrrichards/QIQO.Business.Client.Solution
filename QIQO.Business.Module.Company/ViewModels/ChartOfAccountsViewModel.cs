@@ -8,22 +8,22 @@ using QIQO.Business.Client.Entities;
 using QIQO.Business.Client.Wrappers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ComponentModel;
+using System.Linq;
 
 namespace QIQO.Business.Module.Company.ViewModels
 {
     public class ChartOfAccountsViewModel : ViewModelBase, IInteractionRequestAware
     {
-        IEventAggregator event_aggregator;
-        IServiceFactory service_factory;
+        readonly IEventAggregator event_aggregator;
+        readonly IServiceFactory service_factory;
         ChartOfAccountWrapper _chart_of_account;
-        private string _viewTitle = "Chart of Account Add/Edit";
+        private readonly string _viewTitle = "Chart of Account Add/Edit";
 
         private ItemEditNotification notification;
-        private Client.Entities.Company _currentCoObject;
-        private List<string> _coa_acct_types;
-        private List<string> _coa_bal_types;
+        private readonly Client.Entities.Company _currentCoObject;
+        private readonly List<string> _coa_acct_types;
+        private readonly List<string> _coa_bal_types;
 
         public ChartOfAccountsViewModel()
         {
@@ -35,7 +35,7 @@ namespace QIQO.Business.Module.Company.ViewModels
             _currentCoObject = CurrentCompany as Client.Entities.Company;
             if (_currentCoObject.GLAccounts != null)
             {
-               var  _coa = _currentCoObject.GLAccounts;
+                var _coa = _currentCoObject.GLAccounts;
                 _coa_acct_types = new List<string>(_coa.Select(x => x.AccountType).Distinct().OrderBy(x => x).ToList());
                 _coa_bal_types = new List<string>(_coa.Select(x => x.BalanceType).Distinct().OrderBy(x => x).ToList());
             }
@@ -92,7 +92,10 @@ namespace QIQO.Business.Module.Company.ViewModels
 
         private bool CanDoSave()
         {
-            if (ChartOfAccount == null) return false;
+            if (ChartOfAccount == null)
+            {
+                return false;
+            }
 
             return ChartOfAccount.IsChanged && ChartOfAccount.IsValid;
         }

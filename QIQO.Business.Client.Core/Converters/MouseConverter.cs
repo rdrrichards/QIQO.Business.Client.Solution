@@ -12,9 +12,13 @@ namespace QIQO.Business.Client.Core
             if (value is bool)
             {
                 if ((bool)value)
+                {
                     return Cursors.Wait;
+                }
                 else
+                {
                     return null;
+                }
             }
 
             return null;

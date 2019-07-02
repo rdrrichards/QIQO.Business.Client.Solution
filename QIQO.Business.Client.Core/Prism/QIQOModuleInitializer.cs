@@ -1,5 +1,4 @@
-﻿using CommonServiceLocator;
-using Prism.Ioc;
+﻿using Prism.Ioc;
 using Prism.Logging;
 using Prism.Modularity;
 using System;
@@ -13,8 +12,8 @@ namespace QIQO.Business.Client.Core
     public class QIQOModuleInitializer : ModuleInitializer
     {
         // Use this when you want to apply security around the creation of modules based on AD roles
-        public QIQOModuleInitializer(IContainerExtension containerExtension, ILoggerFacade loggerFacade) : 
-            base (containerExtension, loggerFacade)
+        public QIQOModuleInitializer(IContainerExtension containerExtension, ILoggerFacade loggerFacade) :
+            base(containerExtension, loggerFacade)
         {
 
         }
@@ -22,17 +21,19 @@ namespace QIQO.Business.Client.Core
         protected override IModule CreateModule(IModuleInfo moduleInfo)
         {
             if (ModuleIsInUserRole(moduleInfo))
+            {
                 return base.CreateModule(moduleInfo);
+            }
 
             return null;
         }
 
         private bool ModuleIsInUserRole(IModuleInfo moduleInfo)
         {
-            bool isInRole = true; // This should really be false by default
+            var isInRole = true; // This should really be false by default
 
-            string role = GetModuleRole(moduleInfo);
-            
+            var role = GetModuleRole(moduleInfo);
+
             if (role != null && !ClaimsPrincipal.Current.IsInRole(role))
             {
                 isInRole = false;

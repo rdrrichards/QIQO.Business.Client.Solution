@@ -44,7 +44,9 @@ namespace QIQO.Business.Module.Invoices.ViewModels
             var workingInvoices = _workingOrdersService.GetWorkingInvoices();
             WorkingInvoices.Clear();
             foreach (var wi in workingInvoices)
+            {
                 WorkingInvoices.Add(Map(wi.Model));
+            }
         }
 
         public bool KeepAlive => false;

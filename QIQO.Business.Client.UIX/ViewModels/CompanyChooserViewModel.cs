@@ -1,13 +1,13 @@
 ﻿using QIQO.Business.Client.Core.UI;
+using QIQO.Business.Client.Entities;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using QIQO.Business.Client.Entities;
 
 namespace QIQO.Business.Client.UIX
 {
     public class CompanyChooserViewModel : ViewModelBase
     {
-        private ObservableCollection<Company> _empCompanies;
+        private readonly ObservableCollection<Company> _empCompanies;
 
         public CompanyChooserViewModel(List<Company> companies)
         {

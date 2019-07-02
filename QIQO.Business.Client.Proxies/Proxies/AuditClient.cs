@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using QIQO.Business.Client.Contracts;
+﻿using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Entities;
+using System.Collections.Generic;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using Unity;
 
 namespace QIQO.Business.Client.Proxies

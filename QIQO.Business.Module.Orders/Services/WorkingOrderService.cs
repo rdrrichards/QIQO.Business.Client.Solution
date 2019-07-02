@@ -26,16 +26,20 @@ namespace QIQO.Business.Module.Orders.Services
         public OrderWrapper GetOrder(string order_key)
         {
             if (open_orders.ContainsKey(order_key))
+            {
                 return open_orders[order_key];
+            }
             else
+            {
                 return null;
+            }
         }
 
         public bool OpenOrder(OrderWrapper order)
         {
             if (!open_orders.ContainsValue(order))
             {
-                string new_key = GenOrderKey();
+                var new_key = GenOrderKey();
                 order.OrderNumber = new_key;
                 open_orders.Add(new_key, order);
                 event_aggregator.GetEvent<OpenOrderServiceEvent>().Publish(open_orders.Count);

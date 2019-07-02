@@ -2,21 +2,19 @@
 using Prism.Commands;
 using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
-using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Entities;
 using QIQO.Business.Client.Wrappers;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace QIQO.Business.Module.Account.ViewModels
 {
     public class AccountPersonViewModel : ViewModelBase, IInteractionRequestAware
     {
-        IEventAggregator event_aggregator;
-        IServiceFactory service_factory;
+        readonly IEventAggregator event_aggregator;
+        readonly IServiceFactory service_factory;
         private AccountPersonWrapper _person;
 
         private ItemEditNotification notification;
@@ -76,9 +74,12 @@ namespace QIQO.Business.Module.Account.ViewModels
         private bool CanGenPersonCode()
         {
             if (CurrentPerson != null)
-                return ((CurrentPerson.PersonCode == "" || CurrentPerson.PersonCode == null) && 
-                    ((CurrentPerson.PersonFirstName != null && CurrentPerson.PersonFirstName.Length > 0) & 
+            {
+                return ((CurrentPerson.PersonCode == "" || CurrentPerson.PersonCode == null) &&
+                    ((CurrentPerson.PersonFirstName != null && CurrentPerson.PersonFirstName.Length > 0) &
                     (CurrentPerson.PersonLastName != null && CurrentPerson.PersonLastName.Length > 0)));
+            }
+
             return false;
         }
 
@@ -88,7 +89,7 @@ namespace QIQO.Business.Module.Account.ViewModels
             //var account_service = service_factory.CreateClient<IAccountService>();
             //CurrentPerson.PersonCode = account_service.GetAccountNextNumber(CurrentPerson.Account.Model, QIQOEntityNumberType.OrderNumber);
             //account_service.Dispose();
-            CurrentPerson.PersonCode = CurrentPerson.PersonFirstName[0] + ((CurrentPerson.PersonMI != null && 
+            CurrentPerson.PersonCode = CurrentPerson.PersonFirstName[0] + ((CurrentPerson.PersonMI != null &&
                 CurrentPerson.PersonMI.Length > 0) ? CurrentPerson.PersonMI : string.Empty) + CurrentPerson.PersonLastName[0];
         }
 
@@ -118,9 +119,13 @@ namespace QIQO.Business.Module.Account.ViewModels
         private bool CanDoSave()
         {
             if (CurrentPerson.PersonKey == 0)
+            {
                 return !HasErrors;
+            }
             else
+            {
                 return CurrentPerson.IsChanged && CurrentPerson.IsValid;
+            }
         }
 
         private void DoSave()

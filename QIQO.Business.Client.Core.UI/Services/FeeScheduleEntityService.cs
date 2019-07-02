@@ -6,7 +6,7 @@ namespace QIQO.Business.Client.Core.UI
 {
     public class FeeScheduleEntityService : IFeeScheduleEntityService
     {
-        IServiceFactory _service_factor;
+        readonly IServiceFactory _service_factor;
         public FeeScheduleEntityService(IServiceFactory service_factory)
         {
             _service_factor = service_factory;
@@ -14,7 +14,7 @@ namespace QIQO.Business.Client.Core.UI
 
         public List<FeeSchedule> GetFeeSchedules(Product product)
         {
-            IFeeScheduleService fs_service = _service_factor.CreateClient<IFeeScheduleService>();
+            var fs_service = _service_factor.CreateClient<IFeeScheduleService>();
             using (fs_service)
             {
                 try
@@ -31,7 +31,7 @@ namespace QIQO.Business.Client.Core.UI
 
         public List<FeeSchedule> GetFeeSchedules(Account account)
         {
-            IFeeScheduleService fs_service = _service_factor.CreateClient<IFeeScheduleService>();
+            var fs_service = _service_factor.CreateClient<IFeeScheduleService>();
             using (fs_service)
             {
                 try

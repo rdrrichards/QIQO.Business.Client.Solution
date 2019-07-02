@@ -1,8 +1,8 @@
 ﻿using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
-using QIQO.Business.Module.General.Views;
 using QIQO.Business.Client.Core.Infrastructure;
+using QIQO.Business.Module.General.Views;
 
 namespace QIQO.Business.Module.General.Modules
 {

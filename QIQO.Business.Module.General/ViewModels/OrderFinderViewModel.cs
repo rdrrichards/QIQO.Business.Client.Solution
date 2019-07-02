@@ -1,26 +1,26 @@
-﻿using Prism.Commands;
+﻿using CommonServiceLocator;
+using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
-using CommonServiceLocator;
 using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Core;
+using QIQO.Business.Client.Core.Infrastructure;
 using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Entities;
 using System;
-using System.Collections.ObjectModel;
 using System.Collections.Generic;
-using QIQO.Business.Client.Core.Infrastructure;
+using System.Collections.ObjectModel;
 
 namespace QIQO.Business.Module.General.ViewModels
 {
     public class OrderFinderViewModel : ViewModelBase, IInteractionRequestAware
     {
         //IEventAggregator event_aggregator;
-        IServiceFactory service_factory;
+        readonly IServiceFactory service_factory;
         private ObservableCollection<Order> _orders;
-        private string _viewTitle = "Order Find";
+        private readonly string _viewTitle = "Order Find";
         private string _search_term;
         private ItemSelectionNotification notification;
-        private List<Order> _selected_orders = new List<Order>();
+        private readonly List<Order> _selected_orders = new List<Order>();
         private bool _filter_to_account = false;
         private ObservableCollection<Account> _accounts;
         private object _selected_account;
@@ -53,7 +53,9 @@ namespace QIQO.Business.Module.General.ViewModels
                     if (payload != null)
                     {
                         if ((string)payload == ApplicationStrings.FindOrderForInvoicingPayload)
+                        {
                             _filter_to_account = true;
+                        }
                     }
                     RaisePropertyChanged(nameof(Notification));
                     GetAccountList();
@@ -118,7 +120,7 @@ namespace QIQO.Business.Module.General.ViewModels
             //if (!string.IsNullOrWhiteSpace(SearchTerm))
             //{
             IsBusy = true;
-            IOrderService order_service = service_factory.CreateClient<IOrderService>();
+            var order_service = service_factory.CreateClient<IOrderService>();
 
             using (order_service)
             {
@@ -164,14 +166,14 @@ namespace QIQO.Business.Module.General.ViewModels
 
         private void GetAccountList()
         {
-            IAccountService account_service = service_factory.CreateClient<IAccountService>();
-            ICurrentCompanyService company_service = ServiceLocator.Current.GetInstance<ICurrentCompanyService>();
+            var account_service = service_factory.CreateClient<IAccountService>();
+            var company_service = ServiceLocator.Current.GetInstance<ICurrentCompanyService>();
 
             using (account_service)
             {
                 var accounts = account_service.GetAccountsByCompany(company_service.CurrentCompany);
                 AccountList = new ObservableCollection<Account>(accounts);
-            }            
+            }
         }
     }
 }

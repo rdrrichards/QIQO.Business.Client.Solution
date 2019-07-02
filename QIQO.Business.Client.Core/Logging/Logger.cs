@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
 using log4net;
 using log4net.Config;
 using log4net.Core;
+using System;
+using System.Collections.Generic;
 
 namespace QIQO.Common.Core.Logging
 {
@@ -12,7 +12,7 @@ namespace QIQO.Common.Core.Logging
     public class Logger
     {
         public string Name { get; set; }
-        private ILog _logger;
+        private readonly ILog _logger;
         private List<LogLevel> _enabledLevels;
 
         public Logger(string name)
@@ -174,7 +174,7 @@ namespace QIQO.Common.Core.Logging
                 loggingEvent.Properties["EventID"] = errorTypeId;
                 _logger.Logger.Log(loggingEvent);
             }
-        }           
+        }
 
         private bool IsLogEnabled(LogLevel level)
         {

@@ -6,7 +6,7 @@ namespace QIQO.Business.Client.Entities
     public class PersonType
     {
         public int PersonTypeKey { get; set; }
-    
+
         public string PersonTypeCategory { get; set; }
         public string PersonTypeCode { get; set; }
         public string PersonTypeName { get; set; }

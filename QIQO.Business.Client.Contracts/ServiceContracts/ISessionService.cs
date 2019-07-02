@@ -1,8 +1,8 @@
-using System.ServiceModel;
-using QIQO.Business.Client.Entities;
-using System.Threading.Tasks;
 using QIQO.Business.Client.Core;
+using QIQO.Business.Client.Entities;
 using System;
+using System.ServiceModel;
+using System.Threading.Tasks;
 
 namespace QIQO.Business.Client.Contracts
 {

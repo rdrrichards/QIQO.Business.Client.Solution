@@ -21,7 +21,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
         private readonly IRegionManager _regionManager;
 
         private ObservableCollection<Order> _orders = new ObservableCollection<Order>();
-        private string _viewTitle = "Order Find";
+        private readonly string _viewTitle = "Order Find";
         private string _searchTerm = "";
         private ItemSelectionNotification notification;
         private string _buttonText = "Find";

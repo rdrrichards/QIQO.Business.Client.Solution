@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using QIQO.Business.Client.Contracts;
+﻿using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Entities;
+using System.Collections.Generic;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using Unity;
 
 namespace QIQO.Business.Client.Proxies
@@ -12,7 +12,7 @@ namespace QIQO.Business.Client.Proxies
         private IAccountService channel = null;
 
         [InjectionConstructor]
-        public AccountClient() : this ("NetTcpBinding_IAccountService")
+        public AccountClient() : this("NetTcpBinding_IAccountService")
         {
             //channel = new ChannelFactory<IAccountService>("NetTcpBinding_IAccountService").CreateChannel();
         }

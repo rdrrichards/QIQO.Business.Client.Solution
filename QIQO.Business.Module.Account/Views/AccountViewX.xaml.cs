@@ -1,9 +1,4 @@
-﻿using CommonServiceLocator;
-using Prism.Events;
-using Prism.Regions;
-using QIQO.Business.Client.Core;
-using QIQO.Business.Client.Core.UI;
-using QIQO.Business.Module.Account.ViewModels;
+﻿using QIQO.Business.Module.Account.ViewModels;
 using System.Windows.Controls;
 
 namespace QIQO.Business.Module.Account.Views

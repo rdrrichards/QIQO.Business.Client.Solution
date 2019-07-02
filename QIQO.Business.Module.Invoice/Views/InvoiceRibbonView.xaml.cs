@@ -1,5 +1,4 @@
 ﻿using QIQO.Business.Module.Invoices.ViewModels;
-using System.Windows.Controls;
 using System.Windows.Controls.Ribbon;
 
 namespace QIQO.Business.Module.Invoices.Views

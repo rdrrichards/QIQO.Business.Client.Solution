@@ -1,5 +1,4 @@
-﻿using System;
-using Prism.Events;
+﻿using Prism.Events;
 using Prism.Regions;
 using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.Infrastructure;

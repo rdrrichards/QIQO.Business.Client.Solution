@@ -9,17 +9,17 @@ using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Core.UI.Adapters;
 using QIQO.Business.Client.Proxies;
 using QIQO.Business.Client.UIX.Views;
-using QIQO.Business.Module.Dashboard.Modules;
 using QIQO.Business.Module.Account.Modules;
 using QIQO.Business.Module.Company.Modules;
+using QIQO.Business.Module.Dashboard.Modules;
 using QIQO.Business.Module.General.Modules;
+using QIQO.Business.Module.Invoices.Modules;
 using QIQO.Business.Module.Orders.Modules;
 using QIQO.Business.Module.Product.Modules;
-using QIQO.Business.Module.Invoices.Modules;
-using System.Windows;
-using System.Windows.Controls;
 using System.Security.Principal;
 using System.Threading;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace QIQO.Business.Client.UIX
 {
@@ -28,7 +28,7 @@ namespace QIQO.Business.Client.UIX
         // The following run basically in this order
         protected override IModuleCatalog CreateModuleCatalog()
         {
-            ModuleCatalog catalog = new ModuleCatalog();
+            var catalog = new ModuleCatalog();
             catalog.AddModule(typeof(TitleBarModule));
             //catalog.AddModule(typeof(StatusBarModule));
             catalog.AddModule(typeof(DashboardModuleX));
@@ -109,8 +109,8 @@ namespace QIQO.Business.Client.UIX
             {
                 if (company.CompanyPromptOnLoad)
                 {
-                    CompanyChooserViewModel company_chooser = new CompanyChooserViewModel(company.EmployeeCompanies);
-                    CompanyChooserView company_chooser_view = new CompanyChooserView(company_chooser);
+                    var company_chooser = new CompanyChooserViewModel(company.EmployeeCompanies);
+                    var company_chooser_view = new CompanyChooserView(company_chooser);
                     company_chooser_view.Show();
                 }
             }
@@ -118,7 +118,7 @@ namespace QIQO.Business.Client.UIX
 
         protected override RegionAdapterMappings ConfigureRegionAdapterMappings()
         {
-            RegionAdapterMappings mappings = base.ConfigureRegionAdapterMappings();
+            var mappings = base.ConfigureRegionAdapterMappings();
             mappings.RegisterMapping(typeof(StackPanel), ServiceLocator.Current.GetInstance<StackPanelRegionAdapter>());
             //mappings.RegisterMapping(typeof(Ribbon), ServiceLocator.Current.GetInstance<RibbonRegionAdapter>());
             return mappings;

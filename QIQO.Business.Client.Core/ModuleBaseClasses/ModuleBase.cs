@@ -1,9 +1,4 @@
-﻿using CommonServiceLocator;
-using Prism.Ioc;
-using Prism.Modularity;
-using Prism.Regions;
-
-namespace QIQO.Business.Client.Core
+﻿namespace QIQO.Business.Client.Core
 {
     //public abstract class ModuleBase : IModule
     //{

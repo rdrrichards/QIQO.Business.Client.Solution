@@ -21,11 +21,14 @@ namespace QIQO.Business.Client.Core.UI
 
         public void ExecuteReport(string reportName, string parameters = "")
         {
-            string reportPath = appSettings[reportName].ToString();
+            var reportPath = appSettings[reportName].ToString();
 
-            if (parameters.Length > 0) parameters = $"&{parameters}";
+            if (parameters.Length > 0)
+            {
+                parameters = $"&{parameters}";
+            }
 
-            string fullReportUrl = serverName + reportPath + reportCommand + parameters;
+            var fullReportUrl = serverName + reportPath + reportCommand + parameters;
 
             try
             {

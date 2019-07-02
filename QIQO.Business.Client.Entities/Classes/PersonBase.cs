@@ -27,6 +27,6 @@ namespace QIQO.Business.Client.Entities
         public string UpdateUserID { get; set; }
         public DateTime UpdateDateTime { get; set; }
 
-        public PersonBase(){}
+        public PersonBase() { }
     }
 }

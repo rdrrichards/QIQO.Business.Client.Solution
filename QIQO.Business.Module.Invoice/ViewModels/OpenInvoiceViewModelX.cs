@@ -6,12 +6,9 @@ using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.Infrastructure;
 using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Entities;
-using QIQO.Business.Client.Wrappers;
 using QIQO.Business.Module.General.Models;
 using QIQO.Business.Module.Invoices.Views;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 
 namespace QIQO.Business.Module.Invoices.ViewModels
 {
@@ -31,7 +28,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
             _eventAggregator = eventAggregator;
             _serviceFactory = serviceFactory;
             _regionManager = regionManager;
-            
+
             GetCompanyOpenInvoices();
 
             ChooseItemCommand = new DelegateCommand(OpenInvoice);
@@ -95,7 +92,9 @@ namespace QIQO.Business.Module.Invoices.ViewModels
                 if (invoices.Result.Count > 0)
                 {
                     foreach (var invoice in invoices.Result)
+                    {
                         OpenInvoices.Add(Map(invoice));
+                    }
 
                     SelectedItem = OpenInvoices[0];
                     SelectedItemIndex = 0;

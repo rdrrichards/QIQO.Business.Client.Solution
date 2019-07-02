@@ -1,9 +1,9 @@
-﻿using Prism.Commands;
+﻿using CommonServiceLocator;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
-using CommonServiceLocator;
-using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Core;
+using QIQO.Business.Client.Core.UI;
 
 namespace QIQO.Business.Module.Company.ViewModels
 {

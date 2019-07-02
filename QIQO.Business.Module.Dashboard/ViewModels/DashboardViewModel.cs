@@ -1,10 +1,10 @@
-﻿using Prism.Commands;
+﻿using CommonServiceLocator;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
-using CommonServiceLocator;
-using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.Infrastructure;
+using QIQO.Business.Client.Core.UI;
 using QIQO.Common.Core.Logging;
 
 namespace QIQO.Business.Module.Dashboard.ViewModels

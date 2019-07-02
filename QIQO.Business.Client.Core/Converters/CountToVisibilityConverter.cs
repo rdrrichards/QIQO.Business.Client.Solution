@@ -10,7 +10,11 @@ namespace QIQO.Business.Client.Core
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var cnt = (int)value;
-            if (cnt > 0) return Visibility.Visible;
+            if (cnt > 0)
+            {
+                return Visibility.Visible;
+            }
+
             return Visibility.Collapsed;
         }
 

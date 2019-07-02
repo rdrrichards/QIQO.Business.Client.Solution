@@ -11,10 +11,8 @@ using QIQO.Business.Module.Invoices.Views;
 using QIQO.Custom.Controls;
 //using QIQO.Custom.Controls;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
@@ -22,11 +20,11 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 {
     public class OpenInvoiceViewModel : ViewModelBase
     {
-        IEventAggregator event_aggregator;
-        IServiceFactory service_factory;
+        readonly IEventAggregator event_aggregator;
+        readonly IServiceFactory service_factory;
         private ObservableCollection<InvoiceWrapper> _open_orders;
         private object _selected_order;
-        private IRegionManager _regionManager;
+        private readonly IRegionManager _regionManager;
         private string _header_msg;
 
         public OpenInvoiceViewModel(IEventAggregator event_aggtr, IServiceFactory service_fctry, IRegionManager regionManager)
@@ -46,7 +44,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         private void OpenInvoice()
         {
-            var selectedInvoice = SelectedInvoice  as InvoiceWrapper;
+            var selectedInvoice = SelectedInvoice as InvoiceWrapper;
             //MessageBox.Show("The order that you double-clicked on is: " + selectedInvoice.InvoiceNumber);
             //*** NEEDS WORK!
             if (selectedInvoice != null)
@@ -86,20 +84,20 @@ namespace QIQO.Business.Module.Invoices.ViewModels
             HeaderMessage = "Open Invoices (Loading...)";
             //ExecuteFaultHandledOperation(() =>
             //{
-            IInvoiceService proxy = service_factory.CreateClient<IInvoiceService>();
-            Company company = new Company() { CompanyKey = CurrentCompanyKey };
-            ObservableCollection<InvoiceWrapper> open_order_col = new ObservableCollection<InvoiceWrapper>();
+            var proxy = service_factory.CreateClient<IInvoiceService>();
+            var company = new Company() { CompanyKey = CurrentCompanyKey };
+            var open_order_col = new ObservableCollection<InvoiceWrapper>();
 
             using (proxy)
             {
-                Task<List<Invoice>> orders = proxy.GetInvoicesByCompanyAsync(company);
+                var orders = proxy.GetInvoicesByCompanyAsync(company);
                 await orders;
 
                 if (orders.Result.Count > 0)
                 {
-                    foreach (Invoice order in orders.Result)
+                    foreach (var order in orders.Result)
                     {
-                        InvoiceWrapper order_wrapper = new InvoiceWrapper(order);
+                        var order_wrapper = new InvoiceWrapper(order);
                         open_order_col.Add(order_wrapper);
                     }
                     OpenInvoices = open_order_col;
@@ -119,11 +117,11 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         private void SetEventDatesContext()
         {
-            ObservableCollection<QIQODate> eds = new ObservableCollection<QIQODate>();
+            var eds = new ObservableCollection<QIQODate>();
 
-            foreach (InvoiceWrapper invoice in OpenInvoices)
+            foreach (var invoice in OpenInvoices)
             {
-                QIQODate id = new QIQODate()
+                var id = new QIQODate()
                 {
                     Date = invoice.InvoiceEntryDate.AddDays(15),
                     EntityType = "Account",

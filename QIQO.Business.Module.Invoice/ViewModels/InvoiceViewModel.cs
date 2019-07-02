@@ -25,7 +25,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
         private readonly IServiceFactory service_factory;
         private readonly IProductListService _product_service;
         private readonly IRegionManager region_manager;
-        private IReportService report_service;
+        private readonly IReportService report_service;
         private InvoiceWrapper _invoice;
         private Client.Entities.Account _currentAccount;
 
@@ -41,7 +41,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
         private bool _grid_enabled = true;
         private ItemEditNotification notification;
 
-        public InvoiceViewModel(IEventAggregator event_aggtr, IServiceFactory service_fctry, 
+        public InvoiceViewModel(IEventAggregator event_aggtr, IServiceFactory service_fctry,
             IProductListService product_service, IRegionManager region_mgr,
             IReportService reportService) //
         {
@@ -65,7 +65,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         private void ParentViewUnloadingEvent(object obj)
         {
-            bool canClose = true;
+            var canClose = true;
             var navContext = obj as NavigationContext;
             if (navContext != null)
             {
@@ -90,7 +90,11 @@ namespace QIQO.Business.Module.Invoices.ViewModels
         {
             get
             {
-                if (Invoice.IsChanged && Invoice.Account.AccountCode != null) return true;
+                if (Invoice.IsChanged && Invoice.Account.AccountCode != null)
+                {
+                    return true;
+                }
+
                 return false;
             }
         }
@@ -100,11 +104,12 @@ namespace QIQO.Business.Module.Invoices.ViewModels
             //********** Do some sort fo confirmation with the end user here
             if (Invoice.IsChanged && !string.IsNullOrWhiteSpace(Invoice.Account.AccountCode))
             {
-                Confirmation confirm = new Confirmation();
+                var confirm = new Confirmation();
                 confirm.Title = ApplicationStrings.SaveChangesTitle;
                 confirm.Content = ApplicationStrings.SaveChangesPrompt;
                 SaveChangesConfirmationRequest.Raise(confirm,
-                    r => {
+                    r =>
+                    {
                         if (r != null && r.Confirmed)
                         {
                             if (Invoice.IsValid)
@@ -121,7 +126,9 @@ namespace QIQO.Business.Module.Invoices.ViewModels
                     });
             }
             else
+            {
                 continuationCallback(true);
+            }
         }
 
         //public bool KeepAlive => Invoice.IsChanged;
@@ -294,7 +301,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         private void InitNewInvoice()
         {
-            Invoice new_order = new Invoice() //*** GET this initializatoin stuff into the objects themselves!! (complete)
+            var new_order = new Invoice() //*** GET this initializatoin stuff into the objects themselves!! (complete)
             {
                 InvoiceEntryDate = DateTime.Now,
                 InvoiceStatusDate = DateTime.Now,
@@ -329,7 +336,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
         {
             ExecuteFaultHandledOperation(() =>
             {
-                IInvoiceService order_service = service_factory.CreateClient<IInvoiceService>();
+                var order_service = service_factory.CreateClient<IInvoiceService>();
                 using (order_service)
                 {
                     Invoice = new InvoiceWrapper(order_service.GetInvoice(invoice_key));
@@ -351,7 +358,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         private void GetCompanyRepLists()
         {
-            IEmployeeService employee_service = service_factory.CreateClient<IEmployeeService>();
+            var employee_service = service_factory.CreateClient<IEmployeeService>();
             using (employee_service)
             {
                 AccountRepList = new ObservableCollection<Representative>(employee_service.GetAccountRepsByCompany(CurrentCompanyKey));
@@ -399,15 +406,18 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         private void NewInvoiceFromOrders()
         {
-            ItemSelectionNotification notification = new ItemSelectionNotification(ApplicationStrings.FindOrderForInvoicingPayload);
+            var notification = new ItemSelectionNotification(ApplicationStrings.FindOrderForInvoicingPayload);
             notification.Title = ApplicationStrings.NotificationFindOrder;
             FindOrderRequest.Raise(notification,
-                r => {
+                r =>
+                {
                     if (r != null && r.Confirmed && r.SelectedItem != null)
                     {
-                        List<Order> orders = r.SelectedItem as List<Order>;
+                        var orders = r.SelectedItem as List<Order>;
                         if (orders != null)
+                        {
                             GenerateInvoiceFromOrderItems(orders);
+                        }
                     }
                 });
         }
@@ -415,15 +425,18 @@ namespace QIQO.Business.Module.Invoices.ViewModels
         private void GenerateInvoiceFromOrderItems(List<Order> orders)
         {
             // We don't have everything about the order that we need, so we have to go and get them
-            List<Order> orders_to_invoice = new List<Order>(orders.Count);
-            IOrderService order_service = service_factory.CreateClient<IOrderService>();
-            IInvoiceService invoice_service = service_factory.CreateClient<IInvoiceService>();
+            var orders_to_invoice = new List<Order>(orders.Count);
+            var order_service = service_factory.CreateClient<IOrderService>();
+            var invoice_service = service_factory.CreateClient<IInvoiceService>();
 
             foreach (var order in orders)
+            {
                 orders_to_invoice.Add(order_service.GetOrder(order.OrderKey));
+            }
 
             // Now that we have the full order(s), we can create an invoice from the data in them
-            Invoice new_ivoice = new Invoice() {
+            var new_ivoice = new Invoice()
+            {
                 AccountKey = orders_to_invoice[0].AccountKey,
                 OrderEntryDate = orders_to_invoice[0].OrderEntryDate,
                 OrderShipDate = orders_to_invoice[0].OrderShipDate,
@@ -448,7 +461,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
             foreach (var ord in orders_to_invoice)
             {
-                var items_to_invoice = ord.OrderItems.Where(item => (item.OrderItemStatus != QIQOOrderItemStatus.Canceled && 
+                var items_to_invoice = ord.OrderItems.Where(item => (item.OrderItemStatus != QIQOOrderItemStatus.Canceled &&
                                                         item.OrderItemStatus != QIQOOrderItemStatus.Complete)).ToList();
                 foreach (var item in ord.OrderItems)
                 {
@@ -456,7 +469,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
                     if (inv_item == null)
                     {
-                        InvoiceItem new_invoice_item = new InvoiceItem()
+                        var new_invoice_item = new InvoiceItem()
                         {
                             AccountRep = item.AccountRep,
                             SalesRep = item.SalesRep,
@@ -523,11 +536,12 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         private void DoCancel()
         {
-            Confirmation confirm = new Confirmation();
+            var confirm = new Confirmation();
             confirm.Title = ApplicationStrings.ConfirmCancelTitle;
             confirm.Content = ApplicationStrings.ConfirmCancelPrompt;
             SaveChangesConfirmationRequest.Raise(confirm,
-                r => {
+                r =>
+                {
                     if (r != null && r.Confirmed)
                     {
                         InitNewInvoice();
@@ -542,11 +556,12 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         private void DoDelete()
         {
-            Confirmation confirm = new Confirmation();
+            var confirm = new Confirmation();
             confirm.Title = ApplicationStrings.DeleteInvoiceTitle;
             confirm.Content = $"Are you sure you want to delete order {Invoice.InvoiceNumber}?\n\nClick OK to delete. Click Cancel to return to the form.";
             DeleteConfirmationRequest.Raise(confirm,
-                r => {
+                r =>
+                {
                     if (r != null && r.Confirmed)
                     {
                         DeleteInvoice(Invoice.InvoiceNumber);
@@ -558,12 +573,12 @@ namespace QIQO.Business.Module.Invoices.ViewModels
         {
             ExecuteFaultHandledOperation(() =>
             {
-                IInvoiceService order_service = service_factory.CreateClient<IInvoiceService>();
-                using (TransactionScope scope = new TransactionScope()) // TransactionScopeAsyncFlowOption.Enabled
+                var order_service = service_factory.CreateClient<IInvoiceService>();
+                using (var scope = new TransactionScope()) // TransactionScopeAsyncFlowOption.Enabled
                 {
                     using (order_service)
                     {
-                        bool ret_val = order_service.DeleteInvoice(Invoice.Model);
+                        var ret_val = order_service.DeleteInvoice(Invoice.Model);
                         InitNewInvoice();
                         ViewTitle = ApplicationStrings.TabTitleNewInvoice;
                         event_aggregator.GetEvent<InvoiceDeletedEvent>().Publish($"Invoice {order_number} deleted successfully");
@@ -592,15 +607,18 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         private void FindAccount()
         {
-            ItemSelectionNotification notification = new ItemSelectionNotification();
+            var notification = new ItemSelectionNotification();
             notification.Title = ApplicationStrings.NotificationFindAccount;
             FindAccountRequest.Raise(notification,
-                r => {
+                r =>
+                {
                     if (r != null && r.Confirmed && r.SelectedItem != null)
                     {
-                        Client.Entities.Account found_account = r.SelectedItem as Client.Entities.Account;
+                        var found_account = r.SelectedItem as Client.Entities.Account;
                         if (found_account != null)
+                        {
                             GetAccount(found_account.AccountCode);
+                        }
                     }
                 });
         }
@@ -616,7 +634,9 @@ namespace QIQO.Business.Module.Invoices.ViewModels
             if (item_to_del != null)
             {
                 if (item_to_del.InvoiceItemKey == 0)
+                {
                     Invoice.InvoiceItems.Remove(item_to_del);
+                }
                 else
                 {
                     item_to_del.InvoiceItemStatus = QIQOInvoiceItemStatus.Canceled;
@@ -639,7 +659,9 @@ namespace QIQO.Business.Module.Invoices.ViewModels
         {
             var item_to_edit = SelectedInvoiceItem as InvoiceItemWrapper;
             if (item_to_edit != null)
+            {
                 ChangeInvoiceItem(item_to_edit.Model.Copy(), ApplicationStrings.NotificationEdit);
+            }
         }
 
         private bool CanAddInvoiceItem()
@@ -649,7 +671,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         private void AddInvoiceItem()
         {
-            InvoiceItem new_ord_item = new InvoiceItem()
+            var new_ord_item = new InvoiceItem()
             {
                 AccountRep = Invoice.AccountRep.Model,
                 OrderItemBillToAddress = DefaultBillingAddress.Model,
@@ -670,15 +692,15 @@ namespace QIQO.Business.Module.Invoices.ViewModels
                 GridIsEnabled = false;
                 var bill_addresses = _currentAccount.Addresses.Where(item => item.AddressType == QIQOAddressType.Billing).ToList();
                 var ship_addresses = _currentAccount.Addresses.Where(item => item.AddressType == QIQOAddressType.Shipping).ToList();
-                Tuple<object, object, object> needed_objects = new Tuple<object, object, object>(order_item, bill_addresses, ship_addresses);
-                ItemEditNotification notification = new ItemEditNotification(needed_objects);
+                var needed_objects = new Tuple<object, object, object>(order_item, bill_addresses, ship_addresses);
+                var notification = new ItemEditNotification(needed_objects);
                 notification.Title = action + " Invoice Item"; //+ emp_to_edit.PersonCode + " - " + emp_to_edit.PersonFullNameFML;
                 EditInvoiceItemRequest.Raise(notification,
                     r =>
                     {
                         if (r != null && r.Confirmed && r.EditibleObject != null) // 
                         {
-                            InvoiceItem obj = r.EditibleObject as InvoiceItem;
+                            var obj = r.EditibleObject as InvoiceItem;
                             if (obj != null)
                             {
                                 if (action == ApplicationStrings.NotificationEdit)
@@ -718,7 +740,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         private void PopulateProductInfo(object param)
         {
-            InvoiceItemWrapper invoice_item = Invoice.InvoiceItems[SelectedInvoiceItemIndex];
+            var invoice_item = Invoice.InvoiceItems[SelectedInvoiceItemIndex];
             //InvoiceItem order_item = InvoiceItems[SelectedInvoiceItemIndex];
             if (invoice_item != null && invoice_item.ProductKey > 0)
             {
@@ -739,7 +761,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
                         invoice_item.ProductDesc = sp.ProductDesc;
                         invoice_item.InvoiceItemQuantity = int.Parse(dq.AttributeValue);
                         // Check for Fee Schedule here!
-                        decimal fsp = ApplyFeeSchedule(sp.ProductKey, decimal.Parse(rp.AttributeValue));
+                        var fsp = ApplyFeeSchedule(sp.ProductKey, decimal.Parse(rp.AttributeValue));
                         invoice_item.ItemPricePer = (fsp != 0M) ? fsp : decimal.Parse(rp.AttributeValue);
                         invoice_item.InvoiceItemLineSum = invoice_item.InvoiceItemQuantity * invoice_item.ItemPricePer;
 
@@ -765,12 +787,12 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
             Invoice.InvoiceItemCount = Invoice.InvoiceItems.Sum(item => item.InvoiceItemQuantity);
             Invoice.InvoiceValueSum = Invoice.InvoiceItems.Sum(item => item.InvoiceItemLineSum);
-            int seq = Invoice.InvoiceItems.Count;
+            var seq = Invoice.InvoiceItems.Count;
             // Need to think about whether this is the best way to do this. What if they change an existing item?
             var new_order_line = Invoice.InvoiceItems.Where(item => item.ProductKey == 0).FirstOrDefault();
             if (new_order_line == null)
             {
-                InvoiceItemWrapper new_item = new InvoiceItemWrapper(InitNewInvoiceItem(seq + 1));
+                var new_item = new InvoiceItemWrapper(InitNewInvoiceItem(seq + 1));
                 FillFromDefaultAddress(new_item, QIQOAddressType.Billing);
                 FillFromDefaultAddress(new_item, QIQOAddressType.Shipping);
                 Invoice.InvoiceItems.Add(new_item);
@@ -809,7 +831,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         private decimal ApplyFeeSchedule(int product_key, decimal def_price) // think about if this needs to be in a service
         {
-            decimal charge = 0M; string type;
+            var charge = 0M; string type;
 
             if (FeeScheduleList != null)
             {
@@ -819,11 +841,15 @@ namespace QIQO.Business.Module.Invoices.ViewModels
                     charge = fs.FeeScheduleValue;
                     type = fs.FeeScheduleTypeCode;
                     if (type == "P")
+                    {
                         charge = def_price * charge;
+                    }
                 }
             }
             else
+            {
                 charge = def_price;
+            }
 
             return charge;
         }
@@ -832,7 +858,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
         {
             if (SelectedInvoiceItemIndex != -1 && Invoice.InvoiceItems.Count > 0)
             {
-                InvoiceItemWrapper invoice_item = Invoice.InvoiceItems[SelectedInvoiceItemIndex];
+                var invoice_item = Invoice.InvoiceItems[SelectedInvoiceItemIndex];
                 //InvoiceItem order_item = InvoiceItems[SelectedInvoiceItemIndex];
                 if (invoice_item != null & invoice_item.InvoiceItemStatus != QIQOInvoiceItemStatus.Canceled)
                 {
@@ -842,7 +868,9 @@ namespace QIQO.Business.Module.Invoices.ViewModels
                         {
                             var rp = invoice_item.InvoiceItemProduct.ProductAttributes.Where(item => item.AttributeType == QIQOAttributeType.Product_PRODBASE).FirstOrDefault();
                             if (rp != null)
+                            {
                                 invoice_item.ItemPricePer = ApplyFeeSchedule(invoice_item.ProductKey, Decimal.Parse(rp.AttributeValue));
+                            }
                         }
                     }
                     if (invoice_item.InvoiceItemQuantity <= 0)
@@ -851,7 +879,9 @@ namespace QIQO.Business.Module.Invoices.ViewModels
                         {
                             var dq = invoice_item.InvoiceItemProduct.ProductAttributes.Where(item => item.AttributeType == QIQOAttributeType.Product_PRODDFQTY).FirstOrDefault();
                             if (dq != null)
+                            {
                                 invoice_item.InvoiceItemQuantity = Int32.Parse(dq.AttributeValue);
+                            }
                         }
                     }
 
@@ -867,23 +897,33 @@ namespace QIQO.Business.Module.Invoices.ViewModels
         {
             if (SelectedInvoiceItemIndex != -1 && Invoice.InvoiceItems.Count > 0)
             {
-                InvoiceItemWrapper order_item = Invoice.InvoiceItems[SelectedInvoiceItemIndex];
+                var order_item = Invoice.InvoiceItems[SelectedInvoiceItemIndex];
                 //InvoiceItem order_item = InvoiceItems[SelectedInvoiceItemIndex];
                 if (order_item != null)
                 {
-                    AddressWrapper current_bill_address = order_item.OrderItemBillToAddress as AddressWrapper;
+                    var current_bill_address = order_item.OrderItemBillToAddress as AddressWrapper;
                     if (current_bill_address != null && current_bill_address.AddressKey != 0 && current_bill_address.AddressLine1 != null)
+                    {
                         DefaultBillingAddress = current_bill_address;
+                    }
 
-                    AddressWrapper current_ship_address = order_item.OrderItemShipToAddress as AddressWrapper;
+                    var current_ship_address = order_item.OrderItemShipToAddress as AddressWrapper;
                     if (current_ship_address != null && current_ship_address.AddressKey != 0 && current_ship_address.AddressLine1 != null)
+                    {
                         DefaultShippingAddress = current_ship_address;
+                    }
 
-                    RepresentativeWrapper current_sales_rep = order_item.SalesRep as RepresentativeWrapper;
-                    if (current_sales_rep != null && current_sales_rep.EntityPersonKey != 0) Invoice.SalesRep.EntityPersonKey = current_sales_rep.EntityPersonKey;
+                    var current_sales_rep = order_item.SalesRep as RepresentativeWrapper;
+                    if (current_sales_rep != null && current_sales_rep.EntityPersonKey != 0)
+                    {
+                        Invoice.SalesRep.EntityPersonKey = current_sales_rep.EntityPersonKey;
+                    }
 
-                    RepresentativeWrapper current_account_rep = order_item.AccountRep as RepresentativeWrapper;
-                    if (current_account_rep != null && current_account_rep.EntityPersonKey != 0) Invoice.AccountRep.EntityPersonKey = current_account_rep.EntityPersonKey;
+                    var current_account_rep = order_item.AccountRep as RepresentativeWrapper;
+                    if (current_account_rep != null && current_account_rep.EntityPersonKey != 0)
+                    {
+                        Invoice.AccountRep.EntityPersonKey = current_account_rep.EntityPersonKey;
+                    }
                 }
             }
         }
@@ -898,19 +938,21 @@ namespace QIQO.Business.Module.Invoices.ViewModels
             //throw new NotImplementedException();
             ExecuteFaultHandledOperation(() =>
             {
-                IAccountService acct_service = service_factory.CreateClient<IAccountService>();
+                var acct_service = service_factory.CreateClient<IAccountService>();
                 var comp = CurrentCompany as Company;
 
                 using (acct_service)
                 {
-                    Client.Entities.Account account = acct_service.GetAccountByCode(account_code, comp.CompanyCode);
+                    var account = acct_service.GetAccountByCode(account_code, comp.CompanyCode);
                     if (account != null)
                     {
                         if (account.Employees != null)
+                        {
                             AccountContacts = new ObservableCollection<AccountPerson>(account.Employees.Where(item => item.CompanyRoleType == QIQOPersonType.AccountContact).ToList());
+                        }
                         // Get the accounts main contact key
                         var contact = account.Employees.Where(item => item.CompanyRoleType == QIQOPersonType.AccountContact).FirstOrDefault();
-                        int cnt_key = contact != null ? contact.EntityPersonKey : 1;
+                        var cnt_key = contact != null ? contact.EntityPersonKey : 1;
 
                         Invoice.Account.AccountKey = account.AccountKey;
                         Invoice.Account.AccountName = account.AccountName;
@@ -948,14 +990,14 @@ namespace QIQO.Business.Module.Invoices.ViewModels
             event_aggregator.GetEvent<GeneralMessageEvent>().Publish(ApplicationStrings.BeginningSave);
             ExecuteFaultHandledOperation(() =>
             {
-                IInvoiceService order_service = service_factory.CreateClient<IInvoiceService>();
-                using (TransactionScope scope = new TransactionScope()) //TransactionScopeAsyncFlowOption.Enabled
+                var order_service = service_factory.CreateClient<IInvoiceService>();
+                using (var scope = new TransactionScope()) //TransactionScopeAsyncFlowOption.Enabled
                 {
                     using (order_service)
                     {
                         if (Invoice.InvoiceKey == 0)
                         {
-                            IAccountService account_service = service_factory.CreateClient<IAccountService>();
+                            var account_service = service_factory.CreateClient<IAccountService>();
                             Invoice.InvoiceNumber = account_service.GetAccountNextNumber(Invoice.Account.Model, QIQOEntityNumberType.InvoiceNumber);
                             account_service.Dispose();
                         }
@@ -963,13 +1005,19 @@ namespace QIQO.Business.Module.Invoices.ViewModels
                         //TODO: Do something to make sure the order items are in the object properly
                         var new_order_line = Invoice.InvoiceItems.Where(item => item.ProductKey == 0).FirstOrDefault();
                         if (new_order_line != null)
+                        {
                             Invoice.InvoiceItems.Remove(new_order_line);
+                        }
 
                         // For some reason, these don't seem to get set properly when I add the account object to the Invoice object
                         Invoice.Model.InvoiceItems.ForEach(item => item.OrderItemBillToAddress = DefaultBillingAddress.Model);
                         Invoice.Model.InvoiceItems.ForEach(item => item.OrderItemShipToAddress = DefaultShippingAddress.Model);
-                        int order_key = order_service.CreateInvoice(Invoice.Model);
-                        if (Invoice.InvoiceKey == 0) Invoice.InvoiceKey = order_key;
+                        var order_key = order_service.CreateInvoice(Invoice.Model);
+                        if (Invoice.InvoiceKey == 0)
+                        {
+                            Invoice.InvoiceKey = order_key;
+                        }
+
                         ViewTitle = Invoice.InvoiceNumber;
                         Invoice.AcceptChanges();
                         //event_aggregator.GetEvent<InvoiceUpdatedEvent>().Publish($"Invoice {Invoice.InvoiceNumber} updated successfully");

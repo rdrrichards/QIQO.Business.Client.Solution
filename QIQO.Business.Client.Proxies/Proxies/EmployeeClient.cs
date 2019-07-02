@@ -81,7 +81,7 @@ namespace QIQO.Business.Client.Proxies
                     "Communication Exception!", MessageBoxButton.OK, MessageBoxImage.Error);
                 Environment.Exit(1);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
                 MessageBox.Show("A Unknown Exception has occured! See the application log (log.txt) for more information.\n\nExiting application.",

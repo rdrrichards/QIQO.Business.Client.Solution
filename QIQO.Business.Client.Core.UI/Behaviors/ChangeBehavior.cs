@@ -82,7 +82,7 @@ namespace QIQO.Business.Client.Core.UI
                     var binding = BindingOperations.GetBinding(d, defaultProperty);
                     if (binding != null)
                     {
-                        string bindingPath = binding.Path.Path;
+                        var bindingPath = binding.Path.Path;
                         BindingOperations.SetBinding(d, IsChangedProperty,
                           new Binding(bindingPath + "IsChanged"));
                         CreateOriginalValueBinding(d, bindingPath + "OriginalValue");

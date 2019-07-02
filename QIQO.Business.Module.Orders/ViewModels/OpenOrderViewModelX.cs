@@ -1,13 +1,11 @@
 ﻿using Prism.Commands;
 using Prism.Events;
-using Prism.Interactivity.InteractionRequest;
 using Prism.Regions;
 using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.Infrastructure;
 using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Entities;
-using QIQO.Business.Client.Wrappers;
 using QIQO.Business.Module.General.Models;
 using QIQO.Business.Module.Orders.Views;
 using System.Collections.ObjectModel;
@@ -29,9 +27,9 @@ namespace QIQO.Business.Module.Orders.ViewModels
             _eventAggregator = eventAggregator;
             _serviceFactory = serviceFactory;
             _regionManager = regionManager;
-            
+
             GetCompanyOpenOrders();
-            
+
             RefreshCommand = new DelegateCommand(GetCompanyOpenOrders);
             ChooseItemCommand = new DelegateCommand(EditOrder, CanEditOrder);
         }
@@ -52,7 +50,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
                 }
             }
         }
-        
+
         public DelegateCommand RefreshCommand { get; set; }
         public bool IsLoading
         {
@@ -96,8 +94,10 @@ namespace QIQO.Business.Module.Orders.ViewModels
 
                 if (orders.Result.Count > 0)
                 {
-                    foreach (Order order in orders.Result)
+                    foreach (var order in orders.Result)
+                    {
                         OpenOrders.Add(Map(order));
+                    }
 
                     SelectedItem = OpenOrders[0];
                     SelectedItemIndex = 0;

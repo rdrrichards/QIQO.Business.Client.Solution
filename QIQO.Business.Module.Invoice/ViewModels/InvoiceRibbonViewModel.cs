@@ -1,8 +1,6 @@
 ﻿using CommonServiceLocator;
-using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
-using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.UI;
 
 namespace QIQO.Business.Module.Invoices.ViewModels

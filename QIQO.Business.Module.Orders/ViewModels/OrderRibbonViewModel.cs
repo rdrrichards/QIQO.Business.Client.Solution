@@ -1,9 +1,7 @@
-﻿using Prism.Commands;
+﻿using CommonServiceLocator;
 using Prism.Events;
 using Prism.Regions;
-using CommonServiceLocator;
 using QIQO.Business.Client.Core.UI;
-using QIQO.Business.Client.Core;
 
 namespace QIQO.Business.Module.Orders.ViewModels
 {

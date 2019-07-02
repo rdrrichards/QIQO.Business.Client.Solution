@@ -10,9 +10,9 @@ namespace QIQO.Business.Client.Core.UI
     public class ModelWrapperBase<T> : NotifyDataErrorInfoBase,
       IValidatableTrackingObject, IValidatableObject
     {
-        private Dictionary<string, object> _originalValues;
+        private readonly Dictionary<string, object> _originalValues;
 
-        private List<IValidatableTrackingObject> _trackingObjects;
+        private readonly List<IValidatableTrackingObject> _trackingObjects;
 
         public ModelWrapperBase(T model)
         {

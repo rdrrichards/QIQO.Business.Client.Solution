@@ -8,7 +8,7 @@ namespace QIQO.Business.Client.Core.UI
 {
     public class AccountEntityService : IAccountEntityService
     {
-        private ITypeService _type_service;
+        private readonly ITypeService _type_service;
 
         // AccountEntityService
         public AccountEntityService(ITypeService type_service)
@@ -18,7 +18,7 @@ namespace QIQO.Business.Client.Core.UI
 
         public Account InitNewAccount(int company_key)
         {
-            Account account = new Account();
+            var account = new Account();
             account.CompanyKey = company_key;
 
 
@@ -54,25 +54,27 @@ namespace QIQO.Business.Client.Core.UI
         public Account InitNewAccount(Company company)
         {
             if (company == null)
+            {
                 throw new ArgumentNullException(nameof(company));
+            }
 
             return InitNewAccount(company.CompanyKey);
         }
 
         private List<EntityAttribute> GetAccountAttributes()
         {
-            List<AttributeType> atttype_list = _type_service.GetAttributeTypeList();
+            var atttype_list = _type_service.GetAttributeTypeList();
             var acct_atts = atttype_list.Where(item => item.AttributeTypeCategory == "Account").ToList();
             var gcnt_atts = atttype_list.Where(item => item.AttributeTypeCategory == "General Contact").ToList();
             var acnt_atts = atttype_list.Where(item => item.AttributeTypeCategory == "Account Contact").ToList();
 
             var all_atts = acct_atts.Concat(gcnt_atts.Concat(acnt_atts));
 
-            List<EntityAttribute> available_attributes = new List<EntityAttribute>();
+            var available_attributes = new List<EntityAttribute>();
 
-            foreach (AttributeType attype in all_atts)
+            foreach (var attype in all_atts)
             {
-                EntityAttribute ent_att = new EntityAttribute()
+                var ent_att = new EntityAttribute()
                 {
                     AttributeDataTypeKey = (int)attype.AttributeDataTypeKey,
                     AttributeDisplayFormat = attype.AttributeDefaultFormat,
@@ -87,14 +89,24 @@ namespace QIQO.Business.Client.Core.UI
                 };
 
                 if (ent_att.AttributeType == QIQOAttributeType.Account_ORDNUM & ent_att.AttributeValue == "")
+                {
                     ent_att.AttributeValue = "0";
+                }
+
                 if (ent_att.AttributeType == QIQOAttributeType.Account_ORDNUMPAT & ent_att.AttributeValue == "")
+                {
                     ent_att.AttributeValue = ent_att.AttributeDisplayFormat;
+                }
 
                 if (ent_att.AttributeType == QIQOAttributeType.Account_INVNUM & ent_att.AttributeValue == "")
+                {
                     ent_att.AttributeValue = "0";
+                }
+
                 if (ent_att.AttributeType == QIQOAttributeType.Account_INVNUMPAT & ent_att.AttributeValue == "")
+                {
                     ent_att.AttributeValue = ent_att.AttributeDisplayFormat;
+                }
 
                 available_attributes.Add(ent_att);
             }

@@ -1,14 +1,14 @@
-﻿using Prism.Commands;
+﻿using CommonServiceLocator;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
-using CommonServiceLocator;
+using Prism.Regions;
 using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Entities;
 using System;
 using System.Collections.ObjectModel;
-using Prism.Regions;
 
 namespace QIQO.Business.Module.Account.ViewModels
 {
@@ -18,7 +18,7 @@ namespace QIQO.Business.Module.Account.ViewModels
         private readonly IServiceFactory _serviceFactory;
         private readonly IRegionManager _regionManager;
         private ObservableCollection<Client.Entities.Account> _accounts = new ObservableCollection<Client.Entities.Account>();
-        private string _viewTitle = "Account Find";
+        private readonly string _viewTitle = "Account Find";
         private string _searchTerm;
         private ItemSelectionNotification notification;
         private bool _isSearching;
@@ -112,7 +112,7 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void ChooseAccount()
         {
-            Client.Entities.Account sel_acct = SelectedAccount as Client.Entities.Account;
+            var sel_acct = SelectedAccount as Client.Entities.Account;
             if (sel_acct != null)
             {
                 if (notification != null)

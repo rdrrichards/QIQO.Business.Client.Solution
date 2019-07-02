@@ -1,11 +1,11 @@
 ﻿using Prism.Commands;
 using Prism.Events;
+using Prism.Interactivity.InteractionRequest;
 using Prism.Regions;
 using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.Infrastructure;
 using QIQO.Business.Client.Core.UI;
 using QIQO.Common.Core.Logging;
-using Prism.Interactivity.InteractionRequest;
 
 namespace QIQO.Business.Client.UI
 {
@@ -38,10 +38,11 @@ namespace QIQO.Business.Client.UI
 
         private void ShowUserPreferences()
         {
-            Confirmation confirm = new Confirmation();
+            var confirm = new Confirmation();
             confirm.Title = ApplicationStrings.UserSettingsDialogTitle;
             UserSettingsRequest.Raise(confirm,
-                r => {
+                r =>
+                {
                     if (r != null && r.Confirmed)
                     {
                         // do something!
@@ -51,10 +52,11 @@ namespace QIQO.Business.Client.UI
 
         private void ShowGeneralPreferences()
         {
-            Confirmation confirm = new Confirmation();
+            var confirm = new Confirmation();
             confirm.Title = ApplicationStrings.ApplicationSettingsDialogTitle;
             GeneralSettingsRequest.Raise(confirm,
-                r => {
+                r =>
+                {
                     if (r != null && r.Confirmed)
                     {
                         // do something!
@@ -64,10 +66,11 @@ namespace QIQO.Business.Client.UI
 
         private void ShowPrintSetupDialog()
         {
-            Confirmation confirm = new Confirmation();
+            var confirm = new Confirmation();
             confirm.Title = ApplicationStrings.PrintSetupDialogTitle;
             PrintSetupRequest.Raise(confirm,
-                r => {
+                r =>
+                {
                     if (r != null && r.Confirmed)
                     {
                         // do something!
@@ -105,7 +108,7 @@ namespace QIQO.Business.Client.UI
         {
             if (navigatePath != null)
             {
-                string navPath = navigatePath.ToString();
+                var navPath = navigatePath.ToString();
 
                 if (navPath.Contains("Account"))
                 {

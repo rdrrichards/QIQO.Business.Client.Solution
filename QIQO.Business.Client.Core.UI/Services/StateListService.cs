@@ -6,7 +6,7 @@ namespace QIQO.Business.Client.Core.UI
 {
     public class StateListService : IStateListService
     {
-        IServiceFactory _service_factor;
+        readonly IServiceFactory _service_factor;
         const string country = "United States";
         public StateListService(IServiceFactory service_factory)
         {
@@ -16,12 +16,12 @@ namespace QIQO.Business.Client.Core.UI
 
         private void Initialize()
         {
-            IAddressService address_service = _service_factor.CreateClient<IAddressService>();
+            var address_service = _service_factor.CreateClient<IAddressService>();
             using (address_service)
             {
                 try
                 {
-                    List<AddressPostal> prod_list = address_service.GetStateListByCountry(country);
+                    var prod_list = address_service.GetStateListByCountry(country);
                     StateList = prod_list;
                 }
                 catch

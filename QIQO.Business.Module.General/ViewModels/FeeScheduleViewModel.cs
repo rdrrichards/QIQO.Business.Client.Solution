@@ -16,13 +16,13 @@ namespace QIQO.Business.Module.General.ViewModels
 {
     public class FeeScheduleViewModel : ViewModelBase, IInteractionRequestAware
     {
-        IEventAggregator event_aggregator;
-        IServiceFactory service_factory;
-        IProductListService product_service;
+        readonly IEventAggregator event_aggregator;
+        readonly IServiceFactory service_factory;
+        readonly IProductListService product_service;
         FeeScheduleWrapper _fee_schedule;
 
         private ObservableCollection<Product> _productlist;
-        private string _viewTitle = "Fee Schedule Add/Edit";
+        private readonly string _viewTitle = "Fee Schedule Add/Edit";
         private ItemEditNotification notification;
         private object _currentSelectedProduct;
 
@@ -65,7 +65,7 @@ namespace QIQO.Business.Module.General.ViewModels
         {
             get
             {
-                return new List<string>(new string[] { "F", "P"});
+                return new List<string>(new string[] { "F", "P" });
             }
         }
 
@@ -110,10 +110,14 @@ namespace QIQO.Business.Module.General.ViewModels
             }
 
             if (FeeSchedule.FeeScheduleTypeCode == "P" && FeeSchedule.FeeScheduleValue == 0M)
+            {
                 FeeSchedule.FeeScheduleValue = .99M;
+            }
 
             if (FeeSchedule.FeeScheduleTypeCode == "P" && FeeSchedule.FeeScheduleValue > 1M)
+            {
                 FeeSchedule.FeeScheduleValue = .99M;
+            }
         }
 
         private void UpdateFeeScheduleValue()
@@ -154,9 +158,13 @@ namespace QIQO.Business.Module.General.ViewModels
         private bool CanDoSave()
         {
             if (FeeSchedule.FeeScheduleKey == 0)
+            {
                 return !HasErrors;
+            }
             else
+            {
                 return FeeSchedule.IsChanged && FeeSchedule.IsValid;
+            }
         }
 
         private void DoSave()

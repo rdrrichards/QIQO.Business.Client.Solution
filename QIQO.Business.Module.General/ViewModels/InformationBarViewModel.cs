@@ -1,12 +1,12 @@
-﻿using QIQO.Business.Client.Core;
+﻿using Prism.Events;
+using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.UI;
-using Prism.Events;
 
 namespace QIQO.Business.Module.General.ViewModels
 {
     public class InformationBarViewModel : ViewModelBase
     {
-        IEventAggregator event_aggregator;
+        readonly IEventAggregator event_aggregator;
 
         public InformationBarViewModel(IEventAggregator event_aggtr)
         {

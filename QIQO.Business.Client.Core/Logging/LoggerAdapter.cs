@@ -7,7 +7,7 @@ namespace QIQO.Business.Client.Core
     {
         public void Log(string message, Category category, Priority priority)
         {
-            string formatted_msg = priority.ToString() + " - " + message;
+            var formatted_msg = priority.ToString() + " - " + message;
             switch (category)
             {
                 case Category.Debug:

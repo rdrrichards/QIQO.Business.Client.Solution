@@ -6,7 +6,7 @@ namespace QIQO.Business.Client.Entities
     public class CommentType
     {
         public int CommentTypeKey { get; set; }
-    
+
         public string CommentTypeCategory { get; set; }
         public string CommentTypeCode { get; set; }
         public string CommentTypeName { get; set; }

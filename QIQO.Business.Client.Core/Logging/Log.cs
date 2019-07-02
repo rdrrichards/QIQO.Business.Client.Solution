@@ -1,6 +1,6 @@
+using log4net.Config;
 using System;
 using System.Collections.Generic;
-using log4net.Config;
 
 namespace QIQO.Common.Core.Logging
 {
@@ -9,8 +9,8 @@ namespace QIQO.Common.Core.Logging
     /// </summary>
     public class Log
     {
-        private static Dictionary<string, Logger> _loggers = new Dictionary<string, Logger>();
-        private static object _loggerSyncLock = new object();        
+        private static readonly Dictionary<string, Logger> _loggers = new Dictionary<string, Logger>();
+        private static readonly object _loggerSyncLock = new object();
 
         private static Logger GetLogger(string loggerName = "")
         {
@@ -89,7 +89,7 @@ namespace QIQO.Common.Core.Logging
         {
             GetLogger().Error(message, args);
         }
-        
+
         /// <summary>
         /// Formats and writes a ERROR-level message to the log, using the log4net configuration, appending exception details
         /// </summary>

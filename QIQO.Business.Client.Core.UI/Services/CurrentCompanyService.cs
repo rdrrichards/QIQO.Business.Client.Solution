@@ -1,21 +1,21 @@
-﻿using System;
+﻿using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Entities;
-using System.Diagnostics;
+using System;
 using System.Collections.Generic;
-using QIQO.Business.Client.Contracts;
+using System.Diagnostics;
 using System.Linq;
 
 namespace QIQO.Business.Client.Core.UI
 {
     public class CurrentCompanyService : ICurrentCompanyService
     {
-        IServiceFactory _service_factory;
+        readonly IServiceFactory _service_factory;
         string _user_name;
         int _process_id;
         string _user_domain;
         string _host_name;
-        private bool _CompanyPromptOnLoad;
-        private int _DefaultCompanyKey;
+        private readonly bool _CompanyPromptOnLoad;
+        private readonly int _DefaultCompanyKey;
 
         public CurrentCompanyService(IServiceFactory service_factory)
         {
@@ -29,9 +29,9 @@ namespace QIQO.Business.Client.Core.UI
         {
             Employee emp_obj = null;
 
-            IEmployeeService employee_service = _service_factory.CreateClient<IEmployeeService>();
+            var employee_service = _service_factory.CreateClient<IEmployeeService>();
 
-            Process currentProcess = Process.GetCurrentProcess();
+            var currentProcess = Process.GetCurrentProcess();
             _process_id = currentProcess.Id;
 
             _host_name = Environment.MachineName;
@@ -59,8 +59,9 @@ namespace QIQO.Business.Client.Core.UI
                 }
             }
             else
+            {
                 throw new AccessViolationException("You do not have the proper permissions to use this application. See your administrator for help.");
-
+            }
         }
 
         public Company CurrentCompany { get; set; }
@@ -72,7 +73,7 @@ namespace QIQO.Business.Client.Core.UI
         public string CurrentEmployeeHostName { get { return _host_name; } }
         public string CurrentEmployeeDomainUserName { get { return _user_domain + @"\" + _user_name; } }
 
-        public bool CompanyPromptOnLoad { get { return _CompanyPromptOnLoad;  } }
+        public bool CompanyPromptOnLoad { get { return _CompanyPromptOnLoad; } }
 
         public int DefaultCompanyKey { get { return _DefaultCompanyKey; } }
     }

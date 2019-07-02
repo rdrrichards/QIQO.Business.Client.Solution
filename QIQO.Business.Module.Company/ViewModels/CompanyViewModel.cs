@@ -15,7 +15,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Transactions;
 
 namespace QIQO.Business.Module.Company.ViewModels
@@ -55,11 +54,12 @@ namespace QIQO.Business.Module.Company.ViewModels
         {
             if (Company.IsChanged) // && !string.IsNullOrWhiteSpace(Company.CompanyCode))
             {
-                Confirmation confirm = new Confirmation();
+                var confirm = new Confirmation();
                 confirm.Title = ApplicationStrings.SaveChangesTitle;
                 confirm.Content = ApplicationStrings.SaveChangesPrompt;
                 SaveChangesConfirmationRequest.Raise(confirm,
-                    r => {
+                    r =>
+                    {
                         if (r != null && r.Confirmed)
                         {
                             if (Company.IsValid)
@@ -76,7 +76,9 @@ namespace QIQO.Business.Module.Company.ViewModels
                     });
             }
             else
+            {
                 continuationCallback(true);
+            }
         }
 
         public override string ViewTitle { get { return "Company"; } }
@@ -200,14 +202,14 @@ namespace QIQO.Business.Module.Company.ViewModels
 
         public async void ValidateAddress(AddressWrapper which_address)
         {
-            IAddressService addr_service = service_factory.CreateClient<IAddressService>();
+            var addr_service = service_factory.CreateClient<IAddressService>();
             using (addr_service)
             {
                 try
                 {
-                    Task<AddressPostal> task = addr_service.GetAddressInfoByPostalAsync(which_address.AddressPostalCode);
+                    var task = addr_service.GetAddressInfoByPostalAsync(which_address.AddressPostalCode);
                     await task;
-                    AddressPostal postal_info = task.Result;
+                    var postal_info = task.Result;
 
                     if (postal_info != null)
                     {
@@ -245,7 +247,7 @@ namespace QIQO.Business.Module.Company.ViewModels
             NewAttributeCommand = new DelegateCommand(AddAttribute);
             EditAttributeCommand = new DelegateCommand(EditAttribute, CanEditAttribute);
             DeleteAttributeCommand = new DelegateCommand(DeleteAttribute, CanDeleteAttribute);
-            
+
             EditEmployeeRequest = new InteractionRequest<ItemEditNotification>();
             EditChartOfAccountRequest = new InteractionRequest<ItemEditNotification>();
             EditAttributeRequest = new InteractionRequest<ItemEditNotification>();
@@ -316,7 +318,10 @@ namespace QIQO.Business.Module.Company.ViewModels
         private void DeleteAttribute()
         {
             var att_to_remove = AttSelectedItem as EntityAttributeWrapper;
-            if (att_to_remove != null) att_to_remove.AttributeValue = ""; //Company.CompanyAttributes.Remove(att_to_remove);
+            if (att_to_remove != null)
+            {
+                att_to_remove.AttributeValue = ""; //Company.CompanyAttributes.Remove(att_to_remove);
+            }
         }
 
         private bool CanEditAttribute()
@@ -329,7 +334,7 @@ namespace QIQO.Business.Module.Company.ViewModels
             var att_to_edit = AttSelectedItem as EntityAttributeWrapper;
             if (att_to_edit != null)
             {
-                EntityAttribute att_copy = att_to_edit.Model.Copy();
+                var att_copy = att_to_edit.Model.Copy();
                 ChangeAttribute(att_copy, ApplicationStrings.NotificationEdit);
             }
         }
@@ -345,14 +350,14 @@ namespace QIQO.Business.Module.Company.ViewModels
             var att_to_edit = attribute as EntityAttribute;
             if (att_to_edit != null)
             {
-                ItemEditNotification notification = new ItemEditNotification(att_to_edit);
+                var notification = new ItemEditNotification(att_to_edit);
                 notification.Title = action + " Attribute";
                 EditAttributeRequest.Raise(notification,
                     r =>
                     {
                         if (r != null && r.Confirmed && r.EditibleObject != null) // 
                         {
-                            EntityAttribute att = r.EditibleObject as EntityAttribute;
+                            var att = r.EditibleObject as EntityAttribute;
                             if (att != null)
                             {
                                 var att_to_change = AttSelectedItem as EntityAttributeWrapper;
@@ -375,7 +380,9 @@ namespace QIQO.Business.Module.Company.ViewModels
         {
             var coa_to_remove = COASelectedItem as ChartOfAccountWrapper;
             if (coa_to_remove != null)
+            {
                 Company.GLAccounts.Remove(coa_to_remove);
+            }
         }
 
         private bool CanEditChartOfAccount()
@@ -388,14 +395,14 @@ namespace QIQO.Business.Module.Company.ViewModels
             var coa_to_edit = COASelectedItem as ChartOfAccountWrapper;
             if (coa_to_edit != null)
             {
-                ChartOfAccount coa_copy = coa_to_edit.Model.Copy();
+                var coa_copy = coa_to_edit.Model.Copy();
                 ChangeChartOfAccount(coa_copy, ApplicationStrings.NotificationEdit);
             }
         }
 
         private void AddChartOfAccount()
         {
-            ChartOfAccount coa_to_add = new ChartOfAccount()
+            var coa_to_add = new ChartOfAccount()
             {
                 CompanyKey = CurrentCompanyKey
             };
@@ -407,14 +414,14 @@ namespace QIQO.Business.Module.Company.ViewModels
             var coa_to_edit = coa as ChartOfAccount;
             if (coa_to_edit != null)
             {
-                ItemEditNotification notification = new ItemEditNotification(coa_to_edit);
+                var notification = new ItemEditNotification(coa_to_edit);
                 notification.Title = action + " Chart Of Account";
                 EditChartOfAccountRequest.Raise(notification,
                     r =>
                     {
                         if (r != null && r.Confirmed && r.EditibleObject != null) // 
                         {
-                            ChartOfAccount coa_changed = r.EditibleObject as ChartOfAccount;
+                            var coa_changed = r.EditibleObject as ChartOfAccount;
                             if (coa_changed != null)
                             {
                                 if (action == ApplicationStrings.NotificationEdit)
@@ -469,8 +476,8 @@ namespace QIQO.Business.Module.Company.ViewModels
             if (emp_to_edit != null)
             {
                 var supervisors = Company.Employees.Where(emp => emp.RoleInCompany == Roles.QIQORoleOwner || emp.RoleInCompany == Roles.QIQORoleManager).ToList();
-                Tuple<object, object> needed_objects = new Tuple<object, object>(emp_to_edit, supervisors);
-                ItemEditNotification notification = new ItemEditNotification(needed_objects);
+                var needed_objects = new Tuple<object, object>(emp_to_edit, supervisors);
+                var notification = new ItemEditNotification(needed_objects);
                 //ItemEditNotification notification = new ItemEditNotification(emp_to_edit);
                 notification.Title = action + " Employee"; //+ emp_to_edit.PersonCode + " - " + emp_to_edit.PersonFullNameFML;
                 EditEmployeeRequest.Raise(notification,
@@ -478,7 +485,7 @@ namespace QIQO.Business.Module.Company.ViewModels
                     {
                         if (r != null && r.Confirmed && r.EditibleObject != null) // 
                         {
-                            Employee emp = r.EditibleObject as Employee;
+                            var emp = r.EditibleObject as Employee;
                             if (emp != null)
                             {
                                 if (action == ApplicationStrings.NotificationEdit)
@@ -523,7 +530,9 @@ namespace QIQO.Business.Module.Company.ViewModels
                     emp_to_remove.EndDate = DateTime.Today;
                 }
                 else
+                {
                     Company.Employees.Remove(emp_to_remove);
+                }
             }
         }
 
@@ -558,13 +567,13 @@ namespace QIQO.Business.Module.Company.ViewModels
         {
             ExecuteFaultHandledOperation(() =>
             {
-                ICompanyService company_service = service_factory.CreateClient<ICompanyService>();
-                using (TransactionScope scope = new TransactionScope()) // TransactionScopeAsyncFlowOption.Enabled
+                var company_service = service_factory.CreateClient<ICompanyService>();
+                using (var scope = new TransactionScope()) // TransactionScopeAsyncFlowOption.Enabled
                 {
                     using (company_service)
                     {
                         MapPropsToObject();
-                        int company_key = company_service.CreateCompany(Company.Model);
+                        var company_key = company_service.CreateCompany(Company.Model);
                         Company.AcceptChanges();
                         event_aggregator.GetEvent<CompanySavedEvent>().Publish("Company saved sucessfully");
                     }
@@ -576,21 +585,21 @@ namespace QIQO.Business.Module.Company.ViewModels
 
         private async void GetAttributeList()
         {
-            ITypeService type_service = service_factory.CreateClient<ITypeService>();
+            var type_service = service_factory.CreateClient<ITypeService>();
 
             using (type_service)
             {
                 try
                 {
-                    Task<List<AttributeType>> task = type_service.GetAttributeTypeListAsync();
+                    var task = type_service.GetAttributeTypeListAsync();
                     await task;
-                    List<AttributeType> atttype_list = task.Result;
-                    ObservableCollection<AttributeType> atttypes = new ObservableCollection<AttributeType>(atttype_list);
+                    var atttype_list = task.Result;
+                    var atttypes = new ObservableCollection<AttributeType>(atttype_list);
                     var acct_atts = atttype_list.Where(item => item.AttributeTypeCategory == "Company").ToList();
                     var gcnt_atts = atttype_list.Where(item => item.AttributeTypeCategory == "Company Contact").ToList();
 
                     var all_atts = acct_atts.Concat(gcnt_atts);
-                    List< AttributeType> available_attribute_types = new List<AttributeType>(all_atts);
+                    var available_attribute_types = new List<AttributeType>(all_atts);
                     LoadEntityAttrbuteList(available_attribute_types);
                 }
                 catch (Exception ex)
@@ -607,9 +616,9 @@ namespace QIQO.Business.Module.Company.ViewModels
             {
                 if (available_attribute_types.Count > 0)
                 {
-                    foreach (AttributeType attype in available_attribute_types)
+                    foreach (var attype in available_attribute_types)
                     {
-                        EntityAttribute ent_att = new EntityAttribute()
+                        var ent_att = new EntityAttribute()
                         {
                             AttributeDataTypeKey = (int)attype.AttributeDataTypeKey,
                             AttributeDisplayFormat = attype.AttributeDefaultFormat,
@@ -626,7 +635,9 @@ namespace QIQO.Business.Module.Company.ViewModels
                         var att = Company.CompanyAttributes.Where(item => item.AttributeType == ent_att.AttributeType).ToList();
 
                         if (att.Count == 0)
+                        {
                             Company.CompanyAttributes.Add(new EntityAttributeWrapper(ent_att));
+                        }
                     }
                 }
             }
@@ -635,23 +646,27 @@ namespace QIQO.Business.Module.Company.ViewModels
         private async void GetEmployeeList()
         {
             if (_currentCoObject.Employees.Count > 0)
+            {
                 return;
+            }
 
-            IEmployeeService emp_service = service_factory.CreateClient<IEmployeeService>();
+            var emp_service = service_factory.CreateClient<IEmployeeService>();
             using (emp_service)
             {
                 try
                 {
-                    Task<List<Employee>> task = emp_service.GetEmployeesAsync((Client.Entities.Company)CurrentCompany);
+                    var task = emp_service.GetEmployeesAsync((Client.Entities.Company)CurrentCompany);
                     await task;
-                    List<Employee> emp_list = task.Result;
+                    var emp_list = task.Result;
 
                     if (emp_list.Count > 0)
                     {
                         Company.Employees.Clear();
 
-                        foreach (Employee emp in emp_list)
+                        foreach (var emp in emp_list)
+                        {
                             Company.Employees.Add(new EmployeeWrapper(emp));
+                        }
                     }
                     Company.AcceptChanges();
 
@@ -694,7 +709,7 @@ namespace QIQO.Business.Module.Company.ViewModels
 
         private void MapPropsToObject()
         {
-            ICleaningUtility cleaner = ServiceLocator.Current.GetInstance<ICleaningUtility>();
+            var cleaner = ServiceLocator.Current.GetInstance<ICleaningUtility>();
             // Need to add the addresses one at a time from properties??? Ah, yeah!
             Company.CompanyAddresses.Clear(); // clear this for updates and inserts
 
@@ -702,15 +717,17 @@ namespace QIQO.Business.Module.Company.ViewModels
             DefaultBillingAddress.AddressType = QIQOAddressType.Billing;
             cleaner.CleanAddress(DefaultShippingAddress.Model);
             DefaultShippingAddress.AddressType = QIQOAddressType.Shipping;
-            
+
             Company.CompanyAddresses.Add(DefaultBillingAddress);
             Company.CompanyAddresses.Add(DefaultShippingAddress);
             Company.GLAccounts.Select(item => item.CompanyKey = CurrentCompanyKey);
 
-            List<EntityAttributeWrapper> atts_with_values = Company.CompanyAttributes.Where(i => i.AttributeValue != "" || i.AttributeKey > 0).ToList();
+            var atts_with_values = Company.CompanyAttributes.Where(i => i.AttributeValue != "" || i.AttributeKey > 0).ToList();
             Company.CompanyAttributes.Clear();
             foreach (var good_att in atts_with_values)
+            {
                 Company.CompanyAttributes.Add(good_att);
+            }
         }
     }
 }

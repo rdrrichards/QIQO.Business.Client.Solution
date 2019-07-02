@@ -3,6 +3,7 @@ using Prism.Events;
 using Prism.Regions;
 using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Core;
+using QIQO.Business.Client.Core.Infrastructure;
 using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Entities;
 using QIQO.Business.Client.Wrappers;
@@ -12,9 +13,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Data;
 using System.Transactions;
-using QIQO.Business.Client.Core.Infrastructure;
+using System.Windows.Data;
 
 namespace QIQO.Business.Module.Product.ViewModels
 {
@@ -25,7 +25,7 @@ namespace QIQO.Business.Module.Product.ViewModels
         private readonly IProductListService product_service;
         private readonly IFeeScheduleEntityService fee_schedule_service;
         private BindingGroup _updateBindingGroup;
-        private string _viewTitle = "Products";
+        private readonly string _viewTitle = "Products";
         private string _loadingLabel = "";
         private string _header_msg = "Products";
         private bool _is_loading;
@@ -94,7 +94,8 @@ namespace QIQO.Business.Module.Product.ViewModels
         public object SelectedProduct
         {
             get { return _selectedProduct; }
-            set {
+            set
+            {
                 SetProperty(ref _selectedProduct, value);
                 // fetch fee schedule for this product
                 LoadFeeSchedules();
@@ -162,7 +163,7 @@ namespace QIQO.Business.Module.Product.ViewModels
                 HeaderMessage = "Products (Filtering...)";
                 IsLoading = true;
 
-                string filter = FilterText.ToLower();
+                var filter = FilterText.ToLower();
 
                 var products = product_service.ProductList.Where(p => p.ProductDesc.ToLower().Contains(filter)
                     || p.ProductName.ToLower().Contains(filter)
@@ -170,11 +171,11 @@ namespace QIQO.Business.Module.Product.ViewModels
                     || p.ProductNameShort.ToLower().Contains(filter)
                     || p.ProductCode.ToLower().Contains(filter)).ToList();
 
-                ObservableCollection<ProductWrapper> prods = new ObservableCollection<ProductWrapper>();
+                var prods = new ObservableCollection<ProductWrapper>();
 
-                foreach (Client.Entities.Product product in products)
+                foreach (var product in products)
                 {
-                    ProductWrapper prod_wrapper = new ProductWrapper(product);
+                    var prod_wrapper = new ProductWrapper(product);
                     prod_wrapper.PropertyChanged += Context_PropertyChanged;
                     prods.Add(prod_wrapper);
                 }
@@ -230,12 +231,12 @@ namespace QIQO.Business.Module.Product.ViewModels
 
             try
             {
-                List<Client.Entities.Product> products = product_service.ProductList;
-                ObservableCollection<ProductWrapper> prods = new ObservableCollection<ProductWrapper>();
+                var products = product_service.ProductList;
+                var prods = new ObservableCollection<ProductWrapper>();
 
-                foreach (Client.Entities.Product product in products)
+                foreach (var product in products)
                 {
-                    ProductWrapper prod_wrapper = new ProductWrapper(product);
+                    var prod_wrapper = new ProductWrapper(product);
                     prod_wrapper.PropertyChanged += Context_PropertyChanged;
                     prods.Add(prod_wrapper);
                 }
@@ -283,7 +284,9 @@ namespace QIQO.Business.Module.Product.ViewModels
         private void DoCancel()
         {
             if (SelectedProductIndex == -1)
+            {
                 SelectedProduct = null;
+            }
 
             event_aggregator.GetEvent<ProductNewProductCancelEvent>().Publish(ViewNames.ProductHomeView);
         }
@@ -293,18 +296,18 @@ namespace QIQO.Business.Module.Product.ViewModels
             ExecuteFaultHandledOperation(() =>
             {
                 var product = SelectedProduct as ProductWrapper;
-                IProductService product_service = service_factory.CreateClient<IProductService>();
-                IEntityProductService entity_product_service = service_factory.CreateClient<IEntityProductService>();
-                using (TransactionScope scope = new TransactionScope()) // TransactionScopeAsyncFlowOption.Enabled
+                var product_service = service_factory.CreateClient<IProductService>();
+                var entity_product_service = service_factory.CreateClient<IEntityProductService>();
+                using (var scope = new TransactionScope()) // TransactionScopeAsyncFlowOption.Enabled
                 {
                     using (product_service)
                     {
                         //*** Make sure the attributes are set before the save happens!!
-                        int ret_val = product_service.CreateProduct(product.Model);
+                        var ret_val = product_service.CreateProduct(product.Model);
                         // We need to create a relationship in the entity product table too, or adding new products is a waste of time.
                         if (product.ProductKey == 0)
                         {
-                            EntityProduct ent_prod = new EntityProduct()
+                            var ent_prod = new EntityProduct()
                             {
                                 EntityProductEntityKey = CurrentCompanyKey,
                                 EntityProductEntityTypeKey = QIQOEntityType.Company,
@@ -316,7 +319,7 @@ namespace QIQO.Business.Module.Product.ViewModels
 
                             using (entity_product_service)
                             {
-                                int ep_ret = entity_product_service.CreateEntityProduct(ent_prod);
+                                var ep_ret = entity_product_service.CreateEntityProduct(ent_prod);
                             }
                             product.ProductKey = ret_val;
                         }
@@ -337,7 +340,7 @@ namespace QIQO.Business.Module.Product.ViewModels
         {
             SelectedProduct = null;
             GetProductAttributes();
-            Client.Entities.Product product = new Client.Entities.Product();
+            var product = new Client.Entities.Product();
 
             var price_att_type = _prod_att_list.Where(item => item.AttributeTypeCode == "PRODBASE").FirstOrDefault();
             var cost_att_type = _prod_att_list.Where(item => item.AttributeTypeCode == "PRODCOST").FirstOrDefault();
@@ -345,7 +348,7 @@ namespace QIQO.Business.Module.Product.ViewModels
             var inc_att_type = _prod_att_list.Where(item => item.AttributeTypeCode == "INCACCT").FirstOrDefault();
             var exp_att_type = _prod_att_list.Where(item => item.AttributeTypeCode == "EXPACCT").FirstOrDefault();
 
-            EntityAttribute price = new EntityAttribute()
+            var price = new EntityAttribute()
             {
                 AttributeDataType = QIQOAttributeDataType.Money,
                 AttributeDataTypeKey = (int)QIQOAttributeDataType.Money,
@@ -360,7 +363,7 @@ namespace QIQO.Business.Module.Product.ViewModels
 
             product.ProductAttributes.Add(price);
 
-            EntityAttribute cost = new EntityAttribute()
+            var cost = new EntityAttribute()
             {
                 AttributeDataType = QIQOAttributeDataType.Money,
                 AttributeDataTypeKey = (int)QIQOAttributeDataType.Money,
@@ -375,7 +378,7 @@ namespace QIQO.Business.Module.Product.ViewModels
 
             product.ProductAttributes.Add(cost);
 
-            EntityAttribute qty = new EntityAttribute()
+            var qty = new EntityAttribute()
             {
                 AttributeDataType = QIQOAttributeDataType.Number,
                 AttributeDataTypeKey = (int)QIQOAttributeDataType.Number,
@@ -390,7 +393,7 @@ namespace QIQO.Business.Module.Product.ViewModels
 
             product.ProductAttributes.Add(qty);
 
-            EntityAttribute inc_acct = new EntityAttribute()
+            var inc_acct = new EntityAttribute()
             {
                 AttributeDataType = QIQOAttributeDataType.String,
                 AttributeDataTypeKey = (int)QIQOAttributeDataType.String,
@@ -405,7 +408,7 @@ namespace QIQO.Business.Module.Product.ViewModels
 
             product.ProductAttributes.Add(inc_acct);
 
-            EntityAttribute exp_acct = new EntityAttribute()
+            var exp_acct = new EntityAttribute()
             {
                 AttributeDataType = QIQOAttributeDataType.String,
                 AttributeDataTypeKey = (int)QIQOAttributeDataType.String,
@@ -420,7 +423,7 @@ namespace QIQO.Business.Module.Product.ViewModels
 
             product.ProductAttributes.Add(exp_acct);
 
-            ProductWrapper new_product = new ProductWrapper(product);
+            var new_product = new ProductWrapper(product);
             new_product.PropertyChanged += Context_PropertyChanged;
             SelectedProduct = new_product;
             event_aggregator.GetEvent<ProductNewProductAddEvent>().Publish(ViewNames.ProductHomeView);
@@ -433,12 +436,12 @@ namespace QIQO.Business.Module.Product.ViewModels
                 ExecuteFaultHandledOperation(() =>
                 {
                     var product = SelectedProduct as ProductWrapper;
-                    IProductService product_service = service_factory.CreateClient<IProductService>();
-                    using (TransactionScope scope = new TransactionScope()) // TransactionScopeAsyncFlowOption.Enabled
+                    var product_service = service_factory.CreateClient<IProductService>();
+                    using (var scope = new TransactionScope()) // TransactionScopeAsyncFlowOption.Enabled
                     {
                         using (product_service)
                         {
-                            bool ret_val = product_service.DeleteProduct(product.Model);
+                            var ret_val = product_service.DeleteProduct(product.Model);
                             SelectedProduct = null;
                         }
                         Products.Remove(product);
@@ -447,27 +450,37 @@ namespace QIQO.Business.Module.Product.ViewModels
                 });
             }
             else
+            {
                 SelectedProduct = null;
+            }
         }
 
         private bool CanDelete()
         {
-            ProductWrapper product = _selectedProduct as ProductWrapper;
+            var product = _selectedProduct as ProductWrapper;
             if (product != null)
+            {
                 return true;
+            }
             else
+            {
                 return false;
+            }
         }
 
         private bool CanSave()
         {
-            ProductWrapper curr_prod = SelectedProduct as ProductWrapper;
+            var curr_prod = SelectedProduct as ProductWrapper;
             if (curr_prod != null)
             {
                 if (curr_prod.IsValid && curr_prod.IsChanged)
+                {
                     return true;
+                }
                 else
+                {
                     return false;
+                }
             }
             return false;
         }
@@ -481,7 +494,7 @@ namespace QIQO.Business.Module.Product.ViewModels
         {
             ExecuteFaultHandledOperation(() =>
             {
-                ITypeService type_service = service_factory.CreateClient<ITypeService>();
+                var type_service = service_factory.CreateClient<ITypeService>();
                 using (type_service)
                 {
                     _prod_att_list = type_service.GetAttributeTypeListByCategory("Product");

@@ -1,14 +1,14 @@
-﻿using QIQO.Business.Client.Contracts;
+﻿using CommonServiceLocator;
+using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Entities;
 using System.Collections.Generic;
-using CommonServiceLocator;
 using System.Linq;
 
 namespace QIQO.Business.Client.Core.UI
 {
     public class ProductListService : IProductListService
     {
-        IServiceFactory _service_factor;
+        readonly IServiceFactory _service_factor;
         public ProductListService(IServiceFactory service_factory)
         {
             _service_factor = service_factory;
@@ -17,8 +17,8 @@ namespace QIQO.Business.Client.Core.UI
 
         private void Initialize()
         {
-            IProductService product_service = _service_factor.CreateClient<IProductService>();
-            ICurrentCompanyService curr_co = ServiceLocator.Current.GetInstance<ICurrentCompanyService>();
+            var product_service = _service_factor.CreateClient<IProductService>();
+            var curr_co = ServiceLocator.Current.GetInstance<ICurrentCompanyService>();
             using (product_service)
             {
                 try

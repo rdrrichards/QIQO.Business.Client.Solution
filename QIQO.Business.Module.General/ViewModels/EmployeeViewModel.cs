@@ -1,20 +1,19 @@
-﻿using Prism.Events;
+﻿using CommonServiceLocator;
+using Prism.Commands;
+using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
-using CommonServiceLocator;
+using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Core;
+using QIQO.Business.Client.Core.Infrastructure;
 using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Entities;
 using QIQO.Business.Client.Wrappers;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using QIQO.Business.Client.Contracts;
-using Prism.Commands;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Linq;
-using QIQO.Business.Client.Core.Infrastructure;
+using System.Runtime.CompilerServices;
 
 namespace QIQO.Business.Module.General.ViewModels
 {
@@ -27,7 +26,7 @@ namespace QIQO.Business.Module.General.ViewModels
         private AddressWrapper _default_address;
         private ItemEditNotification notification;
         private ObservableCollection<AddressPostal> _states;
-        private string _viewTitle = "Employee Add/Edit";
+        private readonly string _viewTitle = "Employee Add/Edit";
         private object _currentSelectedAttribute;
         private List<EmployeeWrapper> _supervisors;
 
@@ -97,10 +96,14 @@ namespace QIQO.Business.Module.General.ViewModels
                     {
                         var employee = objects.Item1 as Employee;
                         if (employee != null && employee.EntityPersonKey > 0)
+                        {
                             GetEmployeeToEdit(employee);
+                        }
                         else
+                        {
                             WrapEmployee(employee);
-                        
+                        }
+
                         var supers = objects.Item2 as List<EmployeeWrapper>;
                         if (supers != null)
                         {
@@ -147,7 +150,10 @@ namespace QIQO.Business.Module.General.ViewModels
         private bool CanGenEmployeeCode()
         {
             if (CurrentEmployee != null)
+            {
                 return (CurrentEmployee.PersonCode == "" || CurrentEmployee.PersonCode == null);
+            }
+
             return false;
         }
 
@@ -161,7 +167,11 @@ namespace QIQO.Business.Module.General.ViewModels
 
         private bool CanDoSave()
         {
-            if (CurrentEmployee == null) return false;
+            if (CurrentEmployee == null)
+            {
+                return false;
+            }
+
             return ((CurrentEmployee.IsChanged && CurrentEmployee.IsValid) || (DefaultAddress.IsChanged && DefaultAddress.IsValid));
         }
 
@@ -182,8 +192,8 @@ namespace QIQO.Business.Module.General.ViewModels
         {
             ExecuteFaultHandledOperation(() =>
             {
-                IEmployeeService employee_service = service_factory.CreateClient<IEmployeeService>();
-                ICleaningUtility cleaner = ServiceLocator.Current.GetInstance<ICleaningUtility>();
+                var employee_service = service_factory.CreateClient<IEmployeeService>();
+                var cleaner = ServiceLocator.Current.GetInstance<ICleaningUtility>();
 
                 cleaner.CleanAddress(DefaultAddress.Model);
                 DefaultAddress.AddressType = QIQOAddressType.Mailing;
@@ -194,7 +204,7 @@ namespace QIQO.Business.Module.General.ViewModels
 
                 using (employee_service)
                 {
-                    int emp_key = employee_service.CreateEmployee(CurrentEmployee.Model);
+                    var emp_key = employee_service.CreateEmployee(CurrentEmployee.Model);
                     notification.Confirmed = true;
                     FinishInteraction();
                 }
@@ -205,10 +215,10 @@ namespace QIQO.Business.Module.General.ViewModels
         {
             ExecuteFaultHandledOperation(() =>
             {
-                IEmployeeService employee_service = service_factory.CreateClient<IEmployeeService>();
+                var employee_service = service_factory.CreateClient<IEmployeeService>();
                 using (employee_service)
                 {
-                    Employee emp = employee_service.GetEmployee(employee.EntityPersonKey);
+                    var emp = employee_service.GetEmployee(employee.EntityPersonKey);
 
                     if (emp != null)
                     {
@@ -221,31 +231,40 @@ namespace QIQO.Business.Module.General.ViewModels
 
         private void WrapEmployee(Employee emp)
         {
-            if (emp.EntityPersonKey == 0) GetNewEmployeeAttributes(emp);
+            if (emp.EntityPersonKey == 0)
+            {
+                GetNewEmployeeAttributes(emp);
+            }
+
             CurrentEmployee = new EmployeeWrapper(emp);
             CurrentEmployee.PropertyChanged += Context_PropertyChanged;
             if (emp.Addresses.Count > 0)
+            {
                 DefaultAddress = new AddressWrapper(emp.Addresses[0]);
+            }
             else
+            {
                 DefaultAddress = new AddressWrapper(new Address());
+            }
         }
 
         private void GetNewEmployeeAttributes(Employee employee)
         {
             ExecuteFaultHandledOperation(() =>
             {
-                ITypeService type_service = service_factory.CreateClient<ITypeService>();
+                var type_service = service_factory.CreateClient<ITypeService>();
 
                 using (type_service)
                 {
                     try
                     {
-                        List<AttributeType> atttype_list = type_service.GetAttributeTypeList();
+                        var atttype_list = type_service.GetAttributeTypeList();
                         var acct_atts = atttype_list.Where(item => item.AttributeTypeCategory == "Employee").ToList();
                         var gcnt_atts = atttype_list.Where(item => item.AttributeTypeCategory == "General Contact").ToList();
 
                         var all_atts = acct_atts.Concat(gcnt_atts);
                         foreach (var att in all_atts)
+                        {
                             employee.PersonAttributes.Add(new EntityAttribute()
                             {
                                 AttributeDataTypeKey = (int)att.AttributeDataTypeKey,
@@ -259,6 +278,7 @@ namespace QIQO.Business.Module.General.ViewModels
                                 AttributeDataType = att.AttributeDataTypeKey,
                                 EntityTypeData = new EntityType()
                             });
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -279,7 +299,7 @@ namespace QIQO.Business.Module.General.ViewModels
             var att_to_edit = AttSelectedItem as EntityAttributeWrapper;
             if (att_to_edit != null)
             {
-                EntityAttribute att_copy = att_to_edit.Model.Copy();
+                var att_copy = att_to_edit.Model.Copy();
                 ChangeAttribute(att_copy, ApplicationStrings.NotificationEdit);
             }
         }
@@ -287,7 +307,10 @@ namespace QIQO.Business.Module.General.ViewModels
         private void DeleteAttribute()
         {
             var att_to_remove = AttSelectedItem as EntityAttributeWrapper;
-            if (att_to_remove != null) att_to_remove.AttributeValue = ""; //Company.CompanyAttributes.Remove(att_to_remove);
+            if (att_to_remove != null)
+            {
+                att_to_remove.AttributeValue = ""; //Company.CompanyAttributes.Remove(att_to_remove);
+            }
         }
 
         private bool CanDeleteAttribute()
@@ -300,14 +323,14 @@ namespace QIQO.Business.Module.General.ViewModels
             var att_to_edit = attribute as EntityAttribute;
             if (att_to_edit != null)
             {
-                ItemEditNotification notification = new ItemEditNotification(att_to_edit);
+                var notification = new ItemEditNotification(att_to_edit);
                 notification.Title = action + " Attribute";
                 EditAttributeRequest.Raise(notification,
                     r =>
                     {
                         if (r != null && r.Confirmed && r.EditibleObject != null) // 
                         {
-                            EntityAttribute att = r.EditibleObject as EntityAttribute;
+                            var att = r.EditibleObject as EntityAttribute;
                             if (att != null)
                             {
                                 var att_to_change = AttSelectedItem as EntityAttributeWrapper;
@@ -327,14 +350,14 @@ namespace QIQO.Business.Module.General.ViewModels
         }
         public async void ValidateAddress()
         {
-            IAddressService addr_service = service_factory.CreateClient<IAddressService>();
+            var addr_service = service_factory.CreateClient<IAddressService>();
             using (addr_service)
             {
                 try
                 {
-                    Task<AddressPostal> task = addr_service.GetAddressInfoByPostalAsync(DefaultAddress.AddressPostalCode);
+                    var task = addr_service.GetAddressInfoByPostalAsync(DefaultAddress.AddressPostalCode);
                     await task;
-                    AddressPostal postal_info = task.Result;
+                    var postal_info = task.Result;
 
                     if (postal_info != null)
                     {

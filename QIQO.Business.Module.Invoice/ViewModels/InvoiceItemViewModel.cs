@@ -28,7 +28,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
         private ObservableCollection<Representative> _salesreps;
         private ObservableCollection<AddressWrapper> _bill_addresses = new ObservableCollection<AddressWrapper>();
         private ObservableCollection<AddressWrapper> _ship_addresses = new ObservableCollection<AddressWrapper>();
-        private string _viewTitle = "Invoice Item Add/Edit";
+        private readonly string _viewTitle = "Invoice Item Add/Edit";
         private ItemEditNotification notification;
 
         public InvoiceItemViewModel()
@@ -105,11 +105,15 @@ namespace QIQO.Business.Module.Invoices.ViewModels
                     {
                         var bill_addresses = passed_objects.Item2 as List<Address>;
                         if (bill_addresses != null)
+                        {
                             FillAddressCollection(bill_addresses, QIQOAddressType.Billing);
+                        }
 
                         var ship_addresses = passed_objects.Item3 as List<Address>;
                         if (ship_addresses != null)
+                        {
                             FillAddressCollection(ship_addresses, QIQOAddressType.Shipping);
+                        }
 
                         var order_item = passed_objects.Item1 as InvoiceItem; //notification.EditibleObject as InvoiceItem;
                         if (order_item != null)
@@ -128,12 +132,18 @@ namespace QIQO.Business.Module.Invoices.ViewModels
             if (address_type == QIQOAddressType.Billing)
             {
                 BillingAddresses.Clear();
-                foreach (var addr in addresses) BillingAddresses.Add(new AddressWrapper(addr));
+                foreach (var addr in addresses)
+                {
+                    BillingAddresses.Add(new AddressWrapper(addr));
+                }
             }
             else
             {
                 ShippingAddresses.Clear();
-                foreach (var addr in addresses) ShippingAddresses.Add(new AddressWrapper(addr));
+                foreach (var addr in addresses)
+                {
+                    ShippingAddresses.Add(new AddressWrapper(addr));
+                }
             }
         }
 
@@ -157,7 +167,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
                     {
                         var rp = sp.ProductAttributes.Where(item => item.AttributeType == QIQOAttributeType.Product_PRODBASE).FirstOrDefault();
                         var dq = sp.ProductAttributes.Where(item => item.AttributeType == QIQOAttributeType.Product_PRODDFQTY).FirstOrDefault();
-                        
+
                         InvoiceItem.ProductName = sp.ProductName;
                         InvoiceItem.ProductDesc = sp.ProductDesc;
                         InvoiceItem.InvoiceItemQuantity = int.Parse(dq.AttributeValue);
@@ -196,7 +206,11 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         private bool CanDoSave()
         {
-            if (InvoiceItem == null) return false;
+            if (InvoiceItem == null)
+            {
+                return false;
+            }
+
             return InvoiceItem.IsChanged && InvoiceItem.IsValid;
         }
 
@@ -214,7 +228,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
 
         private void GetCompanyRepLists()
         {
-            IEmployeeService employee_service = service_factory.CreateClient<IEmployeeService>();
+            var employee_service = service_factory.CreateClient<IEmployeeService>();
             using (employee_service)
             {
                 AccountRepList = new ObservableCollection<Representative>(employee_service.GetAccountRepsByCompany(CurrentCompanyKey));

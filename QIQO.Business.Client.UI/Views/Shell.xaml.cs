@@ -17,7 +17,9 @@ namespace QIQO.Business.Client.UI
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
+            {
                 DragMove();
+            }
         }
 
         private void RibbonApplicationMenuItem_Click(object sender, System.Windows.RoutedEventArgs e)

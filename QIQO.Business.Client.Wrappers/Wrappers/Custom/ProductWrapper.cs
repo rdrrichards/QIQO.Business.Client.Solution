@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace QIQO.Business.Client.Wrappers
+﻿namespace QIQO.Business.Client.Wrappers
 {
     public partial class ProductWrapper
     {

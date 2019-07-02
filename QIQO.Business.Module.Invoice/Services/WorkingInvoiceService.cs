@@ -26,16 +26,20 @@ namespace QIQO.Business.Module.Invoices.Services
         public InvoiceWrapper GetInvoice(string invoice_key)
         {
             if (open_invoices.ContainsKey(invoice_key))
+            {
                 return open_invoices[invoice_key];
+            }
             else
+            {
                 return null;
+            }
         }
 
         public bool OpenInvoice(InvoiceWrapper invoice)
         {
             if (!open_invoices.ContainsValue(invoice))
             {
-                string new_key = GenInvoiceKey();
+                var new_key = GenInvoiceKey();
                 invoice.InvoiceNumber = new_key;
                 open_invoices.Add(new_key, invoice);
                 event_aggregator.GetEvent<OpenInvoiceServiceEvent>().Publish(open_invoices.Count);

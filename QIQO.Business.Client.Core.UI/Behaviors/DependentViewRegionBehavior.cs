@@ -1,15 +1,15 @@
 ﻿using Prism.Regions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Windows;
 
 namespace QIQO.Business.Client.Core.UI
 {
     public class DependentViewRegionBehavior : RegionBehavior
     {
-        Dictionary<object, List<DependentViewInfo>> _dependentViewCache = new Dictionary<object, List<DependentViewInfo>>();
+        readonly Dictionary<object, List<DependentViewInfo>> _dependentViewCache = new Dictionary<object, List<DependentViewInfo>>();
 
         public const string BehaviorKey = "DependentViewRegionBehavior";
 
@@ -39,13 +39,17 @@ namespace QIQO.Business.Client.Core.UI
                             var info = CreateDependentViewInfo(atr);
 
                             if (info.View is ISupportDataContext && newView is ISupportDataContext)
+                            {
                                 ((ISupportDataContext)info.View).DataContext = ((ISupportDataContext)newView).DataContext;
+                            }
 
                             dependentViews.Add(info);
                         }
 
                         if (!_dependentViewCache.ContainsKey(newView))
+                        {
                             _dependentViewCache.Add(newView, dependentViews);
+                        }
                     }
 
                     dependentViews.ForEach(item => Region.RegionManager.Regions[item.TargetRegionName].Add(item.View));
@@ -60,7 +64,9 @@ namespace QIQO.Business.Client.Core.UI
                         _dependentViewCache[oldView].ForEach(x => Region.RegionManager.Regions[x.TargetRegionName].Remove(x.View));
 
                         if (!ShouldKeepAlive(oldView))
+                        {
                             _dependentViewCache.Remove(oldView);
+                        }
                     }
                 }
             }
@@ -73,20 +79,26 @@ namespace QIQO.Business.Client.Core.UI
             info.TargetRegionName = attribute.TargetRegionName;
 
             if (attribute.Type != null)
+            {
                 info.View = Activator.CreateInstance(attribute.Type);
+            }
 
             return info;
         }
 
         private static bool ShouldKeepAlive(object view)
         {
-            IRegionMemberLifetime lifetime = GetItemOrContextLifetime(view);
+            var lifetime = GetItemOrContextLifetime(view);
             if (lifetime != null)
+            {
                 return lifetime.KeepAlive;
+            }
 
-            RegionMemberLifetimeAttribute lifetimeAttribute = GetItemOrContextLifetimeAttribute(view);
+            var lifetimeAttribute = GetItemOrContextLifetimeAttribute(view);
             if (lifetimeAttribute != null)
+            {
                 return lifetimeAttribute.KeepAlive;
+            }
 
             return true;
         }
@@ -95,7 +107,9 @@ namespace QIQO.Business.Client.Core.UI
         {
             var lifetimeAttribute = GetCustomAttributes<RegionMemberLifetimeAttribute>(view.GetType()).FirstOrDefault();
             if (lifetimeAttribute != null)
+            {
                 return lifetimeAttribute;
+            }
 
             var frameworkElement = view as FrameworkElement;
             if (frameworkElement != null && frameworkElement.DataContext != null)
@@ -113,11 +127,15 @@ namespace QIQO.Business.Client.Core.UI
         {
             var regionLifetime = view as IRegionMemberLifetime;
             if (regionLifetime != null)
+            {
                 return regionLifetime;
+            }
 
             var frameworkElement = view as FrameworkElement;
             if (frameworkElement != null)
+            {
                 return frameworkElement.DataContext as IRegionMemberLifetime;
+            }
 
             return null;
         }

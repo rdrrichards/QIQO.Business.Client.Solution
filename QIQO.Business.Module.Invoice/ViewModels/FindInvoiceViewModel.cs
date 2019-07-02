@@ -21,7 +21,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
         private readonly IRegionManager _regionManager;
 
         private ObservableCollection<Invoice> _invoices = new ObservableCollection<Invoice>();
-        private string _viewTitle = "Invoice Find";
+        private readonly string _viewTitle = "Invoice Find";
         private string _searchTerm = "";
         private ItemSelectionNotification notification;
         private string _buttonText = "Find";

@@ -44,7 +44,9 @@ namespace QIQO.Business.Module.Orders.ViewModels
             var workingOrders = _workingOrdersService.GetWorkingOrders();
             WorkingOrders.Clear();
             foreach (var wo in workingOrders)
+            {
                 WorkingOrders.Add(Map(wo.Model));
+            }
         }
 
         public bool KeepAlive => false;

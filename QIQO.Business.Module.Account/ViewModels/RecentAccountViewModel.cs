@@ -47,8 +47,10 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void InitializeAccounts(int blah = 0)
         {
-            foreach(var wrap in _recentAccountsService.GetRecentAccounts())
+            foreach (var wrap in _recentAccountsService.GetRecentAccounts())
+            {
                 RecentAccountItems.Add(Map(wrap));
+            }
         }
 
         public DelegateCommand ChooseItemCommand { get; set; }

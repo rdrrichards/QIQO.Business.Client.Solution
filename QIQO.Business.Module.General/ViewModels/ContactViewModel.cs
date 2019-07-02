@@ -15,8 +15,8 @@ namespace QIQO.Business.Module.General.ViewModels
 {
     public class ContactViewModel : ViewModelBase, IInteractionRequestAware
     {
-        IEventAggregator event_aggregator;
-        IServiceFactory service_factory;
+        readonly IEventAggregator event_aggregator;
+        readonly IServiceFactory service_factory;
         private ContactWrapper _contact;
 
         private ItemEditNotification notification;
@@ -103,9 +103,13 @@ namespace QIQO.Business.Module.General.ViewModels
         private bool CanDoSave()
         {
             if (CurrentContact.ContactKey == 0)
+            {
                 return !HasErrors;
+            }
             else
+            {
                 return CurrentContact.IsChanged && CurrentContact.IsValid;
+            }
         }
 
         private void DoSave()

@@ -1,9 +1,9 @@
-﻿using System.ServiceModel;
+﻿using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Entities;
-using QIQO.Business.Client.Core;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using System;
+using System.Collections.Generic;
+using System.ServiceModel;
+using System.Threading.Tasks;
 
 namespace QIQO.Business.Client.Contracts
 {
@@ -28,7 +28,7 @@ namespace QIQO.Business.Client.Contracts
         [OperationContract]
         [TransactionFlow(TransactionFlowOption.Allowed)]
         bool DeleteAccount(Account account);
-        
+
         [OperationContract]
         [TransactionFlow(TransactionFlowOption.Allowed)]
         string GetAccountNextNumber(Account account, QIQOEntityNumberType number_type);

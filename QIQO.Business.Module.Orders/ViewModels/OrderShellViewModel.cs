@@ -34,7 +34,9 @@ namespace QIQO.Business.Module.Orders.ViewModels
         private void Navigate(object navigatePath)
         {
             if (navigatePath != null)
+            {
                 _regionManager.RequestNavigate(RegionNames.OrdersRegion, navigatePath.ToString(), NavigationComplete);
+            }
         }
 
         private void NavigationComplete(NavigationResult result)

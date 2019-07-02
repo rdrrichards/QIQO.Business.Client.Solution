@@ -12,7 +12,7 @@ using System.ServiceModel;
 
 namespace QIQO.Business.Client.Core.UI
 {
-    public class ViewModelBase: BindableBase, INotifyDataErrorInfo, INavigationAware, IActiveAware
+    public class ViewModelBase : BindableBase, INotifyDataErrorInfo, INavigationAware, IActiveAware
     {
         private string _messageToDisplay = "Ready";
         private bool _isMessageVisible = false;
@@ -21,7 +21,7 @@ namespace QIQO.Business.Client.Core.UI
 
         //protected QIQOBusinessService.UserSession _session;
 
-        protected ViewModelBase() 
+        protected ViewModelBase()
         {
             var company = ServiceLocator.Current.GetInstance<ICurrentCompanyService>();
             CurrentCompanyName = company.CurrentCompany.CompanyName;
@@ -30,14 +30,14 @@ namespace QIQO.Business.Client.Core.UI
 
             _errors = new Dictionary<string, List<string>>();
 
-            Process currentProcess = Process.GetCurrentProcess();
+            var currentProcess = Process.GetCurrentProcess();
             ProcessID = currentProcess.Id;
 
             HostName = Environment.MachineName;
             DamainName = Environment.UserDomainName;
             UserName = Environment.UserName;
         }
-        
+
         public string MessageToDisplay
         {
             get { return _messageToDisplay; }
@@ -81,7 +81,7 @@ namespace QIQO.Business.Client.Core.UI
         public virtual event EventHandler IsActiveChanged;
         public bool IsActive { get; set; }
 
-        protected void SetErrors (string propertyName, List<string> propertyErrors)
+        protected void SetErrors(string propertyName, List<string> propertyErrors)
         {
             _errors.Remove(propertyName);
             _errors.Add(propertyName, propertyErrors);
@@ -154,7 +154,11 @@ namespace QIQO.Business.Client.Core.UI
             {
                 Log.Error("CommunicationException from: " + ex.Source + " : " + ex.Message);
                 Log.Error(ex, ex.Message);
-                if (ex.InnerException != null) Log.Error(ex.InnerException, "Inner Exception");
+                if (ex.InnerException != null)
+                {
+                    Log.Error(ex.InnerException, "Inner Exception");
+                }
+
                 DisplayErrorMessage(ex);
             }
             catch (TimeoutException ex)

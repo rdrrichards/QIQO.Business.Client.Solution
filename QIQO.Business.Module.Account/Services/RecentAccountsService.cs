@@ -1,5 +1,4 @@
-﻿using CommonServiceLocator;
-using Prism.Events;
+﻿using Prism.Events;
 using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.UI;
@@ -44,7 +43,10 @@ namespace QIQO.Business.Module.Account.Services
                 //var recent_account_nums = Properties.Settings.Default.RecentViewedAccounts.Split(',').ToList();
                 //recent_account_nums.Add(account.AccountCode);
 
-                if (recently_viewed_accounts.Count > 10) recently_viewed_accounts.Dequeue();
+                if (recently_viewed_accounts.Count > 10)
+                {
+                    recently_viewed_accounts.Dequeue();
+                }
 
                 var rec_acct_rev = recently_viewed_accounts.Reverse();
                 foreach (var acct in rec_acct_rev)
@@ -63,10 +65,12 @@ namespace QIQO.Business.Module.Account.Services
         {
             recently_viewed_accounts = new Queue<AccountWrapper>();
             var recent_account_nums = Properties.Settings.Default.RecentViewedAccounts.Split(',');
-            foreach(var acct_no in recent_account_nums)
+            foreach (var acct_no in recent_account_nums)
             {
                 if (acct_no.Trim().Length != 0)
+                {
                     recently_viewed_accounts.Enqueue(LoadAccount(acct_no));
+                }
             }
         }
         private object CurrentCompany { get; }
@@ -80,7 +84,7 @@ namespace QIQO.Business.Module.Account.Services
                 var account_service = service_factory.CreateClient<IAccountService>();
                 using (account_service)
                 {
-                    Client.Entities.Account _account = account_service.GetAccountByCode(account_no, curr_co.CompanyCode);
+                    var _account = account_service.GetAccountByCode(account_no, curr_co.CompanyCode);
 
                     if (_account != null)
                     {

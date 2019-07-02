@@ -23,7 +23,11 @@ namespace QIQO.Business.Client.Core.UI
         }
         protected void OnNavigationOccured(string module_name)
         {
-            if (module_name != Module) IsNavButtonChecked = false;
+            if (module_name != Module)
+            {
+                IsNavButtonChecked = false;
+            }
+
             RaisePropertyChanged(nameof(DropShadowColor));
         }
 

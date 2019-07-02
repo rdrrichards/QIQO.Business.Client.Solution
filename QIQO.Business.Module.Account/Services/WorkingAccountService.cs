@@ -27,16 +27,20 @@ namespace QIQO.Business.Module.Account.Services
         public AccountWrapper GetAccount(string account_key)
         {
             if (open_accounts.ContainsKey(account_key))
+            {
                 return open_accounts[account_key];
+            }
             else
+            {
                 return null;
+            }
         }
 
         public bool OpenAccount(AccountWrapper account)
         {
             if (!open_accounts.ContainsValue(account))
             {
-                string new_key = GenAccountKey();
+                var new_key = GenAccountKey();
                 account.AccountCode = new_key;
                 open_accounts.Add(new_key, account);
                 event_aggregator.GetEvent<OpenAccountServiceEvent>().Publish(open_accounts.Count);

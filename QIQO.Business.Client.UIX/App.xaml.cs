@@ -4,17 +4,15 @@ using Prism.Unity;
 using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Core;
 using QIQO.Business.Client.Core.UI;
-using QIQO.Business.Client.Core.UI.Adapters;
 using QIQO.Business.Client.Proxies;
 using QIQO.Business.Client.UIX.Views;
-using QIQO.Business.Module.Dashboard.Modules;
 using QIQO.Business.Module.Account.Modules;
 using QIQO.Business.Module.Company.Modules;
+using QIQO.Business.Module.Dashboard.Modules;
 using QIQO.Business.Module.General.Modules;
+using QIQO.Business.Module.Invoices.Modules;
 using QIQO.Business.Module.Orders.Modules;
 using QIQO.Business.Module.Product.Modules;
-using QIQO.Business.Module.Invoices.Modules;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -85,7 +83,7 @@ namespace QIQO.Business.Client.UIX
 
         void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            string errorMessage = string.Format("An unhandled exception occurred: {0}", e.Exception.Message);
+            var errorMessage = string.Format("An unhandled exception occurred: {0}", e.Exception.Message);
             MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             e.Handled = true;
         }

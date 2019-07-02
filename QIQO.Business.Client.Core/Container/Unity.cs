@@ -1,5 +1,4 @@
-﻿using CommonServiceLocator;
-
+﻿
 //namespace QIQO.Business.Client.Core
 //{
 //    public static class Unity

@@ -1,8 +1,6 @@
-﻿using CommonServiceLocator;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Core;
-using QIQO.Business.Client.Entities;
 using QIQO.Business.Client.Proxies;
 using Unity;
 
@@ -30,9 +28,9 @@ namespace QIQO.Business.Client.Tests
             //Account account = proxy.GetAccountByID(3);
             //proxy.Close();
 
-            using (AccountClient proxy = new AccountClient("BasicHttpBinding_IAccountService"))
+            using (var proxy = new AccountClient("BasicHttpBinding_IAccountService"))
             {
-                Account account = proxy.GetAccountByID(3, true);
+                var account = proxy.GetAccountByID(3, true);
                 Assert.AreEqual("Sportsman's Grille - Brentwood", account.AccountName);
             };
 
@@ -45,11 +43,11 @@ namespace QIQO.Business.Client.Tests
         public void ServiceFactoryTest()
         {
             IServiceFactory sf = new ServiceFactory(container);
-            IAccountService proxy = sf.CreateClient<IAccountService>();
+            var proxy = sf.CreateClient<IAccountService>();
 
             using (proxy)
             {
-                Account account = proxy.GetAccountByID(3, true);
+                var account = proxy.GetAccountByID(3, true);
                 Assert.AreEqual("Sportsman's Grille - Brentwood", account.AccountName);
             };
         }

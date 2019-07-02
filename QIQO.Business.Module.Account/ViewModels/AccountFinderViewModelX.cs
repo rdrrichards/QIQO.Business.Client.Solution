@@ -1,15 +1,15 @@
 ﻿using Prism.Commands;
 using Prism.Events;
+using Prism.Regions;
 using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Core;
+using QIQO.Business.Client.Core.Infrastructure;
 using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Entities;
-using System;
-using System.Collections.ObjectModel;
-using QIQO.Business.Client.Core.Infrastructure;
-using Prism.Regions;
 using QIQO.Business.Module.Account.Views;
 using QIQO.Business.Module.General.Models;
+using System;
+using System.Collections.ObjectModel;
 
 namespace QIQO.Business.Module.Account.ViewModels
 {
@@ -19,7 +19,7 @@ namespace QIQO.Business.Module.Account.ViewModels
         private readonly IServiceFactory _serviceFactory;
         private readonly IRegionManager _regionManager;
         private ObservableCollection<BusinessItem> _accounts = new ObservableCollection<BusinessItem>();
-        private string _viewTitle = "Account Find";
+        private readonly string _viewTitle = "Account Find";
         private string _searchTerm;
         private object _selectedItem;
         private bool _isSearching;
@@ -87,7 +87,9 @@ namespace QIQO.Business.Module.Account.ViewModels
                         await results;
 
                         foreach (var account in results.Result)
+                        {
                             FoundItems.Add(Map(account));
+                        }
 
                         MessageToDisplay = FoundItems.Count.ToString() + " account(s) found";
                     }

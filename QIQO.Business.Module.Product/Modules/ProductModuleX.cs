@@ -13,7 +13,8 @@ namespace QIQO.Business.Module.Product.Modules
             var regionManager = containerProvider.Resolve<IRegionManager>();
             regionManager.RegisterViewWithRegion(RegionNames.ToolBarRegion, typeof(ProductNavigationViewX));
         }
-        public void RegisterTypes(IContainerRegistry containerRegistry) {
+        public void RegisterTypes(IContainerRegistry containerRegistry)
+        {
             containerRegistry.Register(typeof(object), typeof(ProductViewX), typeof(ProductViewX).FullName);
         }
     }

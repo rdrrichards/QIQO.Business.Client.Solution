@@ -19,7 +19,7 @@ namespace QIQO.Business.Module.Invoices.ViewModels
         private readonly IRegionManager _regionManager;
 
         private ObservableCollection<BusinessItem> _invoices = new ObservableCollection<BusinessItem>();
-        private string _viewTitle = "Invoice Find";
+        private readonly string _viewTitle = "Invoice Find";
         private string _searchTerm = "";
         private bool _buttonEnabled = true;
         private object _selectedItem;
@@ -115,7 +115,9 @@ namespace QIQO.Business.Module.Invoices.ViewModels
                     if (invoices.Result.Count > 0)
                     {
                         foreach (var invoice in invoices.Result)
+                        {
                             FoundItems.Add(Map(invoice));
+                        }
 
                         SelectedItem = FoundItems[0];
                         SelectedItemIndex = 0;

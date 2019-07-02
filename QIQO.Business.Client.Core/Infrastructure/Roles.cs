@@ -1,7 +1,4 @@
-﻿
-using System.Collections.Generic;
-
-namespace QIQO.Business.Client.Core
+﻿namespace QIQO.Business.Client.Core
 {
     public static class Roles
     {

@@ -13,8 +13,8 @@ namespace QIQO.Business.Module.General.ViewModels
 {
     class CommentViewModel : ViewModelBase, IInteractionRequestAware
     {
-        IEventAggregator event_aggregator;
-        IServiceFactory service_factory;
+        readonly IEventAggregator event_aggregator;
+        readonly IServiceFactory service_factory;
         private CommentWrapper _contact;
 
         private ItemEditNotification notification;
@@ -93,9 +93,13 @@ namespace QIQO.Business.Module.General.ViewModels
         private bool CanDoSave()
         {
             if (CurrentComment.CommentKey == 0)
+            {
                 return !HasErrors;
+            }
             else
+            {
                 return CurrentComment.IsChanged && CurrentComment.IsValid;
+            }
         }
 
         private void DoSave()

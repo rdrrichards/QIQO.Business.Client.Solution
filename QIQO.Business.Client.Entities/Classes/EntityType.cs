@@ -5,7 +5,7 @@ namespace QIQO.Business.Client.Entities
     public class EntityType
     {
         public int EntityTypeKey { get; set; }
-    
+
         //public string EntityTypeCategory { get; set; }
         public string EntityTypeCode { get; set; }
         public string EntityTypeName { get; set; }

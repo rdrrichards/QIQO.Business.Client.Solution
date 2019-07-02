@@ -24,7 +24,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
         private readonly IServiceFactory service_factory;
         private readonly IProductListService _product_service;
         private readonly IRegionManager region_manager;
-        private IReportService report_service;
+        private readonly IReportService report_service;
         private OrderWrapper _order;
         private Client.Entities.Account _currentAccount;
 
@@ -40,7 +40,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
         private bool _grid_enabled = true;
         private ItemEditNotification notification;
 
-        public OrderViewModel(IEventAggregator event_aggtr, IServiceFactory service_fctry, 
+        public OrderViewModel(IEventAggregator event_aggtr, IServiceFactory service_fctry,
             IProductListService product_service, IRegionManager region_mgr,
             IReportService reportService) //
         {
@@ -64,7 +64,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
 
         private void ParentViewUnloadingEvent(object obj)
         {
-            bool canClose = true;
+            var canClose = true;
             var navContext = obj as NavigationContext;
             if (navContext != null)
             {
@@ -85,9 +85,15 @@ namespace QIQO.Business.Module.Orders.ViewModels
             IsActive = true;
         }
 
-        public bool KeepAlive {
-            get {
-                if (Order.IsChanged && Order.Account.AccountCode != null) return true;
+        public bool KeepAlive
+        {
+            get
+            {
+                if (Order.IsChanged && Order.Account.AccountCode != null)
+                {
+                    return true;
+                }
+
                 return false;
             }
         }
@@ -97,11 +103,12 @@ namespace QIQO.Business.Module.Orders.ViewModels
             //********** Do some sort fo confirmation with the end user here
             if (Order.IsChanged && !string.IsNullOrWhiteSpace(Order.Account.AccountCode))
             {
-                Confirmation confirm = new Confirmation();
+                var confirm = new Confirmation();
                 confirm.Title = ApplicationStrings.SaveChangesTitle;
                 confirm.Content = ApplicationStrings.SaveChangesPrompt;
                 SaveChangesConfirmationRequest.Raise(confirm,
-                    r => {
+                    r =>
+                    {
                         if (r != null && r.Confirmed)
                         {
                             if (Order.IsValid)
@@ -118,7 +125,9 @@ namespace QIQO.Business.Module.Orders.ViewModels
                     });
             }
             else
+            {
                 continuationCallback(true);
+            }
         }
 
         //public bool KeepAlive => Order.IsChanged;
@@ -183,7 +192,9 @@ namespace QIQO.Business.Module.Orders.ViewModels
             private set { SetProperty(ref _grid_enabled, value); }
         }
 
-        public override string ViewTitle { get { return _viewTitle; }
+        public override string ViewTitle
+        {
+            get { return _viewTitle; }
             protected set { SetProperty(ref _viewTitle, value); }
         }
 
@@ -288,7 +299,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
 
         private void InitNewOrder()
         {
-            Order new_order = new Order() //*** GET this initializatoin stuff into the objects themselves!! (complete)
+            var new_order = new Order() //*** GET this initializatoin stuff into the objects themselves!! (complete)
             {
                 OrderEntryDate = DateTime.Now,
                 OrderStatusDate = DateTime.Now,
@@ -298,7 +309,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
             };
 
             new_order.OrderItems.Add(InitNewOrderItem(1));
-            SelectedOrderItemIndex = 0;            
+            SelectedOrderItemIndex = 0;
 
             Order = new OrderWrapper(new_order);
             DefaultBillingAddress = new AddressWrapper(new Address());
@@ -322,7 +333,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
         {
             ExecuteFaultHandledOperation(() =>
             {
-                IOrderService order_service = service_factory.CreateClient<IOrderService>();
+                var order_service = service_factory.CreateClient<IOrderService>();
                 using (order_service)
                 {
                     Order = new OrderWrapper(order_service.GetOrder(order_key));
@@ -346,7 +357,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
 
         private void GetCompanyRepLists()
         {
-            IEmployeeService employee_service = service_factory.CreateClient<IEmployeeService>();
+            var employee_service = service_factory.CreateClient<IEmployeeService>();
             using (employee_service)
             {
                 AccountRepList = new ObservableCollection<Representative>(employee_service.GetAccountRepsByCompany(CurrentCompanyKey));
@@ -404,16 +415,17 @@ namespace QIQO.Business.Module.Orders.ViewModels
 
         private void DoCancel()
         {
-            Confirmation confirm = new Confirmation();
-                confirm.Title = ApplicationStrings.ConfirmCancelTitle;
-                confirm.Content = ApplicationStrings.ConfirmCancelPrompt;
-                SaveChangesConfirmationRequest.Raise(confirm,
-                    r => {
-                        if (r != null && r.Confirmed)
-                        {
-                            InitNewOrder();
-                        }
-                    });
+            var confirm = new Confirmation();
+            confirm.Title = ApplicationStrings.ConfirmCancelTitle;
+            confirm.Content = ApplicationStrings.ConfirmCancelPrompt;
+            SaveChangesConfirmationRequest.Raise(confirm,
+                r =>
+                {
+                    if (r != null && r.Confirmed)
+                    {
+                        InitNewOrder();
+                    }
+                });
         }
 
         private bool CanDoDelete()
@@ -423,11 +435,12 @@ namespace QIQO.Business.Module.Orders.ViewModels
 
         private void DoDelete()
         {
-            Confirmation confirm = new Confirmation();
+            var confirm = new Confirmation();
             confirm.Title = ApplicationStrings.DeleteOrderTitle;
             confirm.Content = $"Are you sure you want to delete order {Order.OrderNumber}?\n\nClick OK to delete. Click Cancel to return to the form.";
             DeleteConfirmationRequest.Raise(confirm,
-                r => {
+                r =>
+                {
                     if (r != null && r.Confirmed)
                     {
                         DeleteOrder(Order.OrderNumber);
@@ -439,12 +452,12 @@ namespace QIQO.Business.Module.Orders.ViewModels
         {
             ExecuteFaultHandledOperation(() =>
             {
-                IOrderService order_service = service_factory.CreateClient<IOrderService>();
-                using (TransactionScope scope = new TransactionScope())
+                var order_service = service_factory.CreateClient<IOrderService>();
+                using (var scope = new TransactionScope())
                 {
                     using (order_service)
                     {
-                        bool ret_val = order_service.DeleteOrder(Order.Model);
+                        var ret_val = order_service.DeleteOrder(Order.Model);
                         InitNewOrder();
                         ViewTitle = ApplicationStrings.TabTitleNewOrder;
                         event_aggregator.GetEvent<OrderDeletedEvent>().Publish($"Order {order_number} deleted successfully");
@@ -473,15 +486,18 @@ namespace QIQO.Business.Module.Orders.ViewModels
 
         private void FindAccount()
         {
-            ItemSelectionNotification notification = new ItemSelectionNotification();
+            var notification = new ItemSelectionNotification();
             notification.Title = ApplicationStrings.NotificationFindAccount;
             FindAccountRequest.Raise(notification,
-                r => {
+                r =>
+                {
                     if (r != null && r.Confirmed && r.SelectedItem != null)
                     {
-                        Client.Entities.Account found_account = r.SelectedItem as Client.Entities.Account;
+                        var found_account = r.SelectedItem as Client.Entities.Account;
                         if (found_account != null)
+                        {
                             GetAccount(found_account.AccountCode);
+                        }
                     }
                 });
         }
@@ -497,7 +513,9 @@ namespace QIQO.Business.Module.Orders.ViewModels
             if (item_to_del != null)
             {
                 if (item_to_del.OrderItemKey == 0)
+                {
                     Order.OrderItems.Remove(item_to_del);
+                }
                 else
                 {
                     item_to_del.OrderItemStatus = QIQOOrderItemStatus.Canceled;
@@ -521,7 +539,9 @@ namespace QIQO.Business.Module.Orders.ViewModels
         {
             var item_to_edit = SelectedOrderItem as OrderItemWrapper;
             if (item_to_edit != null)
+            {
                 ChangeOrderItem(item_to_edit.Model.Copy(), ApplicationStrings.NotificationEdit);
+            }
         }
 
         private bool CanAddOrderItem()
@@ -544,7 +564,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
             }
             else
             {
-                OrderItem new_ord_item = new OrderItem()
+                var new_ord_item = new OrderItem()
                 {
                     AccountRep = Order.AccountRep.Model,
                     OrderItemBillToAddress = DefaultBillingAddress.Model,
@@ -566,15 +586,15 @@ namespace QIQO.Business.Module.Orders.ViewModels
                 GridIsEnabled = false;
                 var bill_addresses = _currentAccount.Addresses.Where(item => item.AddressType == QIQOAddressType.Billing).ToList();
                 var ship_addresses = _currentAccount.Addresses.Where(item => item.AddressType == QIQOAddressType.Shipping).ToList();
-                Tuple<object, object, object> needed_objects = new Tuple<object, object, object>(order_item, bill_addresses, ship_addresses);
-                ItemEditNotification notification = new ItemEditNotification(needed_objects);
+                var needed_objects = new Tuple<object, object, object>(order_item, bill_addresses, ship_addresses);
+                var notification = new ItemEditNotification(needed_objects);
                 notification.Title = action + " Order Item"; //+ emp_to_edit.PersonCode + " - " + emp_to_edit.PersonFullNameFML;
                 EditOrderItemRequest.Raise(notification,
                     r =>
                     {
                         if (r != null && r.Confirmed && r.EditibleObject != null) // 
                         {
-                            OrderItem obj = r.EditibleObject as OrderItem;
+                            var obj = r.EditibleObject as OrderItem;
                             if (obj != null)
                             {
                                 if (action == ApplicationStrings.NotificationEdit)
@@ -614,7 +634,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
 
         private void PopulateProductInfo(object param)
         {
-            OrderItemWrapper order_item = Order.OrderItems[SelectedOrderItemIndex];
+            var order_item = Order.OrderItems[SelectedOrderItemIndex];
             //OrderItem order_item = OrderItems[SelectedOrderItemIndex];
             if (order_item != null && order_item.ProductKey > 0)
             {
@@ -635,10 +655,10 @@ namespace QIQO.Business.Module.Orders.ViewModels
                         order_item.ProductDesc = sp.ProductDesc;
                         order_item.OrderItemQuantity = int.Parse(dq.AttributeValue);
                         // Check for Fee Schedule here!
-                        decimal fsp = ApplyFeeSchedule(sp.ProductKey, decimal.Parse(rp.AttributeValue));
+                        var fsp = ApplyFeeSchedule(sp.ProductKey, decimal.Parse(rp.AttributeValue));
                         order_item.ItemPricePer = (fsp != 0M) ? fsp : decimal.Parse(rp.AttributeValue);
                         order_item.OrderItemLineSum = order_item.OrderItemQuantity * order_item.ItemPricePer;
-                        
+
                         //order_item.OrderItemProduct = new ProductWrapper(sp);
                         order_item.OrderItemProduct.ProductKey = sp.ProductKey;
                         order_item.OrderItemProduct.ProductCode = sp.ProductCode;
@@ -661,12 +681,12 @@ namespace QIQO.Business.Module.Orders.ViewModels
 
             Order.OrderItemCount = Order.OrderItems.Sum(item => item.OrderItemQuantity);
             Order.OrderValueSum = Order.OrderItems.Sum(item => item.OrderItemLineSum);
-            int seq = Order.OrderItems.Count;
+            var seq = Order.OrderItems.Count;
             // Need to think about whether this is the best way to do this. What if they change an existing item?
             var new_order_line = Order.OrderItems.Where(item => item.ProductKey == 0).FirstOrDefault();
             if (new_order_line == null)
             {
-                OrderItemWrapper new_item = new OrderItemWrapper(InitNewOrderItem(seq + 1));
+                var new_item = new OrderItemWrapper(InitNewOrderItem(seq + 1));
                 FillFromDefaultAddress(new_item, QIQOAddressType.Billing);
                 FillFromDefaultAddress(new_item, QIQOAddressType.Shipping);
                 Order.OrderItems.Add(new_item);
@@ -705,7 +725,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
 
         private decimal ApplyFeeSchedule(int product_key, decimal def_price) // think about if this needs to be in a service
         {
-            decimal charge = 0M; string type;
+            var charge = 0M; string type;
 
             if (FeeScheduleList != null)
             {
@@ -715,11 +735,15 @@ namespace QIQO.Business.Module.Orders.ViewModels
                     charge = fs.FeeScheduleValue;
                     type = fs.FeeScheduleTypeCode;
                     if (type == "P")
+                    {
                         charge = def_price * charge;
+                    }
                 }
             }
             else
+            {
                 charge = def_price;
+            }
 
             return charge;
         }
@@ -728,7 +752,7 @@ namespace QIQO.Business.Module.Orders.ViewModels
         {
             if (SelectedOrderItemIndex != -1 && Order.OrderItems.Count > 0)
             {
-                OrderItemWrapper order_item = Order.OrderItems[SelectedOrderItemIndex];
+                var order_item = Order.OrderItems[SelectedOrderItemIndex];
                 //OrderItem order_item = OrderItems[SelectedOrderItemIndex];
                 if (order_item != null & order_item.OrderItemStatus != QIQOOrderItemStatus.Canceled)
                 {
@@ -738,7 +762,9 @@ namespace QIQO.Business.Module.Orders.ViewModels
                         {
                             var rp = order_item.OrderItemProduct.ProductAttributes.Where(item => item.AttributeType == QIQOAttributeType.Product_PRODBASE).FirstOrDefault();
                             if (rp != null)
+                            {
                                 order_item.ItemPricePer = ApplyFeeSchedule(order_item.ProductKey, Decimal.Parse(rp.AttributeValue));
+                            }
                         }
                     }
                     if (order_item.OrderItemQuantity <= 0)
@@ -747,7 +773,9 @@ namespace QIQO.Business.Module.Orders.ViewModels
                         {
                             var dq = order_item.OrderItemProduct.ProductAttributes.Where(item => item.AttributeType == QIQOAttributeType.Product_PRODDFQTY).FirstOrDefault();
                             if (dq != null)
+                            {
                                 order_item.OrderItemQuantity = Int32.Parse(dq.AttributeValue);
+                            }
                         }
                     }
 
@@ -763,23 +791,33 @@ namespace QIQO.Business.Module.Orders.ViewModels
         {
             if (SelectedOrderItemIndex != -1 && Order.OrderItems.Count > 0)
             {
-                OrderItemWrapper order_item = Order.OrderItems[SelectedOrderItemIndex];
+                var order_item = Order.OrderItems[SelectedOrderItemIndex];
                 //OrderItem order_item = OrderItems[SelectedOrderItemIndex];
                 if (order_item != null)
                 {
-                    AddressWrapper current_bill_address = order_item.OrderItemBillToAddress as AddressWrapper;
+                    var current_bill_address = order_item.OrderItemBillToAddress as AddressWrapper;
                     if (current_bill_address != null && current_bill_address.AddressKey != 0 && current_bill_address.AddressLine1 != null)
+                    {
                         DefaultBillingAddress = current_bill_address;
+                    }
 
-                    AddressWrapper current_ship_address = order_item.OrderItemShipToAddress as AddressWrapper;
+                    var current_ship_address = order_item.OrderItemShipToAddress as AddressWrapper;
                     if (current_ship_address != null && current_ship_address.AddressKey != 0 && current_ship_address.AddressLine1 != null)
+                    {
                         DefaultShippingAddress = current_ship_address;
+                    }
 
-                    RepresentativeWrapper current_sales_rep = order_item.SalesRep as RepresentativeWrapper;
-                    if (current_sales_rep != null && current_sales_rep.EntityPersonKey != 0) Order.SalesRep.EntityPersonKey = current_sales_rep.EntityPersonKey;
+                    var current_sales_rep = order_item.SalesRep as RepresentativeWrapper;
+                    if (current_sales_rep != null && current_sales_rep.EntityPersonKey != 0)
+                    {
+                        Order.SalesRep.EntityPersonKey = current_sales_rep.EntityPersonKey;
+                    }
 
-                    RepresentativeWrapper current_account_rep = order_item.AccountRep as RepresentativeWrapper;
-                    if (current_account_rep != null && current_account_rep.EntityPersonKey != 0) Order.AccountRep.EntityPersonKey = current_account_rep.EntityPersonKey;
+                    var current_account_rep = order_item.AccountRep as RepresentativeWrapper;
+                    if (current_account_rep != null && current_account_rep.EntityPersonKey != 0)
+                    {
+                        Order.AccountRep.EntityPersonKey = current_account_rep.EntityPersonKey;
+                    }
                 }
             }
         }
@@ -794,20 +832,22 @@ namespace QIQO.Business.Module.Orders.ViewModels
             //throw new NotImplementedException();
             ExecuteFaultHandledOperation(() =>
             {
-                IAccountService acct_service = service_factory.CreateClient<IAccountService>();
+                var acct_service = service_factory.CreateClient<IAccountService>();
                 var comp = CurrentCompany as Company;
 
                 using (acct_service)
                 {
-                    Client.Entities.Account account = acct_service.GetAccountByCode(account_code, comp.CompanyCode);
+                    var account = acct_service.GetAccountByCode(account_code, comp.CompanyCode);
                     if (account != null)
                     {
                         if (account.Employees != null)
+                        {
                             AccountContacts = new ObservableCollection<AccountPerson>(account.Employees.Where(item => item.CompanyRoleType == QIQOPersonType.AccountContact).ToList());
+                        }
                         // Get the accounts main contact key
                         var contact = account.Employees.Where(item => item.CompanyRoleType == QIQOPersonType.AccountContact).FirstOrDefault();
-                        int cnt_key = contact != null ? contact.EntityPersonKey : 1;
-                        
+                        var cnt_key = contact != null ? contact.EntityPersonKey : 1;
+
                         Order.Account.AccountKey = account.AccountKey;
                         Order.Account.AccountName = account.AccountName;
                         Order.Account.AccountCode = account.AccountCode;
@@ -844,14 +884,14 @@ namespace QIQO.Business.Module.Orders.ViewModels
             event_aggregator.GetEvent<GeneralMessageEvent>().Publish(ApplicationStrings.BeginningSave);
             ExecuteFaultHandledOperation(() =>
             {
-                IOrderService order_service = service_factory.CreateClient<IOrderService>();
-                using (TransactionScope scope = new TransactionScope())
+                var order_service = service_factory.CreateClient<IOrderService>();
+                using (var scope = new TransactionScope())
                 {
                     using (order_service)
                     {
                         if (Order.OrderKey == 0)
                         {
-                            IAccountService account_service = service_factory.CreateClient<IAccountService>();
+                            var account_service = service_factory.CreateClient<IAccountService>();
                             Order.OrderNumber = account_service.GetAccountNextNumber(Order.Account.Model, QIQOEntityNumberType.OrderNumber);
                             account_service.Dispose();
                         }
@@ -859,16 +899,22 @@ namespace QIQO.Business.Module.Orders.ViewModels
                         //TODO: Do something to make sure the order items are in the object properly
                         var new_order_line = Order.OrderItems.Where(item => item.ProductKey == 0).FirstOrDefault();
                         if (new_order_line != null)
+                        {
                             Order.OrderItems.Remove(new_order_line);
+                        }
 
                         // For some reason, these don't seem to get set properly when I add the account object to the Order object
                         Order.Model.OrderItems.ForEach(item => item.OrderItemBillToAddress = DefaultBillingAddress.Model);
                         Order.Model.OrderItems.ForEach(item => item.OrderItemShipToAddress = DefaultShippingAddress.Model);
-                        int order_key = order_service.CreateOrder(Order.Model);
-                        if (Order.OrderKey == 0) Order.OrderKey = order_key;
+                        var order_key = order_service.CreateOrder(Order.Model);
+                        if (Order.OrderKey == 0)
+                        {
+                            Order.OrderKey = order_key;
+                        }
+
                         Order.AcceptChanges();
                         ViewTitle = Order.OrderNumber;
-                        
+
                         //event_aggregator.GetEvent<OrderUpdatedEvent>().Publish($"Order {Order.OrderNumber} updated successfully");
                     }
                     scope.Complete();

@@ -5,7 +5,7 @@ namespace QIQO.Business.Client.Entities
     public class AttributeType
     {
         public int AttributeTypeKey { get; set; }
-    
+
         public string AttributeTypeCategory { get; set; }
         public string AttributeTypeCode { get; set; }
         public string AttributeTypeName { get; set; }

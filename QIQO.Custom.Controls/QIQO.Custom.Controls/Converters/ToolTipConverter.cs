@@ -11,14 +11,20 @@ namespace QIQO.Custom.Controls
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             // Exit if values not set
-            if ((values[0] == null) || (values[1] == null)) return null;
+            if ((values[0] == null) || (values[1] == null))
+            {
+                return null;
+            }
 
             // Get values passed in
             var targetDate = (DateTime)values[0];
             var parent = (QIQOCalender)values[1];
 
             // Exit if no EventDates collection
-            if (parent.EventDates == null) return null;
+            if (parent.EventDates == null)
+            {
+                return null;
+            }
 
             // Get highlight text for date passed in
             string ttDate = null;
@@ -27,7 +33,7 @@ namespace QIQO.Custom.Controls
             if (edate != null)
             {
                 ttDate = "";
-                foreach (QIQODate item in edate)
+                foreach (var item in edate)
                 {
                     ttDate = ttDate + $"Date: {item.Date.ToShortDateString()}\nDescription: {item.DateDescription}\nWho: {item.EntityName}\nWhat: {item.EntityType}\n\n";
                 }

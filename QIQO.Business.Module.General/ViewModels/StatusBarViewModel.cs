@@ -8,7 +8,7 @@ namespace QIQO.Business.Module.General.ViewModels
 {
     public class StatusBarViewModel : ViewModelBase
     {
-        IEventAggregator event_aggregator;
+        readonly IEventAggregator event_aggregator;
         string _StatusText1;
 
         public StatusBarViewModel(IEventAggregator event_aggtr)

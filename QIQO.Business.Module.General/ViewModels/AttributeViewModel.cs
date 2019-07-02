@@ -13,16 +13,16 @@ namespace QIQO.Business.Module.General.ViewModels
 {
     public class AttributeViewModel : ViewModelBase, IInteractionRequestAware
     {
-        IEventAggregator event_aggregator;
-        IServiceFactory service_factory;
+        readonly IEventAggregator event_aggregator;
+        readonly IServiceFactory service_factory;
         EntityAttributeWrapper _entity_attribute;
-        private string _viewTitle = "Attribute Add/Edit";
+        private readonly string _viewTitle = "Attribute Add/Edit";
 
         private ItemEditNotification notification;
 
         public AttributeViewModel()
         {
-            event_aggregator = ServiceLocator.Current.GetInstance<IEventAggregator>(); 
+            event_aggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
             service_factory = ServiceLocator.Current.GetInstance<IServiceFactory>();
 
             EntityAttribute = new EntityAttributeWrapper(new EntityAttribute());
@@ -90,9 +90,13 @@ namespace QIQO.Business.Module.General.ViewModels
         {
             //**** NEEDS WORK!
             if (EntityAttribute.AttributeKey == 0)
+            {
                 return !HasErrors;
+            }
             else
+            {
                 return EntityAttribute.IsChanged && EntityAttribute.IsValid;
+            }
             //return true;
 
         }

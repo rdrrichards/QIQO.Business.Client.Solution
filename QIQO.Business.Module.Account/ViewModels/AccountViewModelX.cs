@@ -1,23 +1,22 @@
-﻿using Prism.Commands;
+﻿using CommonServiceLocator;
+using Prism.Commands;
 using Prism.Events;
+using Prism.Interactivity.InteractionRequest;
 using Prism.Regions;
-using CommonServiceLocator;
 using QIQO.Business.Client.Contracts;
 using QIQO.Business.Client.Core;
+using QIQO.Business.Client.Core.Infrastructure;
 using QIQO.Business.Client.Core.UI;
 using QIQO.Business.Client.Entities;
 using QIQO.Business.Client.Wrappers;
+using QIQO.Business.Module.Account.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using Prism.Interactivity.InteractionRequest;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
-using QIQO.Business.Client.Core.Infrastructure;
 using System.Transactions;
-using QIQO.Business.Module.Account.Interfaces;
 
 namespace QIQO.Business.Module.Account.ViewModels
 {
@@ -115,7 +114,9 @@ namespace QIQO.Business.Module.Account.ViewModels
                     });
             }
             else
+            {
                 continuationCallback(true);
+            }
         }
 
         public bool KeepAlive { get; } = false;
@@ -129,9 +130,11 @@ namespace QIQO.Business.Module.Account.ViewModels
                 {
                     if (r != null && r.Confirmed && r.SelectedItem != null)
                     {
-                        Client.Entities.Account found_account = r.SelectedItem as Client.Entities.Account;
+                        var found_account = r.SelectedItem as Client.Entities.Account;
                         if (found_account != null)
+                        {
                             GetAccount(found_account.AccountKey);
+                        }
                     }
                 }); //)
         }
@@ -237,14 +240,14 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         public async void ValidateAddress(AddressWrapper which_address)
         {
-            IAddressService addr_service = service_factory.CreateClient<IAddressService>();
+            var addr_service = service_factory.CreateClient<IAddressService>();
             using (addr_service)
             {
                 try
                 {
-                    Task<AddressPostal> task = addr_service.GetAddressInfoByPostalAsync(which_address.AddressPostalCode);
+                    var task = addr_service.GetAddressInfoByPostalAsync(which_address.AddressPostalCode);
                     await task;
-                    AddressPostal postal_info = task.Result;
+                    var postal_info = task.Result;
 
                     if (postal_info != null)
                     {
@@ -406,12 +409,12 @@ namespace QIQO.Business.Module.Account.ViewModels
         {
             ExecuteFaultHandledOperation(() =>
             {
-                IAccountService account_service = service_factory.CreateClient<IAccountService>();
-                using (TransactionScope scope = new TransactionScope()) // TransactionScopeAsyncFlowOption.Enabled
+                var account_service = service_factory.CreateClient<IAccountService>();
+                using (var scope = new TransactionScope()) // TransactionScopeAsyncFlowOption.Enabled
                 {
                     using (account_service)
                     {
-                        bool ret_val = account_service.DeleteAccount(Account.Model);
+                        var ret_val = account_service.DeleteAccount(Account.Model);
                         event_aggregator.GetEvent<AccountDeletedEvent>().Publish($"{Account.AccountCode} - {Account.AccountName} deleted sucessfully");
                         region_manager.RequestNavigate(RegionNames.ContentRegion, ViewNames.AccountHomeView);
                         //InitNewAccount();
@@ -506,7 +509,7 @@ namespace QIQO.Business.Module.Account.ViewModels
         {
             if (CommentSelectedItem is CommentWrapper comm_to_edit)
             {
-                Comment att_copy = comm_to_edit.Model.Copy();
+                var att_copy = comm_to_edit.Model.Copy();
                 ChangeComment(att_copy, ApplicationStrings.NotificationEdit);
             }
         }
@@ -568,7 +571,10 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void DeleteAttribute()
         {
-            if (AttSelectedItem is EntityAttributeWrapper att_to_remove) att_to_remove.AttributeValue = ""; //Account.AccountAttributes.Remove(att_to_remove);
+            if (AttSelectedItem is EntityAttributeWrapper att_to_remove)
+            {
+                att_to_remove.AttributeValue = ""; //Account.AccountAttributes.Remove(att_to_remove);
+            }
         }
 
         private bool CanEditAttribute()
@@ -580,7 +586,7 @@ namespace QIQO.Business.Module.Account.ViewModels
         {
             if (AttSelectedItem is EntityAttributeWrapper att_to_edit)
             {
-                EntityAttribute att_copy = att_to_edit.Model.Copy();
+                var att_copy = att_to_edit.Model.Copy();
                 ChangeAttribute(att_copy, ApplicationStrings.NotificationEdit);
             }
         }
@@ -624,9 +630,13 @@ namespace QIQO.Business.Module.Account.ViewModels
             if (FeeSelectedItem is FeeScheduleWrapper fee_to_remove)
             {
                 if (fee_to_remove.FeeScheduleKey != 0)
+                {
                     fee_to_remove.FeeScheduleEndDate = DateTime.Today;
+                }
                 else
+                {
                     Account.FeeSchedules.Remove(fee_to_remove);
+                }
             }
         }
 
@@ -639,7 +649,7 @@ namespace QIQO.Business.Module.Account.ViewModels
         {
             if (FeeSelectedItem is FeeScheduleWrapper fee_to_edit)
             {
-                FeeSchedule fee_copy = fee_to_edit.Model.Copy();
+                var fee_copy = fee_to_edit.Model.Copy();
                 ChangeFeeSchedule(fee_copy, ApplicationStrings.NotificationEdit);
             }
         }
@@ -661,7 +671,7 @@ namespace QIQO.Business.Module.Account.ViewModels
         {
             if (schedule is FeeSchedule fee_to_edit)
             {
-                ItemEditNotification notification = new ItemEditNotification(fee_to_edit);
+                var notification = new ItemEditNotification(fee_to_edit);
                 notification.Title = action + " Fee Schedule"; //+ emp_to_edit.PersonCode + " - " + emp_to_edit.PersonFullNameFML;
                 EditFeeScheduledRequest.Raise(notification,
                     r =>
@@ -708,7 +718,7 @@ namespace QIQO.Business.Module.Account.ViewModels
         {
             if (EmpSelectedItem is AccountPersonWrapper emp_to_edit)
             {
-                AccountPerson ap_copy = emp_to_edit.Model.Copy();
+                var ap_copy = emp_to_edit.Model.Copy();
                 ChangeEmployee(ap_copy, ApplicationStrings.NotificationEdit);
             }
         }
@@ -775,9 +785,13 @@ namespace QIQO.Business.Module.Account.ViewModels
             if (EmpSelectedItem is AccountPersonWrapper emp_to_remove)
             {
                 if (emp_to_remove.PersonKey != 0)
+                {
                     emp_to_remove.EndDate = DateTime.Today;
+                }
                 else
+                {
                     Account.Employees.Remove(emp_to_remove);
+                }
             }
         }
 
@@ -791,7 +805,7 @@ namespace QIQO.Business.Module.Account.ViewModels
         {
             if (ContactSelectedItem is ContactWrapper cont_to_edit)
             {
-                Contact cnt_copy = cont_to_edit.Model.Copy();
+                var cnt_copy = cont_to_edit.Model.Copy();
                 ChangeContact(cnt_copy, ApplicationStrings.NotificationEdit);
             }
         }
@@ -815,7 +829,7 @@ namespace QIQO.Business.Module.Account.ViewModels
         {
             if (contact is Contact emp_to_edit)
             {
-                ItemEditNotification notification = new ItemEditNotification(emp_to_edit);
+                var notification = new ItemEditNotification(emp_to_edit);
                 notification.Title = action + " Contact";
                 EditContactRequest.Raise(notification,
                     r =>
@@ -853,7 +867,9 @@ namespace QIQO.Business.Module.Account.ViewModels
         private void DeleteContact()
         {
             if (ContactSelectedItem is ContactWrapper cont_to_remove)
+            {
                 Account.Contacts.Remove(cont_to_remove);
+            }
         }
 
         private bool CanStartNewOrder(object obj)
@@ -882,19 +898,21 @@ namespace QIQO.Business.Module.Account.ViewModels
             ExecuteFaultHandledOperation(() =>
             {
                 event_aggregator.GetEvent<AccountUpdatedEvent>().Publish(ApplicationStrings.BeginningSave);
-                ICleaningUtility cleaner = ServiceLocator.Current.GetInstance<ICleaningUtility>();
+                var cleaner = ServiceLocator.Current.GetInstance<ICleaningUtility>();
 
-                using (TransactionScope scope = new TransactionScope()) // TransactionScopeAsyncFlowOption.Enabled
+                using (var scope = new TransactionScope()) // TransactionScopeAsyncFlowOption.Enabled
                 {
                     if (Account.AccountKey == 0 && Account.AccountCode == "")
                     {
                         GetNextAccountNumber();
                     }
 
-                    List<EntityAttributeWrapper> atts_with_values = Account.AccountAttributes.Where(i => i.AttributeValue != "" || i.AttributeKey > 0).ToList();
+                    var atts_with_values = Account.AccountAttributes.Where(i => i.AttributeValue != "" || i.AttributeKey > 0).ToList();
                     Account.AccountAttributes.Clear();
                     foreach (var good_att in atts_with_values)
+                    {
                         Account.AccountAttributes.Add(good_att);
+                    }
 
                     Account.Model.Addresses.Clear();
                     cleaner.CleanAddress(DefaultBillingAddress.Model);
@@ -907,10 +925,10 @@ namespace QIQO.Business.Module.Account.ViewModels
                     DefaultMailingAddress.AddressType = QIQOAddressType.Mailing;
                     Account.Model.Addresses.Add(DefaultMailingAddress.Model);
 
-                    IAccountService account_service = service_factory.CreateClient<IAccountService>();
+                    var account_service = service_factory.CreateClient<IAccountService>();
                     using (account_service)
                     {
-                        int _account_key = account_service.CreateAccount(Account.Model);
+                        var _account_key = account_service.CreateAccount(Account.Model);
                         event_aggregator.GetEvent<AccountUpdatedEvent>().Publish($"{Account.AccountCode} - {Account.AccountName} updated sucessfully");
                         Account.AcceptChanges();
                     }
@@ -922,8 +940,8 @@ namespace QIQO.Business.Module.Account.ViewModels
 
         private void GetNextAccountNumber()
         {
-            string curr_code = Account.AccountCode;
-            ICompanyService company_service = service_factory.CreateClient<ICompanyService>();
+            var curr_code = Account.AccountCode;
+            var company_service = service_factory.CreateClient<ICompanyService>();
             Account.AccountCode = company_service.GetCompanyNextNumber((Company)CurrentCompany, QIQOEntityNumberType.AccountNumber);
             _account_code_holder = Account.AccountCode;
             working_account_service.ReplaceAccount(curr_code, Account);
@@ -934,15 +952,15 @@ namespace QIQO.Business.Module.Account.ViewModels
             // Really, we need to add validation that the code doesn't already exist for the account and do something else if it does.
             if (parameter != null && parameter != _account_code_holder && parameter != "")
             {
-                string acct_code = parameter;
+                var acct_code = parameter;
                 var curr_co = CurrentCompany as Company;
 
                 ExecuteFaultHandledOperation(() =>
                 {
-                    IAccountService account_service = service_factory.CreateClient<IAccountService>();
+                    var account_service = service_factory.CreateClient<IAccountService>();
                     using (account_service)
                     {
-                        Client.Entities.Account _account = account_service.GetAccountByCode(acct_code, curr_co.CompanyCode);
+                        var _account = account_service.GetAccountByCode(acct_code, curr_co.CompanyCode);
 
                         if (_account != null)
                         {
@@ -959,10 +977,10 @@ namespace QIQO.Business.Module.Account.ViewModels
         {
             ExecuteFaultHandledOperation(() =>
             {
-                IAccountService account_service = service_factory.CreateClient<IAccountService>();
+                var account_service = service_factory.CreateClient<IAccountService>();
                 using (account_service)
                 {
-                    Client.Entities.Account _account = account_service.GetAccountByID(account_key, true);
+                    var _account = account_service.GetAccountByID(account_key, true);
 
                     if (_account != null)
                     {
@@ -988,23 +1006,35 @@ namespace QIQO.Business.Module.Account.ViewModels
 
                 Account = new AccountWrapper(_account);
 
-                AddressWrapper ship_addy = Account.Addresses.Where(type => type.AddressType == QIQOAddressType.Shipping).FirstOrDefault();
+                var ship_addy = Account.Addresses.Where(type => type.AddressType == QIQOAddressType.Shipping).FirstOrDefault();
                 if (ship_addy != null)
+                {
                     DefaultShippingAddress = ship_addy; // new AddressWrapper(ship_addy);
+                }
                 else
+                {
                     DefaultShippingAddress = new AddressWrapper(new Address() { AddressType = QIQOAddressType.Shipping });
+                }
 
-                AddressWrapper bill_addy = Account.Addresses.Where(type => type.AddressType == QIQOAddressType.Billing).FirstOrDefault();
+                var bill_addy = Account.Addresses.Where(type => type.AddressType == QIQOAddressType.Billing).FirstOrDefault();
                 if (bill_addy != null)
+                {
                     DefaultBillingAddress = bill_addy; // new AddressWrapper(bill_addy);
+                }
                 else
+                {
                     DefaultBillingAddress = new AddressWrapper(new Address() { AddressType = QIQOAddressType.Billing });
+                }
 
-                AddressWrapper mail_addy = Account.Addresses.Where(type => type.AddressType == QIQOAddressType.Mailing).FirstOrDefault();
+                var mail_addy = Account.Addresses.Where(type => type.AddressType == QIQOAddressType.Mailing).FirstOrDefault();
                 if (mail_addy != null)
+                {
                     DefaultMailingAddress = mail_addy; // new AddressWrapper(mail_addy);
+                }
                 else
+                {
                     DefaultMailingAddress = new AddressWrapper(new Address() { AddressType = QIQOAddressType.Mailing });
+                }
             }
         }
 
@@ -1013,7 +1043,7 @@ namespace QIQO.Business.Module.Account.ViewModels
             if (this.ProductList != null)
             {
                 //OrderItem var = SelectedOrderItem as OrderItem;
-                FeeSchedule var = Account.FeeSchedules[FeeSelectedIndex].Model;
+                var var = Account.FeeSchedules[FeeSelectedIndex].Model;
                 if (var != null && var.ProductKey > 0)
                 {
                     var sp = ProductList.Where(item => item.ProductKey == var.ProductKey).FirstOrDefault();
@@ -1041,10 +1071,10 @@ namespace QIQO.Business.Module.Account.ViewModels
         {
             ExecuteFaultHandledOperation(() =>
             {
-                ITypeService type_service = service_factory.CreateClient<ITypeService>();
+                var type_service = service_factory.CreateClient<ITypeService>();
                 using (type_service)
                 {
-                    List<AttributeType> atttype_list = type_service.GetAttributeTypeList();
+                    var atttype_list = type_service.GetAttributeTypeList();
                     //ObservableCollection<AttributeType> atttypes = new ObservableCollection<AttributeType>(atttype_list);
                     var acct_atts = atttype_list.Where(item => item.AttributeTypeCategory == "Account").ToList();
                     var gcnt_atts = atttype_list.Where(item => item.AttributeTypeCategory == "General Contact").ToList();
@@ -1052,7 +1082,7 @@ namespace QIQO.Business.Module.Account.ViewModels
 
                     var all_atts = acct_atts.Concat(gcnt_atts.Concat(acnt_atts));
 
-                    List<AttributeType> available_attribute_types = new List<AttributeType>(all_atts);
+                    var available_attribute_types = new List<AttributeType>(all_atts);
                     LoadEntityAttrbuteList(available_attribute_types);
                     Account.PropertyChanged += Context_PropertyChanged;
                     InvalidateCommands();
@@ -1066,9 +1096,9 @@ namespace QIQO.Business.Module.Account.ViewModels
             {
                 if (available_attribute_types.Count > 0)
                 {
-                    foreach (AttributeType attype in available_attribute_types)
+                    foreach (var attype in available_attribute_types)
                     {
-                        EntityAttribute ent_att = new EntityAttribute()
+                        var ent_att = new EntityAttribute()
                         {
                             AttributeDataTypeKey = (int)attype.AttributeDataTypeKey,
                             AttributeDisplayFormat = attype.AttributeDefaultFormat,
@@ -1085,7 +1115,9 @@ namespace QIQO.Business.Module.Account.ViewModels
                         var att = Account.AccountAttributes.Where(item => item.AttributeType == ent_att.AttributeType).FirstOrDefault();
 
                         if (att == null)
+                        {
                             Account.AccountAttributes.Add(new EntityAttributeWrapper(ent_att));
+                        }
                     }
                 }
             }

@@ -5,7 +5,7 @@ namespace QIQO.Business.Client.Entities
     public class AddressType
     {
         public int AddressTypeKey { get; set; }
-    
+
         //public string AddressCategory { get; set; }
         public string AddressTypeCode { get; set; }
         public string AddressTypeName { get; set; }

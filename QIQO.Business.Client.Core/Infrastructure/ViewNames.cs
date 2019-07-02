@@ -34,4 +34,3 @@
         public static string ProductHomeView { get { return "QIQO.Business.Module.Product.Views.ProductHomeView"; } }
     }
 }
-    

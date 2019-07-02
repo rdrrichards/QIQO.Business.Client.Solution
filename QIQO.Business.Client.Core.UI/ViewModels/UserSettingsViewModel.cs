@@ -1,7 +1,7 @@
-﻿using QIQO.Business.Client.Entities;
+﻿using CommonServiceLocator;
+using QIQO.Business.Client.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using CommonServiceLocator;
 
 namespace QIQO.Business.Client.Core.UI
 {

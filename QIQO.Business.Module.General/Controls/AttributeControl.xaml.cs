@@ -1,5 +1,4 @@
-﻿using QIQO.Business.Client.Entities;
-using QIQO.Business.Client.Wrappers;
+﻿using QIQO.Business.Client.Wrappers;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;

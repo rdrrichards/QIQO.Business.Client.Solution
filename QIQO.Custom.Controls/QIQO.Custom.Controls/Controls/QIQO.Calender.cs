@@ -34,12 +34,12 @@ namespace QIQO.Custom.Controls
 
         // Using a DependencyProperty as the backing store for EventDates.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty EventDatesProperty =
-            DependencyProperty.Register("EventDates", 
-                typeof(ObservableCollection<QIQODate>), 
+            DependencyProperty.Register("EventDates",
+                typeof(ObservableCollection<QIQODate>),
                 typeof(QIQOCalender),
-                new FrameworkPropertyMetadata(null, 
-                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault & FrameworkPropertyMetadataOptions.AffectsParentArrange, 
-                    new PropertyChangedCallback(EventDatesCollectionChanged), 
+                new FrameworkPropertyMetadata(null,
+                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault & FrameworkPropertyMetadataOptions.AffectsParentArrange,
+                    new PropertyChangedCallback(EventDatesCollectionChanged),
                     new CoerceValueCallback(CoerceEventDatesCollection)));
 
         private static object CoerceEventDatesCollection(DependencyObject d, object baseValue)

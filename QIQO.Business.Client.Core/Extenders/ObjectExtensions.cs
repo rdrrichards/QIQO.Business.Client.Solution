@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.ArrayExtensions;
+using System.Collections.Generic;
 using System.Reflection;
-using System.ArrayExtensions;
 
 namespace System
 {
@@ -10,7 +10,11 @@ namespace System
 
         public static bool IsPrimitive(this Type type)
         {
-            if (type == typeof(String)) return true;
+            if (type == typeof(String))
+            {
+                return true;
+            }
+
             return (type.IsValueType & type.IsPrimitive);
         }
 
@@ -20,18 +24,34 @@ namespace System
         }
         private static Object InternalCopy(Object originalObject, IDictionary<Object, Object> visited)
         {
-            if (originalObject == null) return null;
+            if (originalObject == null)
+            {
+                return null;
+            }
+
             var typeToReflect = originalObject.GetType();
-            if (IsPrimitive(typeToReflect)) return originalObject;
-            if (visited.ContainsKey(originalObject)) return visited[originalObject];
-            if (typeof(Delegate).IsAssignableFrom(typeToReflect)) return null;
+            if (IsPrimitive(typeToReflect))
+            {
+                return originalObject;
+            }
+
+            if (visited.ContainsKey(originalObject))
+            {
+                return visited[originalObject];
+            }
+
+            if (typeof(Delegate).IsAssignableFrom(typeToReflect))
+            {
+                return null;
+            }
+
             var cloneObject = CloneMethod.Invoke(originalObject, null);
             if (typeToReflect.IsArray)
             {
                 var arrayType = typeToReflect.GetElementType();
                 if (IsPrimitive(arrayType) == false)
                 {
-                    Array clonedArray = (Array)cloneObject;
+                    var clonedArray = (Array)cloneObject;
                     clonedArray.ForEach((array, indices) => array.SetValue(InternalCopy(clonedArray.GetValue(indices), visited), indices));
                 }
 
@@ -53,10 +73,18 @@ namespace System
 
         private static void CopyFields(object originalObject, IDictionary<object, object> visited, object cloneObject, Type typeToReflect, BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.FlattenHierarchy, Func<FieldInfo, bool> filter = null)
         {
-            foreach (FieldInfo fieldInfo in typeToReflect.GetFields(bindingFlags))
+            foreach (var fieldInfo in typeToReflect.GetFields(bindingFlags))
             {
-                if (filter != null && filter(fieldInfo) == false) continue;
-                if (IsPrimitive(fieldInfo.FieldType)) continue;
+                if (filter != null && filter(fieldInfo) == false)
+                {
+                    continue;
+                }
+
+                if (IsPrimitive(fieldInfo.FieldType))
+                {
+                    continue;
+                }
+
                 var originalFieldValue = fieldInfo.GetValue(originalObject);
                 var clonedFieldValue = InternalCopy(originalFieldValue, visited);
                 fieldInfo.SetValue(cloneObject, clonedFieldValue);
@@ -76,7 +104,11 @@ namespace System
         }
         public override int GetHashCode(object obj)
         {
-            if (obj == null) return 0;
+            if (obj == null)
+            {
+                return 0;
+            }
+
             return obj.GetHashCode();
         }
     }
@@ -87,9 +119,16 @@ namespace System
         {
             public static void ForEach(this Array array, Action<Array, int[]> action)
             {
-                if (array.LongLength == 0) return;
-                ArrayTraverse walker = new ArrayTraverse(array);
-                do action(array, walker.Position);
+                if (array.LongLength == 0)
+                {
+                    return;
+                }
+
+                var walker = new ArrayTraverse(array);
+                do
+                {
+                    action(array, walker.Position);
+                }
                 while (walker.Step());
             }
         }
@@ -97,12 +136,12 @@ namespace System
         internal class ArrayTraverse
         {
             public int[] Position;
-            private int[] maxLengths;
+            private readonly int[] maxLengths;
 
             public ArrayTraverse(Array array)
             {
                 maxLengths = new int[array.Rank];
-                for (int i = 0; i < array.Rank; ++i)
+                for (var i = 0; i < array.Rank; ++i)
                 {
                     maxLengths[i] = array.GetLength(i) - 1;
                 }
@@ -111,12 +150,12 @@ namespace System
 
             public bool Step()
             {
-                for (int i = 0; i < Position.Length; ++i)
+                for (var i = 0; i < Position.Length; ++i)
                 {
                     if (Position[i] < maxLengths[i])
                     {
                         Position[i]++;
-                        for (int j = 0; j < i; j++)
+                        for (var j = 0; j < i; j++)
                         {
                             Position[j] = 0;
                         }

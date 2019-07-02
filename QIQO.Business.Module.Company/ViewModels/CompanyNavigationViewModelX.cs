@@ -7,7 +7,7 @@ namespace QIQO.Business.Module.Company.ViewModels
 {
     public class CompanyNavigationViewModelX : NavigationViewModelBase
     {
-        public CompanyNavigationViewModelX(IEventAggregator evnt_aggr, IRegionManager rm) : base (evnt_aggr, rm)
+        public CompanyNavigationViewModelX(IEventAggregator evnt_aggr, IRegionManager rm) : base(evnt_aggr, rm)
         {
             Module = ViewNames.CompanyView;
         }
