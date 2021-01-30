@@ -13,17 +13,17 @@ namespace QIQO.Business.Module.General.ViewModels
 {
     public class AttributeViewModel : ViewModelBase, IInteractionRequestAware
     {
-        readonly IEventAggregator event_aggregator;
-        readonly IServiceFactory service_factory;
+        readonly IEventAggregator _event_aggregator;
+        readonly IServiceFactory _service_factory;
         EntityAttributeWrapper _entity_attribute;
         private readonly string _viewTitle = "Attribute Add/Edit";
 
-        private ItemEditNotification notification;
+        private ItemEditNotification _notification;
 
         public AttributeViewModel()
         {
-            event_aggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
-            service_factory = ServiceLocator.Current.GetInstance<IServiceFactory>();
+            _event_aggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+            _service_factory = ServiceLocator.Current.GetInstance<IServiceFactory>();
 
             EntityAttribute = new EntityAttributeWrapper(new EntityAttribute());
             BindCommands();
@@ -39,15 +39,14 @@ namespace QIQO.Business.Module.General.ViewModels
         {
             get
             {
-                return notification;
+                return _notification;
             }
             set
             {
                 if (value is ItemEditNotification)
                 {
-                    notification = value as ItemEditNotification;
-                    var entity_attribute = notification.EditibleObject as EntityAttribute;
-                    if (entity_attribute != null)
+                    _notification = value as ItemEditNotification;
+                    if (_notification.EditibleObject is EntityAttribute entity_attribute)
                     {
                         EntityAttribute = new EntityAttributeWrapper(entity_attribute); // need to confirm this is enough to isolate the passed in object 
                         EntityAttribute.PropertyChanged += Context_PropertyChanged;
@@ -103,8 +102,8 @@ namespace QIQO.Business.Module.General.ViewModels
 
         private void DoSave()
         {
-            notification.EditibleObject = EntityAttribute.Model;
-            notification.Confirmed = true;
+            _notification.EditibleObject = EntityAttribute.Model;
+            _notification.Confirmed = true;
             FinishInteraction();
         }
     }
